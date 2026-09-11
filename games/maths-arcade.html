@@ -1322,43 +1322,72 @@
       return Array.from(opts).sort(() => Math.random() - 0.5);
     }
 
+    function parseEquation(exprStr) {
+      let expr = exprStr.replace(/\*/g, '×').replace(/\//g, '÷');
+      let speechStr = exprStr;
+      
+      const parts = exprStr.split(/([\+\-\*\/\×\÷])/).map(s => s.trim()).filter(Boolean);
+      if (parts.length === 3) {
+        const leftNum = parts[0];
+        const opSymbol = parts[1];
+        const rightNum = parts[2];
+        
+        let opWord = opSymbol;
+        if (opSymbol === '+') opWord = 'plus';
+        else if (opSymbol === '-') opWord = 'minus';
+        else if (opSymbol === '*' || opSymbol === '×') opWord = 'times';
+        else if (opSymbol === '/' || opSymbol === '÷') opWord = 'divided by';
+        
+        speechStr = `${leftNum} ${opWord} ${rightNum} equals what?`;
+      }
+      return { expr, speechStr };
+    }
+
     function rebuildDatasets() {
       datasets.speedmath = [...defaultSpeedmath];
       datasets.fillin = [...defaultFillin];
       datasets.choice = [...defaultChoice];
 
       customProblems.forEach((p, idx) => {
+        const parsed = parseEquation(p.left);
+
         // 1. Add to speedmath
         datasets.speedmath.push({
           id: `custom-sm-${idx}`,
-          left: p.left,
+          left: parsed.expr,
           operator: "=",
           right: "?",
           answer: p.answer,
-          speech: p.speech || `${p.left} equals what?`
+          speech: p.speech || parsed.speechStr
         });
 
         // 2. Derive fillin
         const tokens = p.left.trim().split(/\s+/);
         if (tokens.length >= 3) {
           const op = tokens[1];
+          let opWord = op;
+          if (op === '+') opWord = 'plus';
+          else if (op === '-') opWord = 'minus';
+          else if (op === '*' || op === '×') opWord = 'times';
+          else if (op === '/' || op === '÷') opWord = 'divided by';
+
           datasets.fillin.push({
             id: `custom-fi-${idx}`,
             left: `${tokens[0]} ${op} ?`,
             operator: "=",
             right: p.answer,
             answer: tokens[2],
-            speech: `${tokens[0]} ${op === '+' ? 'plus' : op === '-' ? 'minus' : op} what equals ${p.answer}`
+            speech: `${tokens[0]} ${opWord} what equals ${p.answer}`
           });
         }
 
         // 3. Derive choice
         datasets.choice.push({
           id: `custom-ch-${idx}`,
-          prompt: p.left,
+          prompt: parsed.expr,
           answer: p.answer,
           options: generateOptions(p.answer),
-          speech: p.speech || p.left
+          speech: p.speech || parsed.expr
         });
       });
 
@@ -1707,15 +1736,21 @@
       if (!drawer) return;
       drawer.innerHTML = "";
 
-      let n1, result;
+      let expr = item.left || item.prompt || "";
+      let isAdd = expr.includes('+');
+      let isSub = expr.includes('-') || expr.includes('−');
+      let isMul = expr.includes('*') || expr.includes('×');
+      let isDiv = expr.includes('/') || expr.includes('÷');
+
+      // Check if item is missing value format (right value present)
       const isFillin = item.left && item.right && item.right !== "?";
 
       if (isFillin) {
         const rightVal = parseInt(item.right, 10);
         const leftNums = item.left.match(/\d+/g);
         const knownLeft = leftNums ? parseInt(leftNums[0], 10) : 0;
-        const isAdd = !item.left.includes('-');
-
+        
+        let n1, result;
         if (item.left.startsWith("?")) {
           n1 = isAdd ? rightVal - knownLeft : rightVal + knownLeft;
           result = rightVal;
@@ -1723,20 +1758,33 @@
           n1 = knownLeft;
           result = rightVal;
         }
-      } else {
-        const expr = item.left || item.prompt || "";
-        const nums = expr.match(/\d+/g);
-        if (!nums || nums.length < 2) {
-          drawer.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); padding:6px;">📍 Number line helper available for arithmetic expressions.</div>';
-          return;
-        }
-        n1 = parseInt(nums[0], 10);
-        const n2 = parseInt(nums[1], 10);
-        const isAdd = !expr.includes('-');
-        result = isAdd ? n1 + n2 : n1 - n2;
+
+        const step = Math.abs(result - n1);
+        renderAdditionSubtractionLine(drawer, n1, result, step, result >= n1);
+        return;
       }
 
-      const step = Math.abs(result - n1);
+      const nums = expr.match(/\d+/g);
+      if (!nums || nums.length < 2) {
+        drawer.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); padding:6px;">📍 Number line helper available for arithmetic expressions.</div>';
+        return;
+      }
+
+      const n1 = parseInt(nums[0], 10);
+      const n2 = parseInt(nums[1], 10);
+
+      if (isMul) {
+        renderMultiplicationLine(drawer, n1, n2);
+      } else if (isDiv) {
+        renderDivisionLine(drawer, n1, n2);
+      } else {
+        const result = isAdd ? n1 + n2 : n1 - n2;
+        const step = n2;
+        renderAdditionSubtractionLine(drawer, n1, result, step, isAdd);
+      }
+    }
+
+    function renderAdditionSubtractionLine(drawer, n1, result, step, isAdd) {
       const minBound = Math.min(n1, result);
       const maxBound = Math.max(n1, result);
       const pad = Math.max(2, Math.round(step * 0.25));
@@ -1778,7 +1826,7 @@
       const radY = Math.min(28, Math.max(14, dist * 0.28));
       const archPath = `M ${x1} ${axisY - 5} A ${radX} ${radY} 0 0 ${sweepFlag} ${x2} ${axisY - 5}`;
       const midX = (x1 + x2) / 2;
-      const opLabel = `${result >= n1 ? '+' : '−'}${step}`;
+      const opLabel = `${isAdd ? '+' : '−'}${step}`;
 
       drawer.innerHTML = `
         <svg class="number-line-svg" viewBox="0 0 ${svgWidth} ${svgHeight}">
@@ -1789,6 +1837,111 @@
           <text x="${midX}" y="${axisY - radY - 6}" font-size="10" font-weight="800" fill="#ffffff" text-anchor="middle">${opLabel}</text>
           <circle cx="${x1}" cy="${axisY}" r="4.5" fill="var(--accent-primary)" stroke="#ffffff" stroke-width="1.5" />
           <circle cx="${x2}" cy="${axisY}" r="4.5" fill="var(--success)" stroke="#ffffff" stroke-width="1.5" />
+        </svg>
+      `;
+    }
+
+    function renderMultiplicationLine(drawer, count, step) {
+      const total = count * step;
+      const minVal = 0;
+      const maxVal = total;
+      const range = maxVal - minVal;
+
+      const svgWidth = 420;
+      const svgHeight = 95;
+      const axisY = 68;
+      const padX = 35;
+      const usableWidth = svgWidth - padX * 2;
+
+      const getX = (val) => padX + (val / range) * usableWidth;
+
+      let arcsSvg = '';
+      let ticksSvg = '';
+
+      for (let i = 0; i <= count; i++) {
+        const val = i * step;
+        const tx = getX(val);
+        ticksSvg += `
+          <line x1="${tx}" y1="${axisY - 5}" x2="${tx}" y2="${axisY + 5}" stroke="var(--accent-primary)" stroke-width="2" />
+          <text x="${tx}" y="${axisY + 16}" font-size="10" font-weight="700" fill="var(--accent-primary)" text-anchor="middle">${val}</text>
+        `;
+
+        if (i < count) {
+          const nextVal = (i + 1) * step;
+          const x1 = tx;
+          const x2 = getX(nextVal);
+          const dist = x2 - x1;
+          const radX = dist / 2;
+          const radY = Math.min(24, Math.max(12, dist * 0.4));
+          const archPath = `M ${x1} ${axisY - 5} A ${radX} ${radY} 0 0 1 ${x2} ${axisY - 5}`;
+          const midX = (x1 + x2) / 2;
+
+          arcsSvg += `
+            <path d="${archPath}" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" stroke-linecap="round" />
+            <text x="${midX}" y="${axisY - radY - 4}" font-size="9" font-weight="800" fill="var(--accent-primary)" text-anchor="middle">+${step}</text>
+          `;
+        }
+      }
+
+      drawer.innerHTML = `
+        <svg class="number-line-svg" viewBox="0 0 ${svgWidth} ${svgHeight}">
+          <line x1="${padX - 10}" y1="${axisY}" x2="${svgWidth - padX + 10}" y2="${axisY}" stroke="currentColor" stroke-opacity="0.4" stroke-width="2.5" stroke-linecap="round" />
+          ${arcsSvg}
+          ${ticksSvg}
+          <circle cx="${getX(total)}" cy="${axisY}" r="4.5" fill="var(--success)" stroke="#ffffff" stroke-width="1.5" />
+        </svg>
+      `;
+    }
+
+    function renderDivisionLine(drawer, total, groupSize) {
+      const groups = groupSize > 0 ? Math.floor(total / groupSize) : 0;
+      const minVal = 0;
+      const maxVal = total;
+      const range = maxVal - minVal;
+
+      const svgWidth = 420;
+      const svgHeight = 95;
+      const axisY = 68;
+      const padX = 35;
+      const usableWidth = svgWidth - padX * 2;
+
+      const getX = (val) => padX + (val / range) * usableWidth;
+
+      let arcsSvg = '';
+      let ticksSvg = '';
+
+      for (let i = groups; i >= 0; i--) {
+        const val = i * groupSize;
+        const tx = getX(val);
+        ticksSvg += `
+          <line x1="${tx}" y1="${axisY - 5}" x2="${tx}" y2="${axisY + 5}" stroke="var(--accent-primary)" stroke-width="2" />
+          <text x="${tx}" y="${axisY + 16}" font-size="10" font-weight="700" fill="var(--accent-primary)" text-anchor="middle">${val}</text>
+        `;
+
+        if (i > 0) {
+          const prevVal = (i - 1) * groupSize;
+          const x1 = tx;
+          const x2 = getX(prevVal);
+          const dist = Math.abs(x1 - x2);
+          const radX = dist / 2;
+          const radY = Math.min(24, Math.max(12, dist * 0.4));
+          const archPath = `M ${x1} ${axisY - 5} A ${radX} ${radY} 0 0 0 ${x2} ${axisY - 5}`;
+          const midX = (x1 + x2) / 2;
+
+          arcsSvg += `
+            <path d="${archPath}" fill="none" stroke="var(--accent-primary)" stroke-width="2.5" stroke-linecap="round" />
+            <text x="${midX}" y="${axisY - radY - 4}" font-size="9" font-weight="800" fill="var(--accent-primary)" text-anchor="middle">−${groupSize}</text>
+          `;
+        }
+      }
+
+      drawer.innerHTML = `
+        <svg class="number-line-svg" viewBox="0 0 ${svgWidth} ${svgHeight}">
+          <line x1="${padX - 10}" y1="${axisY}" x2="${svgWidth - padX + 10}" y2="${axisY}" stroke="currentColor" stroke-opacity="0.4" stroke-width="2.5" stroke-linecap="round" />
+          ${arcsSvg}
+          ${ticksSvg}
+          <circle cx="${getX(total)}" cy="${axisY}" r="4.5" fill="var(--accent-primary)" stroke="#ffffff" stroke-width="1.5" />
+          <circle cx="${getX(0)}" cy="${axisY}" r="4.5" fill="var(--success)" stroke="#ffffff" stroke-width="1.5" />
         </svg>
       `;
     }
@@ -1833,8 +1986,7 @@
         if (problem && answer && !isNaN(Number(answer))) {
           customProblems.push({
             left: problem,
-            answer: answer,
-            speech: `${problem} equals ${answer}`
+            answer: answer
           });
           count++;
         }
