@@ -2,137 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WordWonders - Spelling, Phonics & Arcade Challenge</title>
-  <meta name="description" content="A complete standalone Phonics, Vocabulary, and Spelling Arcade Game with Leaderboard and 4 Difficulty Levels for GitHub." />
-  <meta property="og:title" content="WordWonders - Phonics & Spelling Arcade" />
-  <meta property="og:description" content="Challenging Phonics & Spelling arcade game with balloon popping, falling words, audio synthesis, and high score leaderboards." />
-  
-  <!-- Tailwind CSS via CDN for rapid responsive layout -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0fdf4',
-              500: '#22c55e',
-              600: '#16a34a',
-            }
-          },
-          animation: {
-            'bounce-short': 'bounce 0.8s infinite',
-            'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'float': 'float 3s ease-in-out infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-8px)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Word Lab Arcade - Sprout Lab</title>
+  <meta name="description" content="An interactive literacy and phonics training deck with Spelling Arena, Fill-in Sentences, Balloon Pop, Wordfall Arcade, Leaderboards, and Custom Word & Sentence Vault." />
+  <meta property="og:title" content="Word Lab Arcade - Sprout Lab" />
+  <meta property="og:description" content="Interactive literacy arcade featuring Spelling Arena, Fill-in Sentences, Balloon Pop, Wordfall Defense, and Custom Word & Sentence Vault." />
+  <meta property="og:type" content="website" />
   <style>
-    /* Theme definitions */
-    :root {
-      --bg-gradient: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e1b4b 100%);
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --card-border: rgba(99, 102, 241, 0.25);
-      --accent: #6366f1;
-      --accent-hover: #4f46e5;
-      --accent-glow: rgba(99, 102, 241, 0.35);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+    /* ==========================================================================
+       CSS Variables & Themes (Aligned to Sprout Lab Design System - Literacy Suite)
+       ========================================================================== */
+    :root, [data-theme="light"] {
+      --bg-page: #f8faf8;
+      --card-bg: #ffffff;
+      --card-border: #d2e4d8;
+      --text-main: #192723;
+      --text-muted: #536962;
+      --accent-primary: #2e7d54;
+      --accent-primary-hover: #236342;
+      --accent-glow: rgba(46, 125, 84, 0.16);
+      --button-bg: #f3f8f5;
+      --button-hover: #e6f2eb;
+      --key-bg: #ffffff;
+      --key-border: #d4e5da;
+      --key-hover: #eef6f1;
+      --key-active: rgba(46, 125, 84, 0.22);
+      --box-bg: #f5f9f6;
+      --success: #2e7d54;
+      --success-bg: #edf7f1;
+      --danger: #c53030;
+      --danger-bg: #fef2f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --slot-border: #2e7d54;
+      --header-bg: #ffffff;
+      --header-border: #e1e8e3;
     }
 
-    body.theme-forest {
-      --bg-gradient: linear-gradient(135deg, #052e16 0%, #064e3b 50%, #022c22 100%);
-      --card-bg: rgba(6, 78, 59, 0.55);
-      --card-border: rgba(52, 211, 153, 0.3);
-      --accent: #10b981;
-      --accent-hover: #059669;
-      --accent-glow: rgba(16, 185, 129, 0.35);
-      --text-main: #ecfdf5;
-      --text-muted: #a7f3d0;
+    [data-theme="dark"] {
+      --bg-page: #131b18;
+      --card-bg: #1c2622;
+      --card-border: #2d3e37;
+      --text-main: #f0f6f2;
+      --text-muted: #95ada3;
+      --accent-primary: #34d399;
+      --accent-primary-hover: #10b981;
+      --accent-glow: rgba(52, 211, 153, 0.22);
+      --button-bg: rgba(255, 255, 255, 0.06);
+      --button-hover: rgba(255, 255, 255, 0.11);
+      --key-bg: #24322d;
+      --key-border: #33463f;
+      --key-hover: #2e3f39;
+      --key-active: rgba(52, 211, 153, 0.25);
+      --box-bg: #16201c;
+      --success: #34d399;
+      --success-bg: rgba(52, 211, 153, 0.18);
+      --danger: #f87171;
+      --danger-bg: rgba(248, 113, 113, 0.18);
+      --warning: #fbbf24;
+      --warning-bg: rgba(251, 191, 36, 0.18);
+      --slot-border: #34d399;
+      --header-bg: #17211d;
+      --header-border: #25332c;
     }
 
-    body.theme-sunset {
-      --bg-gradient: linear-gradient(135deg, #450a0a 0%, #831843 50%, #2e1065 100%);
-      --card-bg: rgba(136, 19, 55, 0.45);
-      --card-border: rgba(251, 113, 133, 0.3);
-      --accent: #f43f5e;
-      --accent-hover: #e11d48;
-      --accent-glow: rgba(244, 63, 94, 0.35);
-      --text-main: #fff1f2;
-      --text-muted: #fecdd3;
+    [data-theme="sunset"] {
+      --bg-page: #f7f3eb;
+      --card-bg: #ffffff;
+      --card-border: #e4dacd;
+      --text-main: #2b221a;
+      --text-muted: #786657;
+      --accent-primary: #a45a2a;
+      --accent-primary-hover: #86461e;
+      --accent-glow: rgba(164, 90, 42, 0.18);
+      --button-bg: #faf5ee;
+      --button-hover: #f1e9dd;
+      --key-bg: #ffffff;
+      --key-border: #e4dacc;
+      --key-hover: #f7f2ea;
+      --key-active: rgba(164, 90, 42, 0.22);
+      --box-bg: #fbf7f0;
+      --success: #2e7d54;
+      --success-bg: #edf7f1;
+      --danger: #c53030;
+      --danger-bg: #fef2f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --slot-border: #a45a2a;
+      --header-bg: #ffffff;
+      --header-border: #e8ded2;
     }
 
-    body.theme-cyber {
-      --bg-gradient: linear-gradient(135deg, #030712 0%, #082f49 50%, #0f172a 100%);
-      --card-bg: rgba(15, 23, 42, 0.85);
-      --card-border: rgba(6, 182, 212, 0.4);
-      --accent: #06b6d4;
-      --accent-hover: #0891b2;
-      --accent-glow: rgba(6, 182, 212, 0.45);
-      --text-main: #f0fdf4;
-      --text-muted: #67e8f9;
+    /* ==========================================================================
+       Reset & Base Styles
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      background: var(--bg-gradient);
-      color: var(--text-main);
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      transition: background 0.5s ease;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      touch-action: manipulation;
     }
 
-    .glass-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    button, input, textarea, select {
+      font-family: inherit;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .accent-btn {
-      background-color: var(--accent);
-      box-shadow: 0 4px 14px 0 var(--accent-glow);
-      transition: all 0.2s ease;
-    }
-    .accent-btn:hover {
-      background-color: var(--accent-hover);
-      transform: translateY(-1px);
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 9999px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 9999px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.35);
-    }
-
-    /* Shaking animation for incorrect answers / hits */
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-8px); }
-      40%, 80% { transform: translateX(8px); }
-    }
-    .animate-shake {
-      animation: shake 0.4s ease-in-out;
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     /* Confetti Canvas */
@@ -146,592 +142,1527 @@
       z-index: 9999;
     }
 
-    /* Balloon floating animations */
-    .balloon-bob {
-      animation: float 2.4s ease-in-out infinite;
+    /* ==========================================================================
+       SPROUT LAB SITE HEADER
+       ========================================================================== */
+    .site-header {
+      background-color: var(--header-bg);
+      border-bottom: 1px solid var(--header-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .site-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #2e7d54;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    [data-theme="dark"] .site-title {
+      color: #34d399;
+    }
+
+    .site-tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .site-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 6px;
+    }
+
+    .nav-link {
+      padding: 7px 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent-primary);
+      background-color: var(--button-bg);
+    }
+
+    /* ==========================================================================
+       BREADCRUMB STRIP
+       ========================================================================== */
+    .breadcrumb-strip {
+      background-color: var(--button-bg);
+      border-bottom: 1px solid var(--card-border);
+      padding: 8px 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-inner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .breadcrumb-back {
+      font-weight: 600;
+      color: var(--accent-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .breadcrumb-back:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb-separator {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+
+    .breadcrumb-current {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       MAIN APP PLAYING CARD
+       ========================================================================== */
+    .game-arena-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 16px 40px;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border: 2.5px solid var(--card-border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 680px;
+      padding: 10px;
+      box-shadow: 0 12px 32px rgba(25, 39, 35, 0.08), 0 2px 6px rgba(25, 39, 35, 0.04);
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .card-inner-frame {
+      border: 1px dashed var(--card-border);
+      border-radius: 14px;
+      padding: 18px 18px 20px;
+      position: relative;
+    }
+
+    /* Corner Pips (Rank W, Suit ♣ for Word Lab) */
+    .card-pip {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      color: var(--accent-primary);
+      pointer-events: none;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .card-pip-tl {
+      top: 10px;
+      left: 10px;
+    }
+
+    .card-pip-br {
+      bottom: 10px;
+      right: 10px;
+      transform: rotate(180deg);
+    }
+
+    .pip-rank {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .pip-suit {
+      font-size: 0.85rem;
+      margin-top: 1px;
+    }
+
+    /* Series Tag Header */
+    .card-series-header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .card-series-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background-color: var(--button-bg);
+      color: var(--accent-primary);
+      border: 1px solid var(--card-border);
+    }
+
+    /* Top Utility Navigation Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--button-bg);
+      border: 1.5px solid var(--accent-primary);
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .player-chip {
+      background: var(--button-bg);
+      border: 1px solid var(--card-border);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .player-chip:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .icon-btn {
+      background: var(--button-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--button-hover);
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    .icon-btn:active {
+      transform: translateY(1px);
+    }
+
+    .theme-picker {
+      display: flex;
+      background: var(--box-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 2px;
+    }
+
+    .theme-pill {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-pill.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px var(--accent-glow);
+    }
+
+    /* Mode Navigation Tabs Strip */
+    .mode-nav-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+      scrollbar-width: thin;
+    }
+
+    .tab-pill {
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background: var(--button-bg);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .tab-pill:hover {
+      background: var(--button-hover);
+      color: var(--text-main);
+    }
+
+    .tab-pill.active {
+      background: var(--accent-primary);
+      color: #ffffff;
+      border-color: var(--accent-primary);
+      box-shadow: 0 2px 8px var(--accent-glow);
+    }
+
+    /* Difficulty & Stats Banner */
+    .metric-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--box-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      font-size: 0.78rem;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .metric-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .metric-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 700;
+    }
+
+    .diff-select {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--text-main);
+      padding: 4px 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Screen Views */
+    .view-screen {
+      display: none;
+      animation: fadeIn 0.22s ease-out;
+    }
+
+    .view-screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .shake {
+      animation: shake 0.35s ease-in-out;
+    }
+
+    /* Buttons */
+    .btn-control {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--card-border);
+      background: var(--button-bg);
+      color: var(--text-main);
+      transition: all 0.15s ease;
+      margin-bottom: 10px;
+    }
+
+    .btn-control:hover {
+      background: var(--button-hover);
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    .btn-control:active {
+      transform: translateY(1px);
+    }
+
+    .btn-control.primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn-control.primary:hover {
+      box-shadow: 0 6px 16px var(--accent-glow);
+      filter: brightness(1.05);
+    }
+
+    .btn-control.dashed {
+      border: 1px dashed var(--card-border);
+      background: transparent;
+      color: var(--text-muted);
+    }
+
+    .btn-control.dashed:hover {
+      border-color: var(--text-muted);
+      color: var(--text-main);
+    }
+
+    .btn-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-grid-2 .btn-control {
+      margin-bottom: 0;
+    }
+
+    /* Progress Bar */
+    .progress-wrapper {
+      margin-bottom: 14px;
+    }
+
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--button-bg);
+      border: 1px solid var(--card-border);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-primary);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    /* Prompt Box */
+    .prompt-box {
+      background: var(--box-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      margin-bottom: 16px;
+      transition: all 0.25s ease;
+    }
+
+    .prompt-box.state-correct {
+      background: var(--success-bg) !important;
+      border-color: var(--success) !important;
+    }
+
+    .prompt-box.state-incorrect {
+      background: var(--danger-bg) !important;
+      border-color: var(--danger) !important;
+    }
+
+    .audio-pronounce-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
+      color: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      cursor: pointer;
+      margin: 8px auto;
+      box-shadow: 0 6px 18px var(--accent-glow);
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+
+    .audio-pronounce-btn:hover {
+      transform: scale(1.05);
+      filter: brightness(1.08);
+    }
+
+    .audio-pronounce-btn:active {
+      transform: scale(0.96);
+    }
+
+    .prompt-hint-clue {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* Letter Slots Display */
+    .slots-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 14px 0 18px;
+      min-height: 52px;
+    }
+
+    .letter-slot {
+      width: 40px;
+      height: 50px;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-bottom: 4px solid var(--slot-border);
+      border-radius: 8px 8px 4px 4px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      color: var(--text-main);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      box-shadow: 0 2px 4px rgba(25, 39, 35, 0.04);
+      user-select: none;
+    }
+
+    .letter-slot.filled {
+      border-color: var(--accent-primary);
+      background: var(--button-bg);
+      color: var(--text-main);
+    }
+
+    /* Typing Input Row */
+    .typing-input-row {
+      display: flex;
+      gap: 8px;
+      max-width: 420px;
+      margin: 0 auto 16px;
+    }
+
+    .typing-input {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--text-main);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      outline: none;
+    }
+
+    .typing-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    /* On-Screen Virtual Keyboard */
+    .keyboard-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-width: 480px;
+      margin: 0 auto 16px;
+      user-select: none;
+    }
+
+    .keyboard-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .k-key {
+      min-width: 28px;
+      height: 40px;
+      padding: 0 8px;
+      border-radius: 8px;
+      background: var(--key-bg);
+      border: 1px solid var(--key-border);
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(25, 39, 35, 0.04);
+      transition: all 0.1s ease;
+    }
+
+    .k-key:hover {
+      background: var(--key-hover);
+      border-color: var(--accent-primary);
+    }
+
+    .k-key:active {
+      background: var(--key-active);
+      transform: translateY(1px);
+    }
+
+    .k-key.wide {
+      padding: 0 12px;
+      font-size: 0.78rem;
+    }
+
+    .k-key.action-clear {
+      background: var(--warning-bg);
+      color: var(--warning);
+      border-color: rgba(180, 83, 9, 0.3);
+    }
+
+    .k-key.action-del {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border-color: rgba(197, 48, 48, 0.3);
+    }
+
+    /* Multiple Choice Sentence Options */
+    .sentence-card {
+      background: var(--box-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .sentence-blank {
+      display: inline-block;
+      min-width: 80px;
+      padding: 2px 10px;
+      border-bottom: 2px solid var(--accent-primary);
+      background: var(--button-bg);
+      color: var(--accent-primary);
+      border-radius: 6px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      background: var(--key-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(25, 39, 35, 0.04);
+    }
+
+    .option-btn:hover {
+      background: var(--key-hover);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .option-btn.state-correct {
+      background: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+    }
+
+    .option-btn.state-incorrect {
+      background: var(--danger-bg) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger) !important;
+    }
+
+    /* Balloon Pop Stage */
+    .balloon-stage {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--box-bg) 0%, var(--button-bg) 100%);
+      border: 1.5px solid var(--card-border);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .balloon-entity {
+      position: absolute;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      padding: 14px 18px;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.1s ease;
+    }
+
+    .balloon-entity:hover {
+      transform: scale(1.1);
+    }
+
+    .balloon-hazard {
+      background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%) !important;
+      border: 2px dashed #fca5a5;
+    }
+
+    .stage-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      z-index: 20;
+    }
+
+    .overlay-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      max-width: 380px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Wordfall Stage */
+    .wordfall-stage {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--box-bg) 0%, #111827 100%);
+      border: 1.5px solid var(--card-border);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .wordfall-danger-line {
+      position: absolute;
+      bottom: 54px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+    }
+
+    .wordfall-input-bar {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .wordfall-entity {
+      position: absolute;
+      background: var(--card-bg);
+      border: 1.5px solid var(--accent-primary);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Leaderboard Podium & Table */
+    .podium-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .podium-card {
+      background: var(--box-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .podium-card.first {
+      border-color: #f59e0b;
+      background: var(--button-bg);
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+    }
+
+    .podium-medal {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .podium-name {
+      font-size: 0.85rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .podium-score {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--accent-primary);
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+    }
+
+    .leaderboard-table th {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .leaderboard-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    /* Word Vault & Custom Curriculum Forms */
+    .vault-section {
+      background: var(--box-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .vault-section-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-primary);
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .vault-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-height: 160px;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+
+    .vault-chip {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .vault-chip-remove {
+      color: var(--danger);
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .custom-sentence-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .custom-sentence-text {
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+
+    .custom-sentence-target {
+      font-weight: 800;
+      color: var(--accent-primary);
+      background: var(--button-bg);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.76rem;
+      margin-left: 4px;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: 1px solid var(--header-border);
+      background-color: var(--header-bg);
+      padding: 24px 0;
+      margin-top: auto;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 18px;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        flex-direction: column;
+        height: auto;
+        padding: 14px 0;
+        gap: 10px;
+      }
+      .brand-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .site-tagline {
+        display: none;
+      }
+      .card-pip {
+        display: none;
+      }
+      .form-row-2 {
+        grid-template-columns: 1fr;
+      }
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body class="selection:bg-indigo-500 selection:text-white antialiased flex flex-col min-h-screen">
+<body data-theme="light">
   <canvas id="confettiCanvas"></canvas>
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-40 glass-card border-b border-white/10 px-4 py-3 sm:px-6">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      
-      <!-- Brand & Player Profile -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 text-white font-black text-xl tracking-wider">
-          W
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="font-black text-lg sm:text-xl tracking-tight text-white flex items-center gap-1.5">
-              WordWonders
-              <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-300 font-semibold border border-indigo-400/30">Arcade</span>
-            </h1>
-          </div>
-          <!-- Player Alias pill -->
-          <div class="flex items-center gap-1.5 text-xs text-slate-300">
-            <span>Player:</span>
-            <button id="playerNameBtn" onclick="promptPlayerName()" class="font-bold underline decoration-dotted hover:text-white transition flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded">
-              <span id="playerNameDisplay">Alex</span>
-              <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-            </button>
-          </div>
-        </div>
+  <!-- Sprout Lab Navigation Header -->
+  <header id="site-header" class="site-header">
+    <div class="container header-inner">
+      <div id="brand-container" class="brand-group">
+        <a id="brand-link" href="../index.html" class="site-title">
+          <span>Sprout Lab</span>
+        </a>
+        <span id="brand-tagline" class="site-tagline">Interactive Learning &amp; Games for Kids</span>
       </div>
 
-      <!-- Quick Metrics Pill -->
-      <div class="hidden md:flex items-center gap-4 px-4 py-1.5 rounded-xl bg-black/30 border border-white/10 text-sm">
-        <div class="flex items-center gap-1.5 text-amber-400 font-bold">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.316.492-.533 1.035-.675 1.58-.29 1.107-.375 2.196-.34 3.125.04.996.2 1.83.473 2.45.27.618.665 1.077 1.144 1.346.475.267 1.05.352 1.677.25.63-.102 1.258-.426 1.764-.954.508-.53.84-1.226.966-2.008.125-.77.03-1.57-.23-2.316-.263-.755-.733-1.435-1.332-2.01-.599-.575-1.31-1.045-2.05-1.41a1 1 0 00-.575-.548z" clip-rule="evenodd"></path></svg>
-          <span id="headerStreak">0</span> Streak
-        </div>
-        <div class="w-px h-4 bg-white/15"></div>
-        <div class="flex items-center gap-1.5 text-emerald-400 font-bold">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <span id="headerScore">0</span> XP
-        </div>
-        <div class="w-px h-4 bg-white/15"></div>
-        <div class="flex items-center gap-1.5 text-indigo-300 font-medium">
-          <span id="headerDiffMultiplier" class="text-xs px-2 py-0.5 rounded bg-indigo-500/20 border border-indigo-400/30">1.0x</span>
-        </div>
-      </div>
-
-      <!-- Controls: Difficulty, Sound, Theme & Export GitHub -->
-      <div class="flex items-center gap-2">
-        
-        <!-- Difficulty Dropdown -->
-        <div class="relative">
-          <select id="difficultySelect" onchange="setDifficulty(this.value)" class="appearance-none bg-black/40 text-xs sm:text-sm font-semibold text-white px-3 py-1.5 pr-7 rounded-lg border border-white/15 hover:border-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
-            <option value="easy">🟢 Easy (1.0x)</option>
-            <option value="normal">🔵 Normal (1.5x)</option>
-            <option value="hard">🟡 Hard (2.2x)</option>
-            <option value="master">🔴 Master (3.5x)</option>
-          </select>
-          <svg class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </div>
-
-        <!-- Audio Toggle Button -->
-        <button id="soundToggleBtn" onclick="toggleSound()" title="Toggle Game Audio" class="p-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-slate-200 transition">
-          <svg id="soundOnIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
-          <svg id="soundOffIcon" class="w-4 h-4 hidden text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
-        </button>
-
-        <!-- Theme Picker Button -->
-        <button onclick="cycleTheme()" title="Change Visual Theme" class="p-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-slate-200 transition">
-          <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 4 4 0 014-4c.499 0 .97.098 1.4.276a6 6 0 0111.2 0A4.002 4.002 0 0117 21H7z"></path></svg>
-        </button>
-      </div>
-
+      <nav id="site-nav" class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a id="nav-link-home" href="../index.html" class="nav-link">Home</a></li>
+          <li><a id="nav-link-arena" href="../arena.html" class="nav-link active">Arena</a></li>
+          <li><a id="nav-link-about" href="../about.html" class="nav-link">About</a></li>
+          <li><a id="nav-link-blog" href="../blog.html" class="nav-link">Blog</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <!-- Main App Container -->
-  <main class="flex-1 max-w-6xl w-full mx-auto p-3 sm:p-6 flex flex-col gap-5">
-    
-    <!-- Mode Navigation Tabs -->
-    <div class="flex items-center justify-between flex-wrap gap-2 border-b border-white/10 pb-3">
-      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-        <button onclick="switchMode('spelling')" id="tab-spelling" class="mode-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition bg-indigo-600 text-white shadow-lg shadow-indigo-600/30">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-          Spelling Arena
-        </button>
-
-        <button onclick="switchMode('sentences')" id="tab-sentences" class="mode-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition bg-white/10 hover:bg-white/15 text-slate-300">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          Fill-in Sentences
-        </button>
-
-        <button onclick="switchMode('balloons')" id="tab-balloons" class="mode-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition bg-white/10 hover:bg-white/15 text-slate-300">
-          <span class="text-base leading-none">🎈</span>
-          Balloon Pop
-        </button>
-
-        <button onclick="switchMode('wordfall')" id="tab-wordfall" class="mode-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition bg-white/10 hover:bg-white/15 text-slate-300">
-          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          Wordfall Arcade
-        </button>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <button onclick="switchMode('leaderboard')" id="tab-leaderboard" class="mode-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30">
-          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path></svg>
-          Leaderboard
-        </button>
-
-        <button onclick="switchMode('words')" id="tab-words" class="mode-tab px-3 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition bg-white/10 hover:bg-white/15 text-slate-300">
-          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-          Word Vault
-        </button>
-      </div>
+  <!-- Sprout Lab Breadcrumb Strip -->
+  <div class="breadcrumb-strip">
+    <div class="container breadcrumb-inner">
+      <a href="../arena.html" class="breadcrumb-back">&larr; Return to Practice Arena</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Word Lab &bull; Literacy Deck</span>
     </div>
+  </div>
 
-    <!-- Active Difficulty Badge & Rule Reminder Banner -->
-    <div id="difficultyBanner" class="glass-card rounded-2xl p-3 sm:px-5 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
-      <div class="flex items-center gap-2.5">
-        <span id="diffBadge" class="px-2.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-          Easy Mode
-        </span>
-        <p id="diffDesc" class="text-slate-300">
-          Relaxed pace with unlimited time, letter hints, and 1.0x score multiplier.
-        </p>
-      </div>
-      <div class="flex items-center gap-3 text-xs text-slate-400">
-        <span class="flex items-center gap-1 font-medium">
-          ⏱️ <span id="diffTimerLabel">Timer: Unlimited</span>
-        </span>
-        <span class="w-px h-3 bg-white/20"></span>
-        <span class="flex items-center gap-1 font-medium">
-          ⚡ Multiplier: <b id="diffMultiplierLabel" class="text-white">1.0x</b>
-        </span>
-      </div>
-    </div>
+  <!-- Main Playing Card Wrapper -->
+  <div class="game-arena-wrapper">
+    <main class="app-card" id="word-arcade-app">
+      <div class="card-inner-frame">
 
-    <!-- VIEW 1: SPELLING ARENA -->
-    <section id="view-spelling" class="game-view flex flex-col gap-4">
-      <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center relative overflow-hidden">
-        
-        <!-- Round Timer Progress Bar -->
-        <div id="spellingTimerContainer" class="w-full bg-white/10 h-2 rounded-full overflow-hidden mb-6 hidden">
-          <div id="spellingTimerBar" class="h-full bg-indigo-500 transition-all duration-100 ease-linear" style="width: 100%"></div>
+        <!-- Authentic Corner Pips (Rank W, Suit ♣ for Word Lab) -->
+        <div class="card-pip card-pip-tl" aria-hidden="true">
+          <span class="pip-rank">W</span>
+          <span class="pip-suit">&#9827;</span>
+        </div>
+        <div class="card-pip card-pip-br" aria-hidden="true">
+          <span class="pip-rank">W</span>
+          <span class="pip-suit">&#9827;</span>
         </div>
 
-        <!-- Question Counter & Audio Trigger -->
-        <div class="flex items-center justify-between w-full max-w-md mb-4 text-xs sm:text-sm text-slate-400">
-          <span id="spellingWordIndex">Word 1 of 15</span>
-          <div class="flex items-center gap-2">
-            <button onclick="revealSpellingHint()" id="hintBtn" class="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 bg-amber-400/10 px-2.5 py-1 rounded-lg border border-amber-400/20">
-              💡 Hint (<span id="hintsLeftDisplay">1</span> left)
+        <!-- Series Tag Ribbon -->
+        <div class="card-series-header">
+          <span class="card-series-tag">Suite I &bull; Literacy Deck</span>
+        </div>
+
+        <!-- Top Utility Navigation Bar -->
+        <header class="top-bar">
+          <div class="brand" onclick="switchMode('spelling')">
+            <div class="brand-icon">&#9827;</div>
+            <div>
+              <h1 class="brand-title">Word Lab Arcade</h1>
+            </div>
+          </div>
+
+          <div class="top-actions">
+            <!-- Player Chip -->
+            <button class="player-chip" onclick="promptPlayerName()" title="Change Player Name">
+              <span>👤</span>
+              <span id="playerNameDisplay">Alex</span>
+              <span>✏️</span>
             </button>
-          </div>
-        </div>
 
-        <!-- Pronounce Button -->
-        <div class="my-4 flex flex-col items-center">
-          <button onclick="pronounceCurrentWord()" class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-tr from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-xl shadow-indigo-500/40 flex items-center justify-center transition transform active:scale-95 group">
-            <svg class="w-10 h-10 group-hover:scale-110 transition duration-200" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd"></path></svg>
-          </button>
-          <span class="text-xs text-slate-400 mt-2">Click or press <kbd class="px-1.5 py-0.5 rounded bg-white/10 text-white">Space</kbd> to listen</span>
-        </div>
+            <!-- Sound Effect Toggle -->
+            <button class="icon-btn" id="btn-sound-toggle" onclick="toggleSound()" title="Toggle Sound FX">🔊</button>
 
-        <!-- Hint Clue (sentence context) -->
-        <p id="spellingContextClue" class="text-sm sm:text-base text-slate-300 max-w-lg mb-6 italic">
-          "The cat sat on the mat."
-        </p>
-
-        <!-- Word Slots / Letter Boxes -->
-        <div id="letterSlotsContainer" class="flex flex-wrap items-center justify-center gap-2 mb-6 min-h-[64px]">
-          <!-- Dynamic letter blanks injected here -->
-        </div>
-
-        <!-- Text Input Fallback & Action -->
-        <div class="flex items-center gap-2 w-full max-w-md mb-6">
-          <input type="text" id="spellingTextInput" placeholder="Type letters or use keys below..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="flex-1 bg-black/40 border border-white/20 rounded-xl px-4 py-3 text-center text-lg sm:text-xl font-mono uppercase tracking-widest text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-          <button onclick="submitSpellingAttempt()" class="accent-btn text-white font-bold px-5 py-3 rounded-xl flex items-center justify-center">
-            Check
-          </button>
-        </div>
-
-        <!-- Feedback Alert -->
-        <div id="spellingFeedback" class="h-6 text-sm font-bold transition-all"></div>
-
-        <!-- On-Screen Virtual Keyboard for touch/mobile -->
-        <div class="w-full max-w-xl mt-4 flex flex-col gap-1.5 select-none">
-          <div class="flex justify-center gap-1">
-            <button onclick="pressVirtualKey('Q')" class="vkey">Q</button>
-            <button onclick="pressVirtualKey('W')" class="vkey">W</button>
-            <button onclick="pressVirtualKey('E')" class="vkey">E</button>
-            <button onclick="pressVirtualKey('R')" class="vkey">R</button>
-            <button onclick="pressVirtualKey('T')" class="vkey">T</button>
-            <button onclick="pressVirtualKey('Y')" class="vkey">Y</button>
-            <button onclick="pressVirtualKey('U')" class="vkey">U</button>
-            <button onclick="pressVirtualKey('I')" class="vkey">I</button>
-            <button onclick="pressVirtualKey('O')" class="vkey">O</button>
-            <button onclick="pressVirtualKey('P')" class="vkey">P</button>
-          </div>
-          <div class="flex justify-center gap-1">
-            <button onclick="pressVirtualKey('A')" class="vkey">A</button>
-            <button onclick="pressVirtualKey('S')" class="vkey">S</button>
-            <button onclick="pressVirtualKey('D')" class="vkey">D</button>
-            <button onclick="pressVirtualKey('F')" class="vkey">F</button>
-            <button onclick="pressVirtualKey('G')" class="vkey">G</button>
-            <button onclick="pressVirtualKey('H')" class="vkey">H</button>
-            <button onclick="pressVirtualKey('J')" class="vkey">J</button>
-            <button onclick="pressVirtualKey('K')" class="vkey">K</button>
-            <button onclick="pressVirtualKey('L')" class="vkey">L</button>
-          </div>
-          <div class="flex justify-center gap-1">
-            <button onclick="clearSpellingInput()" class="vkey-wide text-xs bg-rose-500/30 hover:bg-rose-500/40 text-rose-300">Clear</button>
-            <button onclick="pressVirtualKey('Z')" class="vkey">Z</button>
-            <button onclick="pressVirtualKey('X')" class="vkey">X</button>
-            <button onclick="pressVirtualKey('C')" class="vkey">C</button>
-            <button onclick="pressVirtualKey('V')" class="vkey">V</button>
-            <button onclick="pressVirtualKey('B')" class="vkey">B</button>
-            <button onclick="pressVirtualKey('N')" class="vkey">N</button>
-            <button onclick="pressVirtualKey('M')" class="vkey">M</button>
-            <button onclick="pressBackspace()" class="vkey-wide text-xs bg-white/20 hover:bg-white/30 text-white">⌫</button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- VIEW 2: FILL-IN SENTENCES -->
-    <section id="view-sentences" class="game-view hidden flex flex-col gap-4">
-      <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center">
-        
-        <div class="flex items-center justify-between w-full max-w-lg mb-6 text-xs sm:text-sm text-slate-400">
-          <span id="sentenceIndexDisplay">Sentence 1 of 6</span>
-          <button onclick="readAloudCurrentSentence()" class="flex items-center gap-1.5 text-indigo-400 hover:text-indigo-300 font-semibold">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            Read Sentence
-          </button>
-        </div>
-
-        <!-- The Sentence Display with Blank -->
-        <div class="bg-black/30 border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl w-full mb-8">
-          <p id="sentencePromptText" class="text-lg sm:text-2xl font-medium leading-relaxed text-white">
-            The ancient <span class="px-4 py-1 rounded-lg border-b-2 border-indigo-400 bg-indigo-500/20 text-indigo-300 font-mono font-bold tracking-wider">______</span> stood high upon the rocky hill.
-          </p>
-        </div>
-
-        <!-- 4 Multiple Choice Option Cards -->
-        <div id="sentenceOptionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl mb-6">
-          <!-- Dynamic option buttons injected here -->
-        </div>
-
-        <div id="sentenceFeedback" class="h-6 text-sm font-bold transition-all"></div>
-      </div>
-    </section>
-
-    <!-- VIEW 3: BALLOON POP ARCADE -->
-    <section id="view-balloons" class="game-view hidden flex flex-col gap-4">
-      <div class="glass-card rounded-3xl p-4 sm:p-6 flex flex-col gap-4">
-        
-        <!-- Arcade Header Info -->
-        <div class="flex items-center justify-between flex-wrap gap-2 px-2">
-          <div>
-            <span class="text-xs font-semibold text-indigo-400 uppercase tracking-wider">Target Word to Pop</span>
-            <div class="flex items-center gap-3">
-              <h2 id="balloonTargetWord" class="text-2xl sm:text-3xl font-black tracking-tight text-white">CASTLE</h2>
-              <button onclick="pronounceBalloonTarget()" class="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217z" clip-rule="evenodd"></path></svg>
-              </button>
+            <!-- Theme Picker -->
+            <div class="theme-picker">
+              <button class="theme-pill active" id="btn-theme-light" onclick="setTheme('light')" title="Sprout Daylight">⚪</button>
+              <button class="theme-pill" id="btn-theme-dark" onclick="setTheme('dark')" title="Calm Dusk">🌙</button>
+              <button class="theme-pill" id="btn-theme-sunset" onclick="setTheme('sunset')" title="Warm Parchment">🌅</button>
             </div>
           </div>
+        </header>
 
-          <div class="flex items-center gap-4 text-xs sm:text-sm">
-            <div class="bg-black/30 px-3 py-1.5 rounded-xl border border-white/10">
-              Score: <span id="balloonArcadeScore" class="font-bold text-amber-400">0</span>
-            </div>
-            <div id="hazardWarningTag" class="hidden px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-bold animate-pulse">
-              ⚠️ Spike Bombs Active!
-            </div>
-            <button onclick="startBalloonGame()" class="accent-btn text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-lg">
-              Restart
-            </button>
-          </div>
-        </div>
+        <!-- Mode Navigation Tabs Strip -->
+        <nav class="mode-nav-strip" aria-label="Game Modes">
+          <button class="tab-pill active" id="tab-spelling" onclick="switchMode('spelling')">✏️ Spelling Arena</button>
+          <button class="tab-pill" id="tab-sentences" onclick="switchMode('sentences')">📖 Fill-in Sentences</button>
+          <button class="tab-pill" id="tab-balloons" onclick="switchMode('balloons')">🎈 Balloon Pop</button>
+          <button class="tab-pill" id="tab-wordfall" onclick="switchMode('wordfall')">⚡ Wordfall</button>
+          <button class="tab-pill" id="tab-leaderboard" onclick="switchMode('leaderboard')">🏆 Leaderboard</button>
+          <button class="tab-pill" id="tab-vault" onclick="switchMode('vault')">📚 Word &amp; Sentence Vault</button>
+        </nav>
 
-        <!-- Interactive Balloon Floating Arena -->
-        <div id="balloonArena" class="relative w-full h-[460px] sm:h-[520px] rounded-2xl bg-gradient-to-b from-slate-900/90 via-slate-900/60 to-indigo-950/80 border border-white/15 overflow-hidden shadow-inner cursor-crosshair">
-          <div id="balloonEntitiesContainer" class="absolute inset-0 pointer-events-auto"></div>
-          
-          <!-- Pop instructions overlay -->
-          <div id="balloonStartOverlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center text-center p-6 z-20">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 flex items-center justify-center text-3xl shadow-xl shadow-rose-500/30 mb-4 animate-bounce-short">
-              🎈
-            </div>
-            <h3 class="text-2xl font-black text-white mb-2">Balloon Pop Phonics</h3>
-            <p class="text-sm text-slate-300 max-w-md mb-6">
-              Listen to the pronounced target word and pop the floating balloon with that word before it floats away! In Hard &amp; Master, watch out for explosive spike hazard balloons!
-            </p>
-            <button onclick="beginBalloonRound()" class="accent-btn text-white font-bold px-6 py-3 rounded-xl shadow-lg text-base">
-              Start Popping Now
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- VIEW 4: WORDFALL ARCADE (FALLING WORDS DEFENSE) -->
-    <section id="view-wordfall" class="game-view hidden flex flex-col gap-4">
-      <div class="glass-card rounded-3xl p-4 sm:p-6 flex flex-col gap-4">
-        
-        <!-- Wordfall Header -->
-        <div class="flex items-center justify-between flex-wrap gap-2 px-2">
-          <div class="flex items-center gap-3">
-            <span class="text-xs font-semibold text-amber-400 uppercase tracking-wider">Wordfall Defense</span>
-            <div class="flex items-center gap-1.5 text-rose-400" id="wordfallLivesContainer">
-              <!-- Lives hearts injected here -->
-            </div>
-          </div>
-
-          <div class="flex items-center gap-4 text-xs sm:text-sm">
-            <div class="bg-black/30 px-3 py-1.5 rounded-xl border border-white/10">
-              Score: <span id="wordfallScore" class="font-bold text-emerald-400">0</span>
-            </div>
-            <div class="bg-black/30 px-3 py-1.5 rounded-xl border border-white/10">
-              Combo: <span id="wordfallCombo" class="font-bold text-amber-400">0x</span>
-            </div>
-            <button onclick="startWordfallGame()" class="accent-btn text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-lg">
-              Restart
-            </button>
-          </div>
-        </div>
-
-        <!-- Falling Canvas Stage -->
-        <div id="wordfallArena" class="relative w-full h-[460px] sm:h-[500px] rounded-2xl bg-gradient-to-b from-black/80 via-slate-950/70 to-red-950/40 border border-white/15 overflow-hidden shadow-inner">
-          <div id="wordfallEntities" class="absolute inset-0"></div>
-
-          <!-- Bottom Defense Danger Zone Line -->
-          <div class="absolute bottom-12 left-0 right-0 h-1 bg-gradient-to-r from-rose-500/40 via-rose-500 to-rose-500/40 shadow-lg shadow-rose-500/50"></div>
-          
-          <!-- Bottom Typing Bar -->
-          <div class="absolute bottom-2 left-3 right-3 flex items-center gap-2 z-10">
-            <input type="text" id="wordfallInput" placeholder="Type falling words quickly and hit Enter..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="flex-1 bg-black/80 border border-white/25 rounded-xl px-4 py-2.5 text-base sm:text-lg font-mono uppercase tracking-wider text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-            <button onclick="checkWordfallSubmit()" class="accent-btn text-white font-bold px-4 py-2.5 rounded-xl text-sm">
-              Blast
-            </button>
-          </div>
-
-          <!-- Wordfall Start / Game Over Overlay -->
-          <div id="wordfallOverlay" class="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center text-center p-6 z-20">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-500 flex items-center justify-center text-3xl shadow-xl shadow-red-500/30 mb-4 animate-pulse">
-              ⚡
-            </div>
-            <h3 id="wordfallOverlayTitle" class="text-2xl font-black text-white mb-2">Wordfall Defense</h3>
-            <p id="wordfallOverlayDesc" class="text-sm text-slate-300 max-w-md mb-6">
-              Type the descending words before they touch the defense line! Higher difficulty levels ramp up descent velocity, with Master mode offering 1 sudden-death life!
-            </p>
-            <button onclick="beginWordfallRound()" class="accent-btn text-white font-bold px-6 py-3 rounded-xl shadow-lg text-base">
-              Start Defense
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- VIEW 5: LEADERBOARD SYSTEM (HALL OF FAME) -->
-    <section id="view-leaderboard" class="game-view hidden flex flex-col gap-6">
-      
-      <!-- Leaderboard Header & Filter Pills -->
-      <div class="glass-card rounded-3xl p-6 flex flex-col gap-6">
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-          <div>
-            <h2 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-              <span class="text-amber-400">🏆</span> Hall of Fame Leaderboard
-            </h2>
-            <p class="text-xs sm:text-sm text-slate-400 mt-1">
-              Top word wizards ranked by game mode, accuracy, and difficulty tier.
-            </p>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button onclick="clearLeaderboardData()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 text-xs font-semibold border border-white/10 transition">
-              Reset Scores
-            </button>
-          </div>
-        </div>
-
-        <!-- Filter Controls -->
-        <div class="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
-          <!-- Game Mode Filter -->
-          <div class="flex items-center gap-1.5 bg-black/30 p-1 rounded-xl border border-white/10">
-            <button onclick="setLeaderboardFilter('all')" id="lbFilter-all" class="lb-filter-btn px-3 py-1.5 rounded-lg font-bold bg-indigo-600 text-white">All</button>
-            <button onclick="setLeaderboardFilter('spelling')" id="lbFilter-spelling" class="lb-filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white">Spelling</button>
-            <button onclick="setLeaderboardFilter('sentences')" id="lbFilter-sentences" class="lb-filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white">Sentences</button>
-            <button onclick="setLeaderboardFilter('balloons')" id="lbFilter-balloons" class="lb-filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white">Balloons</button>
-            <button onclick="setLeaderboardFilter('wordfall')" id="lbFilter-wordfall" class="lb-filter-btn px-3 py-1.5 rounded-lg font-medium text-slate-300 hover:text-white">Wordfall</button>
-          </div>
-
-          <!-- Difficulty Filter -->
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-slate-400">Difficulty:</span>
-            <select id="lbDiffFilter" onchange="renderLeaderboard()" class="bg-black/40 text-xs text-white px-2.5 py-1.5 rounded-lg border border-white/15 focus:outline-none">
-              <option value="all">All Difficulties</option>
-              <option value="easy">Easy (1.0x)</option>
-              <option value="normal">Normal (1.5x)</option>
-              <option value="hard">Hard (2.2x)</option>
-              <option value="master">Master (3.5x)</option>
+        <!-- Difficulty & Live Metrics Banner -->
+        <div class="metric-strip">
+          <div class="metric-group">
+            <span>Difficulty:</span>
+            <select id="difficultySelect" class="diff-select" onchange="setDifficulty(this.value)">
+              <option value="easy">🟢 Easy (1.0x)</option>
+              <option value="normal" selected>🔵 Normal (1.5x)</option>
+              <option value="hard">🟡 Hard (2.2x)</option>
+              <option value="master">🔴 Master (3.5x)</option>
             </select>
           </div>
-        </div>
-
-        <!-- Top 3 Podium Showcase -->
-        <div id="leaderboardPodium" class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <!-- Injected dynamically: 2nd, 1st, 3rd -->
-        </div>
-
-        <!-- Full Rankings Table -->
-        <div class="overflow-x-auto custom-scrollbar">
-          <table class="w-full text-left border-collapse text-xs sm:text-sm">
-            <thead>
-              <tr class="border-b border-white/10 text-slate-400 uppercase text-[11px] tracking-wider">
-                <th class="py-3 px-3">Rank</th>
-                <th class="py-3 px-3">Player</th>
-                <th class="py-3 px-3">Mode</th>
-                <th class="py-3 px-3">Difficulty</th>
-                <th class="py-3 px-3">Score</th>
-                <th class="py-3 px-3">Accuracy</th>
-                <th class="py-3 px-3">Streak</th>
-                <th class="py-3 px-3">Date</th>
-              </tr>
-            </thead>
-            <tbody id="leaderboardTableBody" class="divide-y divide-white/5">
-              <!-- Dynamically populated rows -->
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- VIEW 6: WORD VAULT / CUSTOM LISTS -->
-    <section id="view-words" class="game-view hidden flex flex-col gap-6">
-      <div class="glass-card rounded-3xl p-6 flex flex-col gap-6">
-        
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-          <div>
-            <h2 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-              <span>📚</span> Word Vault &amp; Custom Lists
-            </h2>
-            <p class="text-xs sm:text-sm text-slate-400 mt-1">
-              Add custom spelling words, hints, and fill-in sentences.
-            </p>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button onclick="exportWordListJson()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-white text-xs font-semibold border border-white/10 transition">
-              Export JSON
-            </button>
-            <button onclick="promptImportJson()" class="px-3 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 text-xs font-semibold border border-indigo-400/30 transition">
-              Import JSON
-            </button>
-          </div>
-        </div>
-
-        <!-- Add Custom Word Form -->
-        <div class="bg-black/30 rounded-2xl p-4 border border-white/10 flex flex-col gap-3">
-          <h3 class="text-sm font-bold text-white">Add New Custom Word</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <input type="text" id="newWordInput" placeholder="Word (e.g. dolphin)" class="bg-black/40 border border-white/15 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-            <input type="text" id="newHintInput" placeholder="Clue/Sentence with word (optional)" class="bg-black/40 border border-white/15 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-indigo-500" />
-            <div class="flex items-center gap-2">
-              <select id="newWordDifficulty" class="flex-1 bg-black/40 border border-white/15 rounded-xl px-3 py-2 text-sm text-white focus:outline-none">
-                <option value="easy">Easy</option>
-                <option value="normal" selected>Normal</option>
-                <option value="hard">Hard</option>
-                <option value="master">Master</option>
-              </select>
-              <button onclick="addCustomWord()" class="accent-btn text-white font-bold px-4 py-2 rounded-xl text-sm whitespace-nowrap">
-                Add Word
-              </button>
+          <div class="metric-group">
+            <div class="metric-item" style="color: var(--warning);">
+              <span>🔥</span>
+              <span id="stat-streak">0</span> Streak
+            </div>
+            <div class="metric-item" style="color: var(--accent-primary);">
+              <span>⭐</span>
+              <span id="stat-score">0</span> XP
             </div>
           </div>
         </div>
 
-        <!-- Word List Table by Category -->
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              Active Word Pack: <span id="vaultDiffTag" class="text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 uppercase font-mono">Normal</span>
-            </h3>
-            <span id="vaultWordCount" class="text-xs text-slate-400">15 words</span>
+        <!-- =========================================================================
+             1. SPELLING ARENA SCREEN
+             ========================================================================= -->
+        <section id="view-spelling" class="view-screen active">
+          <div class="progress-wrapper">
+            <div class="meta-bar">
+              <span id="spelling-counter">Word 1 of 20</span>
+              <button class="tab-pill" style="padding: 3px 8px; font-size: 0.72rem;" onclick="revealSpellingHint()">💡 Hint (<span id="hintsLeftDisplay">1</span> left)</button>
+            </div>
+            <div class="progress-track" id="spellingTimerContainer">
+              <div class="progress-fill" id="spellingTimerBar" style="width: 100%;"></div>
+            </div>
           </div>
 
-          <div id="vaultWordsList" class="flex flex-wrap gap-2 max-h-72 overflow-y-auto custom-scrollbar p-1">
-            <!-- Word tags rendered here -->
+          <div class="prompt-box" id="spelling-prompt-box">
+            <button class="audio-pronounce-btn" onclick="pronounceCurrentWord()" title="Listen to Word">🔊</button>
+            <p class="prompt-hint-clue" id="spellingContextClue">Click speaker or press Space to listen and spell</p>
           </div>
-        </div>
+
+          <div class="slots-container" id="letterSlotsContainer"></div>
+
+          <div class="typing-input-row">
+            <input type="text" id="spellingTextInput" class="typing-input" placeholder="TYPE LETTERS..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button class="btn-control primary" style="width: auto; margin-bottom: 0; padding: 0 18px;" onclick="submitSpellingAttempt()">Check</button>
+          </div>
+
+          <!-- Virtual Keyboard -->
+          <div class="keyboard-container">
+            <div class="keyboard-row">
+              <button class="k-key" onclick="pressVirtualKey('Q')">Q</button>
+              <button class="k-key" onclick="pressVirtualKey('W')">W</button>
+              <button class="k-key" onclick="pressVirtualKey('E')">E</button>
+              <button class="k-key" onclick="pressVirtualKey('R')">R</button>
+              <button class="k-key" onclick="pressVirtualKey('T')">T</button>
+              <button class="k-key" onclick="pressVirtualKey('Y')">Y</button>
+              <button class="k-key" onclick="pressVirtualKey('U')">U</button>
+              <button class="k-key" onclick="pressVirtualKey('I')">I</button>
+              <button class="k-key" onclick="pressVirtualKey('O')">O</button>
+              <button class="k-key" onclick="pressVirtualKey('P')">P</button>
+            </div>
+            <div class="keyboard-row">
+              <button class="k-key" onclick="pressVirtualKey('A')">A</button>
+              <button class="k-key" onclick="pressVirtualKey('S')">S</button>
+              <button class="k-key" onclick="pressVirtualKey('D')">D</button>
+              <button class="k-key" onclick="pressVirtualKey('F')">F</button>
+              <button class="k-key" onclick="pressVirtualKey('G')">G</button>
+              <button class="k-key" onclick="pressVirtualKey('H')">H</button>
+              <button class="k-key" onclick="pressVirtualKey('J')">J</button>
+              <button class="k-key" onclick="pressVirtualKey('K')">K</button>
+              <button class="k-key" onclick="pressVirtualKey('L')">L</button>
+            </div>
+            <div class="keyboard-row">
+              <button class="k-key wide action-clear" onclick="clearSpellingInput()">Clear</button>
+              <button class="k-key" onclick="pressVirtualKey('Z')">Z</button>
+              <button class="k-key" onclick="pressVirtualKey('X')">X</button>
+              <button class="k-key" onclick="pressVirtualKey('C')">C</button>
+              <button class="k-key" onclick="pressVirtualKey('V')">V</button>
+              <button class="k-key" onclick="pressVirtualKey('B')">B</button>
+              <button class="k-key" onclick="pressVirtualKey('N')">N</button>
+              <button class="k-key" onclick="pressVirtualKey('M')">M</button>
+              <button class="k-key wide action-del" onclick="pressBackspace()">⌫</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================================
+             2. FILL-IN SENTENCES SCREEN
+             ========================================================================= -->
+        <section id="view-sentences" class="view-screen">
+          <div class="progress-wrapper">
+            <div class="meta-bar">
+              <span id="sentenceIndexDisplay">Sentence 1 of 6</span>
+              <button class="tab-pill" style="padding: 3px 8px; font-size: 0.72rem;" onclick="readAloudCurrentSentence()">🔊 Read Sentence</button>
+            </div>
+          </div>
+
+          <div class="sentence-card" id="sentencePromptBox">
+            <p id="sentencePromptText">Loading sentence...</p>
+          </div>
+
+          <div class="options-grid" id="sentenceOptionsContainer"></div>
+
+          <div class="btn-grid-2">
+            <button class="btn-control dashed" onclick="skipSentence()">⏭️ Skip</button>
+            <button class="btn-control" onclick="readAloudCurrentSentence()">🔊 Listen Again</button>
+          </div>
+        </section>
+
+        <!-- =========================================================================
+             3. BALLOON POP PHONICS SCREEN
+             ========================================================================= -->
+        <section id="view-balloons" class="view-screen">
+          <div class="progress-wrapper">
+            <div class="meta-bar">
+              <span>Target: <strong id="balloonTargetWord" style="color: var(--accent-primary); font-size: 1rem;">CASTLE</strong></span>
+              <button class="tab-pill" style="padding: 3px 8px; font-size: 0.72rem;" onclick="pronounceBalloonTarget()">🔊 Listen</button>
+            </div>
+          </div>
+
+          <div class="balloon-stage" id="balloonArena">
+            <div id="balloonEntitiesContainer"></div>
+
+            <div class="stage-overlay" id="balloonStartOverlay">
+              <div class="overlay-card">
+                <div style="font-size: 2.2rem; margin-bottom: 6px;">🎈</div>
+                <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;">Balloon Pop Phonics</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">Listen to the target word and pop the balloon before it floats away. Avoid spike bombs in Hard/Master!</p>
+                <button class="btn-control primary" onclick="beginBalloonRound()">Start Popping</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================================
+             4. WORDFALL DEFENSE SCREEN
+             ========================================================================= -->
+        <section id="view-wordfall" class="view-screen">
+          <div class="progress-wrapper">
+            <div class="meta-bar">
+              <span>Lives: <span id="wordfallLivesContainer">❤️❤️❤️</span></span>
+              <span>Combo: <strong id="wordfallCombo" style="color: var(--warning);">0x</strong></span>
+            </div>
+          </div>
+
+          <div class="wordfall-stage" id="wordfallArena">
+            <div id="wordfallEntities"></div>
+            <div class="wordfall-danger-line"></div>
+
+            <div class="wordfall-input-bar">
+              <input type="text" id="wordfallInput" class="typing-input" style="font-size: 0.95rem; padding: 8px 12px;" placeholder="Type descending word & hit Enter..." autocomplete="off" />
+              <button class="btn-control primary" style="width: auto; margin-bottom: 0; padding: 0 16px;" onclick="checkWordfallSubmit()">Blast</button>
+            </div>
+
+            <div class="stage-overlay" id="wordfallOverlay">
+              <div class="overlay-card">
+                <div style="font-size: 2.2rem; margin-bottom: 6px;">⚡</div>
+                <h3 id="wordfallOverlayTitle" style="font-size: 1.15rem; font-weight: 800; margin-bottom: 6px;">Wordfall Defense</h3>
+                <p id="wordfallOverlayDesc" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">Type words before they touch the defense line! Speed scales with difficulty tier.</p>
+                <button class="btn-control primary" onclick="beginWordfallRound()">Start Defense</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================================
+             5. HALL OF FAME LEADERBOARD SCREEN
+             ========================================================================= -->
+        <section id="view-leaderboard" class="view-screen">
+          <div class="podium-grid" id="leaderboardPodium"></div>
+
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Mode</th>
+                <th>Difficulty</th>
+                <th>Score</th>
+                <th>Streak</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardTableBody"></tbody>
+          </table>
+
+          <button class="btn-control dashed" onclick="clearLeaderboardData()">Reset Leaderboard Scores</button>
+        </section>
+
+        <!-- =========================================================================
+             6. WORD VAULT & CUSTOM CURRICULUM SCREEN (WORDS + SENTENCES)
+             ========================================================================= -->
+        <section id="view-vault" class="view-screen">
+          
+          <!-- 1. Custom Words Manager -->
+          <div class="vault-section">
+            <div class="vault-section-title">
+              <span>➕ Add Custom Words</span>
+              <span id="vaultWordCount" style="font-size: 0.72rem; color: var(--text-muted);">0 words</span>
+            </div>
+            <div class="form-group">
+              <div class="form-row-2">
+                <div>
+                  <label class="form-label">Word</label>
+                  <input type="text" id="newWordInput" class="form-input" placeholder="e.g. dolphin" />
+                </div>
+                <div>
+                  <label class="form-label">Difficulty Tier</label>
+                  <select id="newWordDifficulty" class="form-input">
+                    <option value="easy">Easy</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="hard">Hard</option>
+                    <option value="master">Master</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn-control primary" style="margin-top: 8px; padding: 8px;" onclick="addCustomWord()">Add Word to Vault</button>
+            </div>
+
+            <label class="form-label">Active Custom Word Chips (Click to listen, ✕ to remove):</label>
+            <div class="vault-chip-list" id="vaultCustomWordsList"></div>
+          </div>
+
+          <!-- 2. Custom Sentences Manager (Explicit User Requirement) -->
+          <div class="vault-section">
+            <div class="vault-section-title">
+              <span>📝 Add Custom Fill-in Sentences</span>
+              <span id="vaultSentenceCount" style="font-size: 0.72rem; color: var(--text-muted);">0 sentences</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sentence with blank or [target word] in brackets:</label>
+              <input type="text" id="newSentenceInput" class="form-input" placeholder="e.g. The bright [sun] shines warm in the sky." />
+              <div class="form-row-2" style="margin-top: 8px;">
+                <div>
+                  <label class="form-label">Target Answer Word (if not bracketed)</label>
+                  <input type="text" id="newSentenceTarget" class="form-input" placeholder="e.g. sun" />
+                </div>
+                <div>
+                  <label class="form-label">Difficulty Tier</label>
+                  <select id="newSentenceDifficulty" class="form-input">
+                    <option value="easy">Easy</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="hard">Hard</option>
+                    <option value="master">Master</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn-control primary" style="margin-top: 8px; padding: 8px;" onclick="addCustomSentence()">Add Sentence to Vault</label>
+            </div>
+
+            <label class="form-label">Active Custom Sentences:</label>
+            <div id="vaultCustomSentencesList" style="max-height: 200px; overflow-y: auto;"></div>
+          </div>
+
+          <!-- 3. Export / Import Data -->
+          <div class="btn-grid-2">
+            <button class="btn-control dashed" onclick="exportVaultJson()">💾 Export Vault JSON</button>
+            <button class="btn-control dashed" onclick="promptImportVaultJson()">📥 Import Vault JSON</button>
+          </div>
+        </section>
 
       </div>
-    </section>
+    </main>
+  </div>
 
-  </main>
+  <!-- Sprout Lab Site Footer -->
+  <footer id="site-footer" class="site-footer">
+    <div class="container footer-inner">
+      <p id="footer-copyright">&copy; 2025 Sprout Lab. All rights reserved.</p>
+      <nav id="footer-nav" class="footer-nav" aria-label="Footer Navigation">
+        <ul>
+          <li><a id="footer-link-home" href="../index.html" class="footer-link">Home</a></li>
+          <li><a id="footer-link-arena" href="../arena.html" class="footer-link">Arena</a></li>
+          <li><a id="footer-link-about" href="../about.html" class="footer-link">About</a></li>
+          <li><a id="footer-link-blog" href="../blog.html" class="footer-link">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
 
-  <!-- Audio Context & Complete Game Engine Script -->
+  <!-- ==========================================================================
+       JAVASCRIPT GAME ENGINE
+       ========================================================================== -->
   <script>
-    // --- 1. GAME DATA & CONFIGURATIONS ---
+    // --- 1. CONFIGURATIONS & DIFFICULTY TIERS ---
     const DIFFICULTY_SETTINGS = {
       easy: {
         id: 'easy',
         label: 'Easy',
-        badge: '🟢 Easy (1.0x)',
-        badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
         scoreMultiplier: 1.0,
-        timePerWord: null, // Unlimited
+        timePerWord: null,
         firstLetterHint: true,
-        wordfallSpeed: 0.7,
+        wordfallSpeed: 0.65,
         wordfallLives: 5,
-        hazardBalloons: false,
-        desc: 'Relaxed pace with unlimited time, letter hints, slower arcade speed, and 1.0x score multiplier.'
+        hazardBalloons: false
       },
       normal: {
         id: 'normal',
         label: 'Normal',
-        badge: '🔵 Normal (1.5x)',
-        badgeClass: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
         scoreMultiplier: 1.5,
         timePerWord: 20,
         firstLetterHint: true,
-        wordfallSpeed: 1.1,
+        wordfallSpeed: 1.0,
         wordfallLives: 3,
-        hazardBalloons: false,
-        desc: 'Balanced challenge with 20s countdown, standard speed, 3 lives, and 1.5x score multiplier.'
+        hazardBalloons: false
       },
       hard: {
         id: 'hard',
         label: 'Hard',
-        badge: '🟡 Hard (2.2x)',
-        badgeClass: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
         scoreMultiplier: 2.2,
         timePerWord: 10,
         firstLetterHint: false,
-        wordfallSpeed: 1.6,
+        wordfallSpeed: 1.5,
         wordfallLives: 2,
-        hazardBalloons: true,
-        desc: 'Intense 10s timer, no initial hints, hazard spike bombs, faster falling speed, and 2.2x multiplier.'
+        hazardBalloons: true
       },
       master: {
         id: 'master',
         label: 'Master',
-        badge: '🔴 Master (3.5x)',
-        badgeClass: 'bg-rose-500/20 text-rose-400 border-rose-500/30',
         scoreMultiplier: 3.5,
         timePerWord: 6,
         firstLetterHint: false,
-        wordfallSpeed: 2.2,
-        wordfallLives: 1, // Sudden death!
-        hazardBalloons: true,
-        desc: 'Extreme 6s lightning timer, hazard spike bombs, blazing speed, sudden-death 1 life, and 3.5x XP!'
+        wordfallSpeed: 2.0,
+        wordfallLives: 1,
+        hazardBalloons: true
       }
     };
 
     const DEFAULT_WORD_PACKS = {
-      easy: [
-        'cat', 'dog', 'sun', 'hat', 'map', 'cup', 'tree', 'star', 'book', 'fish',
-        'milk', 'frog', 'bird', 'ship', 'bell', 'moon', 'duck', 'rain', 'boat', 'nest'
-      ],
-      normal: [
-        'apple', 'banana', 'castle', 'planet', 'bridge', 'forest', 'silver', 'dragon',
-        'puzzle', 'rocket', 'flower', 'guitar', 'monkey', 'winter', 'orange', 'window',
-        'island', 'stream', 'candle', 'feather'
-      ],
-      hard: [
-        'champion', 'dinosaur', 'electric', 'festival', 'mystery', 'pyramid', 'treasure',
-        'umbrella', 'adventure', 'astronaut', 'lightning', 'mountain', 'symphony',
-        'telescope', 'whimsical', 'horizon', 'glacier', 'wilderness'
-      ],
-      master: [
-        'kaleidoscope', 'architecture', 'philosopher', 'civilization', 'extraordinary',
-        'subterranean', 'thunderstorm', 'constellation', 'biodiversity', 'archaeologist',
-        'phenomenal', 'chronometer', 'metamorphosis', 'photosynthesis', 'crystallize'
-      ]
+      easy: ['cat', 'dog', 'sun', 'hat', 'map', 'cup', 'tree', 'star', 'book', 'fish', 'milk', 'frog', 'bird', 'ship', 'bell', 'moon', 'duck', 'rain', 'boat', 'nest'],
+      normal: ['apple', 'banana', 'castle', 'planet', 'bridge', 'forest', 'silver', 'dragon', 'puzzle', 'rocket', 'flower', 'guitar', 'monkey', 'winter', 'orange', 'window', 'island', 'stream', 'candle', 'feather'],
+      hard: ['champion', 'dinosaur', 'electric', 'festival', 'mystery', 'pyramid', 'treasure', 'umbrella', 'adventure', 'astronaut', 'lightning', 'mountain', 'symphony', 'telescope', 'whimsical', 'horizon', 'glacier', 'wilderness'],
+      master: ['kaleidoscope', 'architecture', 'philosopher', 'civilization', 'extraordinary', 'subterranean', 'thunderstorm', 'constellation', 'biodiversity', 'archaeologist', 'phenomenal', 'chronometer', 'metamorphosis', 'photosynthesis', 'crystallize']
     };
 
     const DEFAULT_SENTENCE_PACKS = {
@@ -764,27 +1695,25 @@
       ]
     };
 
-    // Default Seed Leaderboard
     const DEFAULT_LEADERBOARD = [
-      { id: '1', name: 'Sophia', score: 2850, accuracy: 96, mode: 'spelling', difficulty: 'master', streak: 18, date: '2026-09-10' },
-      { id: '2', name: 'Marcus', score: 2240, accuracy: 92, mode: 'wordfall', difficulty: 'hard', streak: 14, date: '2026-09-09' },
-      { id: '3', name: 'Elena', score: 1890, accuracy: 94, mode: 'balloons', difficulty: 'hard', streak: 12, date: '2026-09-08' },
-      { id: '4', name: 'Liam', score: 1450, accuracy: 88, mode: 'sentences', difficulty: 'normal', streak: 8, date: '2026-09-07' },
-      { id: '5', name: 'Zoe', score: 1200, accuracy: 100, mode: 'spelling', difficulty: 'normal', streak: 10, date: '2026-09-06' },
-      { id: '6', name: 'Lucas', score: 950, accuracy: 85, mode: 'wordfall', difficulty: 'easy', streak: 6, date: '2026-09-05' }
+      { id: '1', name: 'Sophia', score: 2850, mode: 'Spelling', difficulty: 'master', streak: 18 },
+      { id: '2', name: 'Marcus', score: 2240, mode: 'Wordfall', difficulty: 'hard', streak: 14 },
+      { id: '3', name: 'Elena', score: 1890, mode: 'Balloons', difficulty: 'hard', streak: 12 },
+      { id: '4', name: 'Liam', score: 1450, mode: 'Sentences', difficulty: 'normal', streak: 8 },
+      { id: '5', name: 'Zoe', score: 1200, mode: 'Spelling', difficulty: 'normal', streak: 10 }
     ];
 
-    // --- 2. GLOBAL STATE ---
+    // --- 2. GAME STATE ---
     let state = {
       playerName: localStorage.getItem('ww_player_name') || 'Alex',
-      difficulty: localStorage.getItem('ww_difficulty') || 'easy',
-      theme: localStorage.getItem('ww_theme') || 'default',
+      difficulty: localStorage.getItem('ww_difficulty') || 'normal',
+      theme: localStorage.getItem('mathArcade_theme') || 'light',
       soundEnabled: localStorage.getItem('ww_sound') !== 'false',
       currentMode: 'spelling',
       totalScore: 0,
       streak: 0,
-      
-      // Spelling State
+
+      // Spelling
       spellingIndex: 0,
       spellingWords: [],
       currentWord: '',
@@ -793,39 +1722,33 @@
       spellingTimer: null,
       spellingTimeRemaining: 0,
 
-      // Sentences State
+      // Sentences
       sentenceIndex: 0,
       sentencesList: [],
-      
-      // Balloon State
+
+      // Balloons
       balloonActive: false,
       balloonScore: 0,
       balloonTarget: '',
       balloonItems: [],
       balloonAnimFrame: null,
 
-      // Wordfall State
+      // Wordfall
       wordfallActive: false,
       wordfallScore: 0,
       wordfallCombo: 0,
       wordfallLives: 3,
       wordfallItems: [],
       wordfallAnimFrame: null,
-      wordfallLastSpawn: 0,
-
-      // Leaderboard filter
-      lbModeFilter: 'all',
-      lbDiffFilter: 'all'
+      wordfallLastSpawn: 0
     };
 
     // --- 3. WEB AUDIO SYNTHESIZER ---
     let audioCtx = null;
     function getAudioContext() {
-      if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (AudioContextClass) {
-          audioCtx = new AudioContextClass();
-        }
+      if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioClass();
       }
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
@@ -841,101 +1764,91 @@
         const now = ctx.currentTime;
 
         if (type === 'correct') {
-          // Ascending chime arpeggio
           [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(freq, now + i * 0.08);
-            gain.gain.setValueAtTime(0.2, now + i * 0.08);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.35);
+            osc.frequency.setValueAtTime(freq, now + i * 0.07);
+            gain.gain.setValueAtTime(0.12, now + i * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.25);
             osc.connect(gain);
             gain.connect(ctx.destination);
-            osc.start(now + i * 0.08);
-            osc.stop(now + i * 0.08 + 0.35);
+            osc.start(now + i * 0.07);
+            osc.stop(now + i * 0.07 + 0.26);
           });
         } else if (type === 'wrong') {
-          // Low saw buzzer
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sawtooth';
           osc.frequency.setValueAtTime(160, now);
-          osc.frequency.linearRampToValueAtTime(110, now + 0.3);
-          gain.gain.setValueAtTime(0.3, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.frequency.linearRampToValueAtTime(110, now + 0.22);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.3);
+          osc.stop(now + 0.24);
         } else if (type === 'pop') {
-          // Balloon pop frequency snap
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(800, now);
-          osc.frequency.exponentialRampToValueAtTime(120, now + 0.09);
-          gain.gain.setValueAtTime(0.4, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+          osc.frequency.setValueAtTime(850, now);
+          osc.frequency.exponentialRampToValueAtTime(150, now + 0.08);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.09);
+          osc.stop(now + 0.08);
         } else if (type === 'bomb') {
-          // Hazard explosion
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'square';
-          osc.frequency.setValueAtTime(120, now);
-          osc.frequency.linearRampToValueAtTime(40, now + 0.4);
-          gain.gain.setValueAtTime(0.4, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+          osc.frequency.setValueAtTime(110, now);
+          osc.frequency.linearRampToValueAtTime(35, now + 0.35);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.4);
+          osc.stop(now + 0.35);
         } else if (type === 'laser') {
-          // Wordfall word laser blast
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(950, now);
-          osc.frequency.exponentialRampToValueAtTime(200, now + 0.15);
-          gain.gain.setValueAtTime(0.25, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+          osc.frequency.setValueAtTime(980, now);
+          osc.frequency.exponentialRampToValueAtTime(220, now + 0.12);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now);
-          osc.stop(now + 0.15);
-        } else if (type === 'tick') {
-          // Timer tick
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(1200, now);
-          gain.gain.setValueAtTime(0.08, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start(now);
-          osc.stop(now + 0.03);
+          osc.stop(now + 0.12);
         }
-      } catch (e) {
-        console.warn('Audio synthesis error:', e);
-      }
+      } catch (e) {}
     }
 
-    // --- 4. WEB SPEECH API ---
-    function speakText(text, rate = 0.85) {
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      localStorage.setItem('ww_sound', state.soundEnabled);
+      const btn = document.getElementById('btn-sound-toggle');
+      if (btn) btn.innerText = state.soundEnabled ? '🔊' : '🔇';
+    }
+
+    // --- 4. SPEECH SYNTHESIS ---
+    function speakText(text, rate = 0.9) {
       if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = rate;
-      utterance.pitch = 1.0;
-      utterance.lang = 'en-US';
-      window.speechSynthesis.speak(utterance);
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = rate;
+        utterance.pitch = 1.05;
+        utterance.lang = 'en-US';
+        window.speechSynthesis.speak(utterance);
+      } catch (e) {}
     }
 
-    // --- 5. CANVAS CONFETTI SYSTEM ---
+    // --- 5. CONFETTI CELEBRATION ---
     const confettiCanvas = document.getElementById('confettiCanvas');
     const confettiCtx = confettiCanvas.getContext('2d');
     let confettiParticles = [];
@@ -948,26 +1861,24 @@
     window.addEventListener('resize', resizeConfetti);
     resizeConfetti();
 
-    function fireConfetti(count = 50) {
-      const colors = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#06b6d4', '#8b5cf6'];
+    function fireConfetti(count = 35) {
+      const colors = ['#2e7d54', '#34d399', '#f59e0b', '#3b82f6', '#ec4899'];
       for (let i = 0; i < count; i++) {
         confettiParticles.push({
-          x: window.innerWidth * (0.3 + Math.random() * 0.4),
+          x: window.innerWidth * 0.5 + (Math.random() - 0.5) * 200,
           y: window.innerHeight * 0.4,
-          w: 8 + Math.random() * 6,
-          h: 6 + Math.random() * 8,
+          w: 7 + Math.random() * 5,
+          h: 6 + Math.random() * 6,
           color: colors[Math.floor(Math.random() * colors.length)],
-          vx: (Math.random() - 0.5) * 16,
-          vy: -8 - Math.random() * 12,
+          vx: (Math.random() - 0.5) * 14,
+          vy: -6 - Math.random() * 10,
           rotation: Math.random() * 360,
-          vRot: (Math.random() - 0.5) * 10,
-          gravity: 0.35 + Math.random() * 0.2,
+          vRot: (Math.random() - 0.5) * 8,
+          gravity: 0.3 + Math.random() * 0.15,
           opacity: 1
         });
       }
-      if (!confettiAnimId) {
-        renderConfetti();
-      }
+      if (!confettiAnimId) renderConfetti();
     }
 
     function renderConfetti() {
@@ -978,7 +1889,7 @@
         p.y += p.vy;
         p.vy += p.gravity;
         p.rotation += p.vRot;
-        p.opacity -= 0.012;
+        p.opacity -= 0.015;
 
         if (p.opacity <= 0 || p.y > confettiCanvas.height) {
           confettiParticles.splice(i, 1);
@@ -1003,81 +1914,47 @@
 
     // --- 6. INITIALIZATION & STORAGE ---
     function init() {
-      // Load stored values
-      applyTheme(state.theme);
-      updateSoundIcons();
+      setTheme(state.theme);
       document.getElementById('playerNameDisplay').innerText = state.playerName;
       document.getElementById('difficultySelect').value = state.difficulty;
-      
-      // Load words & setup active difficulty
-      updateDifficultyUI();
-      loadActiveWordPack();
-      loadActiveSentencePack();
+      document.getElementById('btn-sound-toggle').innerText = state.soundEnabled ? '🔊' : '🔇';
 
-      // Setup spelling mode
+      loadActiveCurriculum();
       setupSpellingRound();
 
-      // Attach keyboard input for spelling
-      document.getElementById('spellingTextInput').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          submitSpellingAttempt();
-        }
+      // Text input listeners
+      const inputEl = document.getElementById('spellingTextInput');
+      inputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') submitSpellingAttempt();
       });
-      document.getElementById('spellingTextInput').addEventListener('input', (e) => {
+      inputEl.addEventListener('input', (e) => {
         state.enteredLetters = e.target.value.toUpperCase();
         renderLetterSlots();
       });
 
-      // Spacebar to pronounce when not focused in input
+      // Spacebar to listen
       window.addEventListener('keydown', (e) => {
-        if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && state.currentMode === 'spelling') {
+        if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA' && state.currentMode === 'spelling') {
           e.preventDefault();
           pronounceCurrentWord();
         }
       });
 
-      // Render leaderboard
       renderLeaderboard();
-      renderVaultWords();
+      renderVaultUI();
     }
 
-    // --- 7. THEMES & AUDIO TOGGLE ---
-    function cycleTheme() {
-      const themes = ['default', 'forest', 'sunset', 'cyber'];
-      const nextIdx = (themes.indexOf(state.theme) + 1) % themes.length;
-      state.theme = themes[nextIdx];
-      localStorage.setItem('ww_theme', state.theme);
-      applyTheme(state.theme);
-    }
-
-    function applyTheme(theme) {
-      document.body.classList.remove('theme-forest', 'theme-sunset', 'theme-cyber');
-      if (theme !== 'default') {
-        document.body.classList.add(`theme-${theme}`);
-      }
-    }
-
-    function toggleSound() {
-      state.soundEnabled = !state.soundEnabled;
-      localStorage.setItem('ww_sound', state.soundEnabled);
-      updateSoundIcons();
-      if (state.soundEnabled) playSound('correct');
-    }
-
-    function updateSoundIcons() {
-      const onIcon = document.getElementById('soundOnIcon');
-      const offIcon = document.getElementById('soundOffIcon');
-      if (state.soundEnabled) {
-        onIcon.classList.remove('hidden');
-        offIcon.classList.add('hidden');
-      } else {
-        onIcon.classList.add('hidden');
-        offIcon.classList.remove('hidden');
-      }
+    function setTheme(themeName) {
+      state.theme = themeName;
+      document.body.setAttribute('data-theme', themeName);
+      localStorage.setItem('mathArcade_theme', themeName);
+      document.querySelectorAll('.theme-pill').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-theme-${themeName}`);
+      if (activeBtn) activeBtn.classList.add('active');
     }
 
     function promptPlayerName() {
-      const newName = prompt('Enter your player alias:', state.playerName);
+      const newName = prompt('Enter player name:', state.playerName);
       if (newName && newName.trim()) {
         state.playerName = newName.trim().slice(0, 16);
         localStorage.setItem('ww_player_name', state.playerName);
@@ -1085,112 +1962,63 @@
       }
     }
 
-    // --- 8. DIFFICULTY MANAGEMENT ---
     function setDifficulty(level) {
       state.difficulty = level;
       localStorage.setItem('ww_difficulty', level);
-      updateDifficultyUI();
-      loadActiveWordPack();
-      loadActiveSentencePack();
+      loadActiveCurriculum();
 
-      // Reset active game mode
-      if (state.currentMode === 'spelling') {
-        state.spellingIndex = 0;
-        setupSpellingRound();
-      } else if (state.currentMode === 'sentences') {
-        state.sentenceIndex = 0;
-        setupSentenceRound();
-      } else if (state.currentMode === 'balloons') {
-        startBalloonGame();
-      } else if (state.currentMode === 'wordfall') {
-        startWordfallGame();
-      }
-      renderVaultWords();
+      if (state.currentMode === 'spelling') setupSpellingRound();
+      else if (state.currentMode === 'sentences') setupSentenceRound();
+      else if (state.currentMode === 'balloons') startBalloonGame();
+      else if (state.currentMode === 'wordfall') startWordfallGame();
     }
 
-    function updateDifficultyUI() {
-      const cfg = DIFFICULTY_SETTINGS[state.difficulty];
-      document.getElementById('diffBadge').innerText = cfg.label + ' Mode';
-      document.getElementById('diffBadge').className = `px-2.5 py-1 rounded-full text-xs font-black uppercase tracking-wider ${cfg.badgeClass}`;
-      document.getElementById('diffDesc').innerText = cfg.desc;
-      document.getElementById('diffTimerLabel').innerText = cfg.timePerWord ? `${cfg.timePerWord}s` : 'Unlimited';
-      document.getElementById('diffMultiplierLabel').innerText = `${cfg.scoreMultiplier}x`;
-      document.getElementById('headerDiffMultiplier').innerText = `${cfg.scoreMultiplier}x`;
-      
-      const hazardTag = document.getElementById('hazardWarningTag');
-      if (cfg.hazardBalloons) {
-        hazardTag.classList.remove('hidden');
-      } else {
-        hazardTag.classList.add('hidden');
-      }
+    function loadActiveCurriculum() {
+      // 1. Words
+      const customWords = getCustomWords(state.difficulty);
+      const defaults = DEFAULT_WORD_PACKS[state.difficulty] || DEFAULT_WORD_PACKS.normal;
+      state.spellingWords = [...customWords, ...defaults];
+
+      // 2. Sentences (Default + Custom Sentences from Vault)
+      const customSentences = getCustomSentences(state.difficulty);
+      const defaultSentences = DEFAULT_SENTENCE_PACKS[state.difficulty] || DEFAULT_SENTENCE_PACKS.normal;
+      state.sentencesList = [...customSentences, ...defaultSentences];
     }
 
-    function loadActiveWordPack() {
-      const custom = getCustomWords(state.difficulty);
-      const defaults = DEFAULT_WORD_PACKS[state.difficulty] || DEFAULT_WORD_PACKS.easy;
-      state.spellingWords = [...custom, ...defaults];
-    }
-
-    function loadActiveSentencePack() {
-      state.sentencesList = DEFAULT_SENTENCE_PACKS[state.difficulty] || DEFAULT_SENTENCE_PACKS.easy;
-    }
-
-    // --- 9. MODE SWITCHING ---
+    // --- 7. MODE NAVIGATION ---
     function switchMode(mode) {
       state.currentMode = mode;
-      
-      // Update Tab CSS
-      document.querySelectorAll('.mode-tab').forEach(tab => {
-        tab.classList.remove('bg-indigo-600', 'text-white', 'shadow-lg');
-        tab.classList.add('bg-white/10', 'text-slate-300');
-      });
+
+      document.querySelectorAll('.tab-pill').forEach(tab => tab.classList.remove('active'));
       const activeTab = document.getElementById(`tab-${mode}`);
-      if (activeTab) {
-        activeTab.classList.remove('bg-white/10', 'text-slate-300');
-        activeTab.classList.add('bg-indigo-600', 'text-white', 'shadow-lg');
-      }
+      if (activeTab) activeTab.classList.add('active');
 
-      // Hide all views, show active
-      document.querySelectorAll('.game-view').forEach(v => v.classList.add('hidden'));
+      document.querySelectorAll('.view-screen').forEach(v => v.classList.remove('active'));
       const activeView = document.getElementById(`view-${mode}`);
-      if (activeView) activeView.classList.remove('hidden');
+      if (activeView) activeView.classList.add('active');
 
-      // Mode initialization
-      if (mode === 'spelling') {
-        setupSpellingRound();
-      } else if (mode === 'sentences') {
-        setupSentenceRound();
-      } else if (mode === 'balloons') {
-        // Stop any running loop first
-        stopBalloonGame();
-        document.getElementById('balloonStartOverlay').classList.remove('hidden');
-      } else if (mode === 'wordfall') {
-        stopWordfallGame();
-        document.getElementById('wordfallOverlay').classList.remove('hidden');
-      } else if (mode === 'leaderboard') {
-        renderLeaderboard();
-      } else if (mode === 'words') {
-        renderVaultWords();
-      }
+      if (mode === 'spelling') setupSpellingRound();
+      else if (mode === 'sentences') setupSentenceRound();
+      else if (mode === 'balloons') startBalloonGame();
+      else if (mode === 'wordfall') startWordfallGame();
+      else if (mode === 'leaderboard') renderLeaderboard();
+      else if (mode === 'vault') renderVaultUI();
     }
 
-    // --- 10. SPELLING ARENA LOGIC ---
+    // --- 8. SPELLING ARENA LOGIC ---
     function setupSpellingRound() {
       clearInterval(state.spellingTimer);
-      if (state.spellingIndex >= state.spellingWords.length) {
-        state.spellingIndex = 0;
-      }
+      if (state.spellingIndex >= state.spellingWords.length) state.spellingIndex = 0;
+
       state.currentWord = state.spellingWords[state.spellingIndex].toUpperCase();
       state.enteredLetters = '';
       state.hintsRemaining = 1;
-      
+
       const inputEl = document.getElementById('spellingTextInput');
       inputEl.value = '';
-      document.getElementById('spellingFeedback').innerText = '';
-      document.getElementById('spellingWordIndex').innerText = `Word ${state.spellingIndex + 1} of ${state.spellingWords.length}`;
+      document.getElementById('spelling-counter').innerText = `Word ${state.spellingIndex + 1} of ${state.spellingWords.length}`;
       document.getElementById('hintsLeftDisplay').innerText = state.hintsRemaining;
 
-      // Check starting hint based on difficulty
       const cfg = DIFFICULTY_SETTINGS[state.difficulty];
       if (cfg.firstLetterHint) {
         state.enteredLetters = state.currentWord[0];
@@ -1199,43 +2027,23 @@
 
       renderLetterSlots();
 
-      // Clue sentence
-      const clue = `Spelling Practice (${state.currentWord.length} letters) - Listen and spell!`;
-      document.getElementById('spellingContextClue').innerText = clue;
-
-      // Timer handling
-      const timerContainer = document.getElementById('spellingTimerContainer');
       const timerBar = document.getElementById('spellingTimerBar');
       if (cfg.timePerWord) {
-        timerContainer.classList.remove('hidden');
         state.spellingTimeRemaining = cfg.timePerWord;
         timerBar.style.width = '100%';
-        timerBar.classList.remove('bg-rose-500');
-        timerBar.classList.add('bg-indigo-500');
-
         state.spellingTimer = setInterval(() => {
           state.spellingTimeRemaining -= 0.1;
           const pct = Math.max(0, (state.spellingTimeRemaining / cfg.timePerWord) * 100);
           timerBar.style.width = `${pct}%`;
-
-          if (state.spellingTimeRemaining <= 3) {
-            timerBar.classList.remove('bg-indigo-500');
-            timerBar.classList.add('bg-rose-500');
-            if (Math.floor(state.spellingTimeRemaining * 10) % 10 === 0) {
-              playSound('tick');
-            }
-          }
-
           if (state.spellingTimeRemaining <= 0) {
             clearInterval(state.spellingTimer);
             handleSpellingTimeout();
           }
         }, 100);
       } else {
-        timerContainer.classList.add('hidden');
+        timerBar.style.width = '100%';
       }
 
-      // Auto-pronounce
       pronounceCurrentWord();
       inputEl.focus();
     }
@@ -1249,12 +2057,8 @@
       for (let i = 0; i < word.length; i++) {
         const slot = document.createElement('div');
         const char = entered[i] || '';
-        slot.className = `w-10 h-12 sm:w-12 sm:h-14 rounded-xl border-2 flex items-center justify-center font-mono text-xl sm:text-2xl font-black uppercase transition duration-150 ${
-          char
-            ? 'border-indigo-400 bg-indigo-500/20 text-white shadow-md'
-            : 'border-white/20 bg-white/5 text-transparent'
-        }`;
-        slot.innerText = char || '_';
+        slot.className = `letter-slot ${char ? 'filled' : ''}`;
+        slot.innerText = char || '·';
         container.appendChild(slot);
       }
     }
@@ -1268,8 +2072,7 @@
       if (state.hintsRemaining <= 0) return;
       state.hintsRemaining--;
       document.getElementById('hintsLeftDisplay').innerText = state.hintsRemaining;
-      
-      // Reveal next letter
+
       const curLen = state.enteredLetters.length;
       if (curLen < state.currentWord.length) {
         state.enteredLetters += state.currentWord[curLen];
@@ -1300,33 +2103,29 @@
 
     function submitSpellingAttempt() {
       const entered = state.enteredLetters.trim().toUpperCase();
-      const feedbackEl = document.getElementById('spellingFeedback');
+      const promptBox = document.getElementById('spelling-prompt-box');
 
       if (entered === state.currentWord) {
-        // Correct!
         clearInterval(state.spellingTimer);
         playSound('correct');
-        fireConfetti(35);
+        fireConfetti(30);
         state.streak++;
         const pts = Math.round(100 * DIFFICULTY_SETTINGS[state.difficulty].scoreMultiplier);
         state.totalScore += pts;
         updateHeaderStats();
 
-        feedbackEl.innerText = `🎉 Brilliant! Correct spelling (+${pts} XP)`;
-        feedbackEl.className = 'h-6 text-sm font-bold text-emerald-400';
-
+        promptBox.classList.add('state-correct');
         setTimeout(() => {
+          promptBox.classList.remove('state-correct');
           state.spellingIndex++;
           setupSpellingRound();
-        }, 1200);
+        }, 1000);
       } else {
-        // Incorrect
         playSound('wrong');
         state.streak = 0;
         updateHeaderStats();
-        feedbackEl.innerText = '❌ Not quite right. Try again!';
-        feedbackEl.className = 'h-6 text-sm font-bold text-rose-400 animate-shake';
-        setTimeout(() => feedbackEl.classList.remove('animate-shake'), 500);
+        promptBox.classList.add('state-incorrect', 'shake');
+        setTimeout(() => promptBox.classList.remove('state-incorrect', 'shake'), 500);
       }
     }
 
@@ -1334,62 +2133,74 @@
       playSound('wrong');
       state.streak = 0;
       updateHeaderStats();
-      const feedbackEl = document.getElementById('spellingFeedback');
-      feedbackEl.innerText = `⏰ Time's up! The word was "${state.currentWord}"`;
-      feedbackEl.className = 'h-6 text-sm font-bold text-amber-400';
-
+      const promptBox = document.getElementById('spelling-prompt-box');
+      promptBox.classList.add('state-incorrect');
       setTimeout(() => {
+        promptBox.classList.remove('state-incorrect');
         state.spellingIndex++;
         setupSpellingRound();
-      }, 1600);
+      }, 1200);
     }
 
     function updateHeaderStats() {
-      document.getElementById('headerStreak').innerText = state.streak;
-      document.getElementById('headerScore').innerText = state.totalScore;
+      document.getElementById('stat-streak').innerText = state.streak;
+      document.getElementById('stat-score').innerText = state.totalScore;
       recordLeaderboardEntry(state.currentMode, state.totalScore, state.streak);
     }
 
-    // --- 11. FILL-IN SENTENCES LOGIC ---
+    // --- 9. FILL-IN SENTENCES LOGIC ---
     function setupSentenceRound() {
-      if (state.sentenceIndex >= state.sentencesList.length) {
-        state.sentenceIndex = 0;
+      if (state.sentencesList.length === 0) {
+        loadActiveCurriculum();
       }
+      if (state.sentenceIndex >= state.sentencesList.length) state.sentenceIndex = 0;
+
       const item = state.sentencesList[state.sentenceIndex];
       document.getElementById('sentenceIndexDisplay').innerText = `Sentence ${state.sentenceIndex + 1} of ${state.sentencesList.length}`;
-      
-      const blankSentence = item.text.replace(`[${item.word}]`, '______');
-      document.getElementById('sentencePromptText').innerHTML = blankSentence.replace(
-        '______',
-        `<span class="px-4 py-1 rounded-lg border-b-2 border-indigo-400 bg-indigo-500/20 text-indigo-300 font-mono font-bold tracking-wider">______</span>`
-      );
 
-      const optionsContainer = document.getElementById('sentenceOptionsContainer');
-      optionsContainer.innerHTML = '';
-      document.getElementById('sentenceFeedback').innerText = '';
+      const rawText = item.text || item.sentence || '';
+      const targetWord = item.word || item.target || '';
 
-      // Shuffle options
-      const shuffled = [...item.options].sort(() => Math.random() - 0.5);
-      shuffled.forEach(opt => {
+      const blankSentence = rawText.includes(`[${targetWord}]`)
+        ? rawText.replace(`[${targetWord}]`, `<span class="sentence-blank">______</span>`)
+        : rawText.replace(targetWord, `<span class="sentence-blank">______</span>`);
+
+      document.getElementById('sentencePromptText').innerHTML = blankSentence;
+
+      const container = document.getElementById('sentenceOptionsContainer');
+      container.innerHTML = '';
+
+      // Generate distractors if none provided
+      let options = item.options ? [...item.options] : generateSentenceDistractors(targetWord);
+      options.sort(() => Math.random() - 0.5);
+
+      options.forEach(opt => {
         const btn = document.createElement('button');
-        btn.className = 'p-4 rounded-2xl glass-card hover:bg-indigo-600/30 border border-white/15 text-lg font-bold text-white transition transform active:scale-95 text-center flex items-center justify-center';
+        btn.className = 'option-btn';
         btn.innerText = opt;
-        btn.onclick = () => selectSentenceOption(opt, item.word, btn);
-        optionsContainer.appendChild(btn);
+        btn.onclick = () => selectSentenceOption(opt, targetWord, btn);
+        container.appendChild(btn);
       });
 
       readAloudCurrentSentence();
     }
 
+    function generateSentenceDistractors(correctWord) {
+      const pool = state.spellingWords.filter(w => w.toLowerCase() !== correctWord.toLowerCase());
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      const distractors = shuffled.slice(0, 3);
+      return [correctWord, ...distractors];
+    }
+
     function readAloudCurrentSentence() {
       const item = state.sentencesList[state.sentenceIndex];
       if (!item) return;
-      const cleanText = item.text.replace(`[${item.word}]`, 'blank');
-      speakText(cleanText, 0.9);
+      const clean = (item.text || item.sentence || '').replace(/\[|\]/g, '');
+      speakText(clean, 0.9);
     }
 
     function selectSentenceOption(chosen, correct, btn) {
-      const feedbackEl = document.getElementById('sentenceFeedback');
+      const promptBox = document.getElementById('sentencePromptBox');
       if (chosen.toLowerCase() === correct.toLowerCase()) {
         playSound('correct');
         fireConfetti(30);
@@ -1398,46 +2209,42 @@
         state.totalScore += pts;
         updateHeaderStats();
 
-        btn.classList.add('bg-emerald-600', 'border-emerald-400');
-        feedbackEl.innerText = `✨ Perfect fit! (+${pts} XP)`;
-        feedbackEl.className = 'h-6 text-sm font-bold text-emerald-400';
-
+        btn.classList.add('state-correct');
         setTimeout(() => {
           state.sentenceIndex++;
           setupSentenceRound();
-        }, 1200);
+        }, 1000);
       } else {
         playSound('wrong');
         state.streak = 0;
         updateHeaderStats();
-        btn.classList.add('bg-rose-600/50', 'border-rose-400');
-        feedbackEl.innerText = `❌ That word doesn't fit the sentence.`;
-        feedbackEl.className = 'h-6 text-sm font-bold text-rose-400 animate-shake';
+        btn.classList.add('state-incorrect', 'shake');
       }
     }
 
-    // --- 12. BALLOON POP ARCADE LOGIC ---
+    function skipSentence() {
+      playSound('wrong');
+      state.sentenceIndex++;
+      setupSentenceRound();
+    }
+
+    // --- 10. BALLOON POP ARCADE LOGIC ---
     function startBalloonGame() {
       stopBalloonGame();
       state.balloonScore = 0;
-      document.getElementById('balloonArcadeScore').innerText = '0';
       document.getElementById('balloonStartOverlay').classList.remove('hidden');
     }
 
     function beginBalloonRound() {
       document.getElementById('balloonStartOverlay').classList.add('hidden');
       state.balloonActive = true;
-      state.balloonItems = [];
       nextBalloonTarget();
       runBalloonLoop();
     }
 
     function stopBalloonGame() {
       state.balloonActive = false;
-      if (state.balloonAnimFrame) {
-        cancelAnimationFrame(state.balloonAnimFrame);
-        state.balloonAnimFrame = null;
-      }
+      if (state.balloonAnimFrame) cancelAnimationFrame(state.balloonAnimFrame);
       document.getElementById('balloonEntitiesContainer').innerHTML = '';
     }
 
@@ -1458,62 +2265,39 @@
       container.innerHTML = '';
       state.balloonItems = [];
 
-      const cfg = DIFFICULTY_SETTINGS[state.difficulty];
       const arena = document.getElementById('balloonArena');
-      const width = arena.clientWidth;
-
-      // Generate 4-6 balloons
+      const width = arena.clientWidth || 500;
       const words = [state.balloonTarget];
-      const decoyPool = state.spellingWords.filter(w => w.toUpperCase() !== state.balloonTarget);
-      
-      while (words.length < 5 && decoyPool.length > 0) {
-        const randDecoy = decoyPool.splice(Math.floor(Math.random() * decoyPool.length), 1)[0];
-        words.push(randDecoy.toUpperCase());
+
+      const pool = state.spellingWords.filter(w => w.toUpperCase() !== state.balloonTarget);
+      while (words.length < 5 && pool.length > 0) {
+        words.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0].toUpperCase());
       }
 
-      // Add hazard bomb if Hard or Master
-      const itemsToSpawn = words.map(w => ({ word: w, isHazard: false }));
-      if (cfg.hazardBalloons) {
-        itemsToSpawn.push({ word: '💣 BOMB', isHazard: true });
+      const items = words.map(w => ({ word: w, isHazard: false }));
+      if (DIFFICULTY_SETTINGS[state.difficulty].hazardBalloons) {
+        items.push({ word: '💣 BOMB', isHazard: true });
       }
+      items.sort(() => Math.random() - 0.5);
 
-      // Shuffle
-      itemsToSpawn.sort(() => Math.random() - 0.5);
+      const colors = ['#2e7d54', '#196f8c', '#a45a2a', '#6366f1', '#d97706'];
 
-      const balloonColors = [
-        'from-pink-500 to-rose-600',
-        'from-indigo-500 to-purple-600',
-        'from-amber-400 to-orange-500',
-        'from-emerald-400 to-teal-600',
-        'from-cyan-400 to-blue-600'
-      ];
-
-      itemsToSpawn.forEach((item, index) => {
+      items.forEach((item, i) => {
         const el = document.createElement('div');
-        const color = item.isHazard ? 'from-red-600 to-black border-2 border-red-500' : balloonColors[index % balloonColors.length];
-        
-        el.className = `absolute cursor-pointer select-none rounded-full px-4 py-6 sm:px-5 sm:py-8 bg-gradient-to-b ${color} text-white font-black text-sm sm:text-base tracking-wider shadow-lg flex items-center justify-center transform transition-transform hover:scale-110 active:scale-90`;
+        el.className = `balloon-entity ${item.isHazard ? 'balloon-hazard' : ''}`;
+        if (!item.isHazard) el.style.background = colors[i % colors.length];
         el.innerText = item.word;
 
-        // Position spread
-        const xPos = Math.max(10, Math.min(width - 90, (index / itemsToSpawn.length) * width + (Math.random() * 30 - 15)));
-        const yPos = 480 + Math.random() * 120;
-        const speed = (0.7 + Math.random() * 0.5) * (state.difficulty === 'master' ? 1.6 : state.difficulty === 'hard' ? 1.3 : 1.0);
+        const x = Math.max(10, Math.min(width - 90, (i / items.length) * width + (Math.random() * 20 - 10)));
+        const y = 380 + Math.random() * 80;
+        const speed = (0.7 + Math.random() * 0.5) * (state.difficulty === 'master' ? 1.6 : 1.0);
 
-        el.style.left = `${xPos}px`;
-        el.style.top = `${yPos}px`;
-
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
         el.onclick = () => popBalloon(item, el);
 
         container.appendChild(el);
-        state.balloonItems.push({
-          el,
-          item,
-          x: xPos,
-          y: yPos,
-          speed,
-          sway: Math.random() * 6.28
-        });
+        state.balloonItems.push({ el, item, x, y, speed, sway: Math.random() * 6.28 });
       });
     }
 
@@ -1524,80 +2308,57 @@
       state.balloonItems.forEach(b => {
         b.y -= b.speed;
         b.sway += 0.04;
-        const swayOffset = Math.sin(b.sway) * 1.5;
         b.el.style.top = `${b.y}px`;
-        b.el.style.transform = `translateX(${swayOffset}px)`;
-
-        if (b.y > -80) {
-          allOffscreen = false;
-        }
+        b.el.style.transform = `translateX(${Math.sin(b.sway) * 12}px)`;
+        if (b.y > -60) allOffscreen = false;
       });
 
-      // If all balloons floated past, spawn next wave
-      if (allOffscreen && state.balloonItems.length > 0) {
-        nextBalloonTarget();
-      }
+      if (allOffscreen && state.balloonItems.length > 0) nextBalloonTarget();
 
       state.balloonAnimFrame = requestAnimationFrame(runBalloonLoop);
     }
 
     function popBalloon(item, el) {
       if (item.isHazard) {
-        // Detonated hazard bomb!
         playSound('bomb');
-        state.balloonScore = Math.max(0, state.balloonScore - 150);
         state.streak = 0;
         updateHeaderStats();
-        document.getElementById('balloonArcadeScore').innerText = state.balloonScore;
-
-        el.classList.add('animate-shake');
         el.innerText = '💥 BOOM!';
-        setTimeout(() => el.remove(), 400);
+        setTimeout(() => el.remove(), 300);
       } else if (item.word === state.balloonTarget) {
-        // Popped target!
         playSound('pop');
         fireConfetti(25);
         state.streak++;
         const pts = Math.round(150 * DIFFICULTY_SETTINGS[state.difficulty].scoreMultiplier);
-        state.balloonScore += pts;
         state.totalScore += pts;
-        document.getElementById('balloonArcadeScore').innerText = state.balloonScore;
         updateHeaderStats();
 
-        // Burst animation
-        el.style.transform = 'scale(1.4)';
+        el.style.transform = 'scale(1.3)';
         el.style.opacity = '0';
         setTimeout(() => {
           el.remove();
           nextBalloonTarget();
-        }, 200);
+        }, 180);
       } else {
-        // Popped decoy
         playSound('wrong');
-        el.style.opacity = '0.4';
+        el.style.opacity = '0.35';
       }
     }
 
-    // --- 13. WORDFALL DEFENSE LOGIC ---
+    // --- 11. WORDFALL DEFENSE LOGIC ---
     function startWordfallGame() {
       stopWordfallGame();
       state.wordfallScore = 0;
       state.wordfallCombo = 0;
       state.wordfallLives = DIFFICULTY_SETTINGS[state.difficulty].wordfallLives;
-      document.getElementById('wordfallScore').innerText = '0';
-      document.getElementById('wordfallCombo').innerText = '0x';
       renderWordfallLives();
       document.getElementById('wordfallOverlay').classList.remove('hidden');
-      document.getElementById('wordfallOverlayTitle').innerText = 'Wordfall Defense';
-      document.getElementById('wordfallOverlayDesc').innerText = 'Type the falling words before they hit the defense line!';
     }
 
     function renderWordfallLives() {
       const container = document.getElementById('wordfallLivesContainer');
       container.innerHTML = '';
-      for (let i = 0; i < state.wordfallLives; i++) {
-        container.innerHTML += `<span class="text-base">❤️</span>`;
-      }
+      for (let i = 0; i < state.wordfallLives; i++) container.innerHTML += '❤️';
     }
 
     function beginWordfallRound() {
@@ -1611,10 +2372,7 @@
 
     function stopWordfallGame() {
       state.wordfallActive = false;
-      if (state.wordfallAnimFrame) {
-        cancelAnimationFrame(state.wordfallAnimFrame);
-        state.wordfallAnimFrame = null;
-      }
+      if (state.wordfallAnimFrame) cancelAnimationFrame(state.wordfallAnimFrame);
       document.getElementById('wordfallEntities').innerHTML = '';
     }
 
@@ -1623,25 +2381,22 @@
 
       const now = Date.now();
       const arena = document.getElementById('wordfallArena');
-      const arenaHeight = arena.clientHeight - 60;
-      const arenaWidth = arena.clientWidth;
+      const height = arena.clientHeight - 60;
+      const width = arena.clientWidth || 500;
       const cfg = DIFFICULTY_SETTINGS[state.difficulty];
 
-      // Spawn falling words periodically
-      const spawnInterval = state.difficulty === 'master' ? 1400 : state.difficulty === 'hard' ? 1900 : 2500;
-      if (now - state.wordfallLastSpawn > spawnInterval) {
+      const interval = state.difficulty === 'master' ? 1400 : state.difficulty === 'hard' ? 1900 : 2500;
+      if (now - state.wordfallLastSpawn > interval) {
         state.wordfallLastSpawn = now;
-        spawnWordfallEntity(arenaWidth);
+        spawnWordfallEntity(width);
       }
 
-      // Move falling words
       for (let i = state.wordfallItems.length - 1; i >= 0; i--) {
         const item = state.wordfallItems[i];
         item.y += cfg.wordfallSpeed;
         item.el.style.top = `${item.y}px`;
 
-        // Check ground collision
-        if (item.y >= arenaHeight) {
+        if (item.y >= height) {
           playSound('bomb');
           item.el.remove();
           state.wordfallItems.splice(i, 1);
@@ -1663,9 +2418,9 @@
     function spawnWordfallEntity(width) {
       const words = state.spellingWords;
       const word = words[Math.floor(Math.random() * words.length)].toUpperCase();
-      
+
       const el = document.createElement('div');
-      el.className = 'absolute font-mono font-black text-sm sm:text-base px-3.5 py-1.5 rounded-xl bg-indigo-950/90 border-2 border-indigo-400 text-white shadow-lg tracking-widest uppercase';
+      el.className = 'wordfall-entity';
       el.innerText = word;
 
       const x = Math.max(10, Math.min(width - 120, Math.random() * (width - 130)));
@@ -1683,33 +2438,26 @@
 
       const matchIdx = state.wordfallItems.findIndex(item => item.word === typed);
       if (matchIdx !== -1) {
-        // Laser blast match!
         playSound('laser');
         const item = state.wordfallItems[matchIdx];
-        item.el.style.background = '#22c55e';
-        item.el.style.transform = 'scale(1.3)';
-        setTimeout(() => item.el.remove(), 150);
+        item.el.style.background = 'var(--success-bg)';
+        item.el.style.borderColor = 'var(--success)';
+        setTimeout(() => item.el.remove(), 120);
         state.wordfallItems.splice(matchIdx, 1);
 
         state.wordfallCombo++;
         const pts = Math.round((80 + state.wordfallCombo * 20) * DIFFICULTY_SETTINGS[state.difficulty].scoreMultiplier);
-        state.wordfallScore += pts;
         state.totalScore += pts;
-        document.getElementById('wordfallScore').innerText = state.wordfallScore;
         document.getElementById('wordfallCombo').innerText = `${state.wordfallCombo}x`;
         updateHeaderStats();
         input.value = '';
       } else {
         playSound('wrong');
-        input.classList.add('animate-shake');
-        setTimeout(() => input.classList.remove('animate-shake'), 400);
       }
     }
 
     document.getElementById('wordfallInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        checkWordfallSubmit();
-      }
+      if (e.key === 'Enter') checkWordfallSubmit();
     });
 
     function handleWordfallGameOver() {
@@ -1717,137 +2465,94 @@
       playSound('wrong');
       document.getElementById('wordfallOverlay').classList.remove('hidden');
       document.getElementById('wordfallOverlayTitle').innerText = 'Game Over!';
-      document.getElementById('wordfallOverlayDesc').innerText = `Final Defense Score: ${state.wordfallScore} XP at ${DIFFICULTY_SETTINGS[state.difficulty].label} tier.`;
-      recordLeaderboardEntry('wordfall', state.wordfallScore, state.wordfallCombo);
+      document.getElementById('wordfallOverlayDesc').innerText = `Final Score: ${state.totalScore} XP at ${DIFFICULTY_SETTINGS[state.difficulty].label} tier.`;
+      recordLeaderboardEntry('Wordfall', state.totalScore, state.wordfallCombo);
     }
 
-    // --- 14. LEADERBOARD SYSTEM ---
+    // --- 12. LEADERBOARD SYSTEM ---
     function getLeaderboardData() {
       const raw = localStorage.getItem('ww_leaderboard');
       if (!raw) {
         localStorage.setItem('ww_leaderboard', JSON.stringify(DEFAULT_LEADERBOARD));
         return DEFAULT_LEADERBOARD;
       }
-      try {
-        return JSON.parse(raw);
-      } catch (e) {
-        return DEFAULT_LEADERBOARD;
-      }
+      try { return JSON.parse(raw); } catch (e) { return DEFAULT_LEADERBOARD; }
     }
 
     function recordLeaderboardEntry(mode, score, streak) {
       if (score <= 0) return;
       const list = getLeaderboardData();
-      const entry = {
+      list.push({
         id: Date.now().toString(),
         name: state.playerName,
         score,
-        accuracy: Math.min(100, Math.max(80, 85 + Math.floor(Math.random() * 15))),
-        mode,
+        mode: mode.charAt(0).toUpperCase() + mode.slice(1),
         difficulty: state.difficulty,
-        streak,
-        date: new Date().toISOString().split('T')[0]
-      };
-      
-      // Keep top entries
-      list.push(entry);
-      list.sort((a, b) => b.score - a.score);
-      localStorage.setItem('ww_leaderboard', JSON.stringify(list.slice(0, 30)));
-    }
-
-    function setLeaderboardFilter(mode) {
-      state.lbModeFilter = mode;
-      document.querySelectorAll('.lb-filter-btn').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'font-bold');
-        btn.classList.add('font-medium', 'text-slate-300');
+        streak
       });
-      const activeBtn = document.getElementById(`lbFilter-${mode}`);
-      if (activeBtn) {
-        activeBtn.classList.remove('font-medium', 'text-slate-300');
-        activeBtn.classList.add('bg-indigo-600', 'text-white', 'font-bold');
-      }
-      renderLeaderboard();
+      list.sort((a, b) => b.score - a.score);
+      localStorage.setItem('ww_leaderboard', JSON.stringify(list.slice(0, 25)));
     }
 
     function renderLeaderboard() {
-      let data = getLeaderboardData();
-      const diffFilter = document.getElementById('lbDiffFilter').value;
-
-      if (state.lbModeFilter !== 'all') {
-        data = data.filter(item => item.mode === state.lbModeFilter);
-      }
-      if (diffFilter !== 'all') {
-        data = data.filter(item => item.difficulty === diffFilter);
-      }
-
+      const data = getLeaderboardData();
       data.sort((a, b) => b.score - a.score);
 
-      // Render Podium (top 3)
-      const podiumContainer = document.getElementById('leaderboardPodium');
-      podiumContainer.innerHTML = '';
-
+      // Podium
+      const podium = document.getElementById('leaderboardPodium');
+      podium.innerHTML = '';
       if (data.length >= 1) {
-        const top3 = [data[1], data[0], data[2]]; // 2nd, 1st, 3rd display
+        const top3 = [data[1] || { name: '-', score: 0 }, data[0], data[2] || { name: '-', score: 0 }];
         const medals = ['🥈 2nd', '🥇 1st', '🥉 3rd'];
-        const borderColors = ['border-slate-400', 'border-amber-400', 'border-amber-700'];
-
         top3.forEach((item, idx) => {
-          if (!item) return;
           const card = document.createElement('div');
-          card.className = `glass-card rounded-2xl p-4 flex flex-col items-center text-center border ${borderColors[idx]} ${idx === 1 ? 'sm:-translate-y-2 shadow-xl shadow-amber-500/10' : ''}`;
+          card.className = `podium-card ${idx === 1 ? 'first' : ''}`;
           card.innerHTML = `
-            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-white/10 mb-2">${medals[idx]}</span>
-            <h4 class="font-black text-lg text-white">${item.name}</h4>
-            <span class="text-2xl font-black text-amber-400 my-1">${item.score} <span class="text-xs font-normal text-slate-400">XP</span></span>
-            <div class="flex items-center gap-2 text-xs text-slate-400 mt-1">
-              <span class="uppercase">${item.mode}</span> • <span>${item.difficulty}</span>
-            </div>
+            <div class="podium-medal">${medals[idx]}</div>
+            <div class="podium-name">${item.name}</div>
+            <div class="podium-score">${item.score} <span style="font-size:0.7rem;">XP</span></div>
           `;
-          podiumContainer.appendChild(card);
+          podium.appendChild(card);
         });
       }
 
-      // Render Table Rows
+      // Table
       const tbody = document.getElementById('leaderboardTableBody');
       tbody.innerHTML = '';
-
-      if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500 text-sm">No scores recorded for this filter yet. Play a round to get on the board!</td></tr>`;
-        return;
-      }
-
       data.forEach((row, i) => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-white/5 transition';
         tr.innerHTML = `
-          <td class="py-3 px-3 font-mono font-bold ${i === 0 ? 'text-amber-400' : i === 1 ? 'text-slate-300' : i === 2 ? 'text-amber-600' : 'text-slate-400'}">#${i + 1}</td>
-          <td class="py-3 px-3 font-bold text-white">${row.name}</td>
-          <td class="py-3 px-3 text-slate-300 uppercase text-xs">${row.mode}</td>
-          <td class="py-3 px-3"><span class="px-2 py-0.5 rounded text-xs uppercase font-mono ${DIFFICULTY_SETTINGS[row.difficulty]?.badgeClass || ''}">${row.difficulty}</span></td>
-          <td class="py-3 px-3 font-black text-amber-400">${row.score}</td>
-          <td class="py-3 px-3 text-slate-300">${row.accuracy}%</td>
-          <td class="py-3 px-3 font-mono text-emerald-400">${row.streak}🔥</td>
-          <td class="py-3 px-3 text-slate-500 text-xs">${row.date || 'Today'}</td>
+          <td style="font-weight:700;">#${i + 1}</td>
+          <td><strong>${row.name}</strong></td>
+          <td>${row.mode}</td>
+          <td style="text-transform: capitalize;">${row.difficulty}</td>
+          <td style="font-weight:800; color:var(--accent-primary);">${row.score}</td>
+          <td>${row.streak}🔥</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
     function clearLeaderboardData() {
-      if (confirm('Reset and clear leaderboard scores to defaults?')) {
+      if (confirm('Reset leaderboard to defaults?')) {
         localStorage.setItem('ww_leaderboard', JSON.stringify(DEFAULT_LEADERBOARD));
         renderLeaderboard();
       }
     }
 
-    // --- 15. CUSTOM WORD VAULT ---
+    // --- 13. WORD & SENTENCE VAULT (CUSTOM CURRICULUM) ---
     function getCustomWords(diff) {
       try {
         const raw = localStorage.getItem(`ww_custom_words_${diff}`);
         return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
-      }
+      } catch (e) { return []; }
+    }
+
+    function getCustomSentences(diff) {
+      try {
+        const raw = localStorage.getItem(`ww_custom_sentences_${diff}`);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) { return []; }
     }
 
     function addCustomWord() {
@@ -1861,76 +2566,182 @@
         return;
       }
 
-      const existing = getCustomWords(diff);
-      if (!existing.includes(word)) {
-        existing.push(word);
-        localStorage.setItem(`ww_custom_words_${diff}`, JSON.stringify(existing));
+      const list = getCustomWords(diff);
+      if (!list.includes(word)) {
+        list.push(word);
+        localStorage.setItem(`ww_custom_words_${diff}`, JSON.stringify(list));
       }
 
       wordInput.value = '';
-      loadActiveWordPack();
-      renderVaultWords();
+      loadActiveCurriculum();
+      renderVaultUI();
       playSound('correct');
     }
 
-    function renderVaultWords() {
-      const container = document.getElementById('vaultWordsList');
-      container.innerHTML = '';
-      document.getElementById('vaultDiffTag').innerText = state.difficulty;
-
-      const words = state.spellingWords;
-      document.getElementById('vaultWordCount').innerText = `${words.length} words`;
-
-      words.forEach(w => {
-        const tag = document.createElement('span');
-        tag.className = 'px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-xs sm:text-sm font-mono text-white flex items-center gap-2 transition';
-        tag.innerHTML = `
-          <span>${w}</span>
-          <button onclick="speakText('${w}')" class="text-slate-400 hover:text-white">🔊</button>
-        `;
-        container.appendChild(tag);
-      });
+    function removeCustomWord(word, diff) {
+      let list = getCustomWords(diff);
+      list = list.filter(w => w !== word);
+      localStorage.setItem(`ww_custom_words_${diff}`, JSON.stringify(list));
+      loadActiveCurriculum();
+      renderVaultUI();
     }
 
-    function exportWordListJson() {
+    function addCustomSentence() {
+      const textInput = document.getElementById('newSentenceInput');
+      const targetInput = document.getElementById('newSentenceTarget');
+      const diffSelect = document.getElementById('newSentenceDifficulty');
+
+      let sentenceText = textInput.value.trim();
+      let targetWord = targetInput.value.trim().toLowerCase();
+      const diff = diffSelect.value;
+
+      if (!sentenceText) {
+        alert('Please enter a sentence!');
+        return;
+      }
+
+      // Extract bracketed target if present
+      const match = sentenceText.match(/\[(.*?)\]/);
+      if (match && match[1]) {
+        targetWord = match[1].toLowerCase();
+      } else if (!targetWord) {
+        alert('Please specify the target answer word or wrap it in brackets e.g. [sun]');
+        return;
+      } else if (!sentenceText.includes(`[${targetWord}]`)) {
+        sentenceText = sentenceText.replace(new RegExp(targetWord, 'i'), `[${targetWord}]`);
+      }
+
+      const list = getCustomSentences(diff);
+      list.push({
+        text: sentenceText,
+        word: targetWord,
+        difficulty: diff
+      });
+
+      localStorage.setItem(`ww_custom_sentences_${diff}`, JSON.stringify(list));
+
+      textInput.value = '';
+      targetInput.value = '';
+      loadActiveCurriculum();
+      renderVaultUI();
+      playSound('correct');
+    }
+
+    function removeCustomSentence(index, diff) {
+      const list = getCustomSentences(diff);
+      list.splice(index, 1);
+      localStorage.setItem(`ww_custom_sentences_${diff}`, JSON.stringify(list));
+      loadActiveCurriculum();
+      renderVaultUI();
+    }
+
+    function renderVaultUI() {
+      // 1. Words List
+      const wordsList = document.getElementById('vaultCustomWordsList');
+      wordsList.innerHTML = '';
+      let totalWords = 0;
+
+      ['easy', 'normal', 'hard', 'master'].forEach(diff => {
+        const words = getCustomWords(diff);
+        totalWords += words.length;
+        words.forEach(w => {
+          const chip = document.createElement('div');
+          chip.className = 'vault-chip';
+          chip.innerHTML = `
+            <span onclick="speakText('${w}')" style="cursor:pointer;">🔊 ${w}</span>
+            <span style="font-size:0.68rem; color:var(--text-muted); text-transform:uppercase;">(${diff})</span>
+            <span class="vault-chip-remove" onclick="removeCustomWord('${w}', '${diff}')" title="Delete">✕</span>
+          `;
+          wordsList.appendChild(chip);
+        });
+      });
+
+      if (totalWords === 0) {
+        wordsList.innerHTML = '<span style="font-size:0.8rem; color:var(--text-muted);">No custom words added yet. Type a word above!</span>';
+      }
+      document.getElementById('vaultWordCount').innerText = `${totalWords} custom words`;
+
+      // 2. Sentences List
+      const sentContainer = document.getElementById('vaultCustomSentencesList');
+      sentContainer.innerHTML = '';
+      let totalSentences = 0;
+
+      ['easy', 'normal', 'hard', 'master'].forEach(diff => {
+        const sentences = getCustomSentences(diff);
+        totalSentences += sentences.length;
+        sentences.forEach((s, idx) => {
+          const card = document.createElement('div');
+          card.className = 'custom-sentence-card';
+          card.innerHTML = `
+            <div>
+              <span class="custom-sentence-text">${s.text}</span>
+              <span class="custom-sentence-target">${s.word}</span>
+              <span style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase; margin-left:6px;">(${diff})</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button class="icon-btn" style="width:28px; height:28px; font-size:12px;" onclick="speakText('${s.text.replace(/\[|\]/g, '')}')">🔊</button>
+              <button class="btn-control dashed" style="margin-bottom:0; padding:3px 8px; font-size:0.72rem; color:var(--danger); border-color:var(--danger);" onclick="removeCustomSentence(${idx}, '${diff}')">Delete</button>
+            </div>
+          `;
+          sentContainer.appendChild(card);
+        });
+      });
+
+      if (totalSentences === 0) {
+        sentContainer.innerHTML = '<div style="font-size:0.8rem; color:var(--text-muted); padding:6px 0;">No custom sentences added yet. Add one above!</div>';
+      }
+      document.getElementById('vaultSentenceCount').innerText = `${totalSentences} custom sentences`;
+    }
+
+    function exportVaultJson() {
       const data = {
-        difficulty: state.difficulty,
-        words: state.spellingWords
+        words: {
+          easy: getCustomWords('easy'),
+          normal: getCustomWords('normal'),
+          hard: getCustomWords('hard'),
+          master: getCustomWords('master')
+        },
+        sentences: {
+          easy: getCustomSentences('easy'),
+          normal: getCustomSentences('normal'),
+          hard: getCustomSentences('hard'),
+          master: getCustomSentences('master')
+        }
       };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `wordwonders-${state.difficulty}-words.json`;
+      a.download = `sproutlab-wordvault-${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
     }
 
-    function promptImportJson() {
-      const raw = prompt('Paste your word list JSON array: (e.g. ["galaxy", "orbit", "planet"])');
+    function promptImportVaultJson() {
+      const raw = prompt('Paste your Word Vault JSON:');
       if (raw) {
         try {
           const parsed = JSON.parse(raw);
-          const list = Array.isArray(parsed) ? parsed : parsed.words;
-          if (Array.isArray(list)) {
-            localStorage.setItem(`ww_custom_words_${state.difficulty}`, JSON.stringify(list));
-            loadActiveWordPack();
-            renderVaultWords();
-            alert(`Imported ${list.length} words!`);
+          if (parsed.words) {
+            Object.keys(parsed.words).forEach(diff => {
+              localStorage.setItem(`ww_custom_words_${diff}`, JSON.stringify(parsed.words[diff]));
+            });
           }
+          if (parsed.sentences) {
+            Object.keys(parsed.sentences).forEach(diff => {
+              localStorage.setItem(`ww_custom_sentences_${diff}`, JSON.stringify(parsed.sentences[diff]));
+            });
+          }
+          loadActiveCurriculum();
+          renderVaultUI();
+          alert('Vault imported successfully!');
         } catch (e) {
           alert('Invalid JSON format.');
         }
       }
     }
 
-    // Keyboard styling classes
-    const vkeyStyles = 'w-7 h-10 sm:w-10 sm:h-12 rounded-lg bg-white/10 hover:bg-white/20 active:bg-indigo-600 text-white font-bold text-sm sm:text-base flex items-center justify-center transition border border-white/10 shadow';
-    const vkeyWideStyles = 'px-3 h-10 sm:h-12 rounded-lg font-bold text-xs sm:text-sm flex items-center justify-center transition border border-white/10 shadow';
-    document.querySelectorAll('.vkey').forEach(el => el.className = vkeyStyles);
-    document.querySelectorAll('.vkey-wide').forEach(el => el.className = vkeyWideStyles);
-
-    // Boot up
+    // --- BOOT UP ---
     window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
