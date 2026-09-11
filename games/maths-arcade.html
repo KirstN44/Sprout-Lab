@@ -3,85 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Math Arcade</title>
-  <meta name="description" content="An interactive, speed-focused mental arithmetic trainer with multiple practice modes, visual number line hints, and custom equation lists." />
-  <meta property="og:title" content="Math Arcade" />
-  <meta property="og:description" content="An interactive, speed-focused mental arithmetic trainer with multiple practice modes, visual number line hints, and custom equation lists." />
+  <title>Maths Lab Arcade - Sprout Lab</title>
+  <meta name="description" content="An interactive mental arithmetic training deck with Speed Math, Missing Values, Multiple Choice, visual number line hints, and custom equation lists." />
+  <meta property="og:title" content="Maths Lab Arcade - Sprout Lab" />
+  <meta property="og:description" content="An interactive mental arithmetic training deck with Speed Math, Missing Values, Multiple Choice, visual number line hints, and custom equation lists." />
   <meta property="og:type" content="website" />
   <style>
     /* ==========================================================================
-       CSS Variables & Themes
+       CSS Variables & Themes (Aligned to Sprout Lab Design System)
        ========================================================================== */
-    :root, [data-theme="dark"] {
-      --bg-gradient: linear-gradient(135deg, #181828 0%, #0f0f1a 100%);
-      --card-bg: rgba(26, 26, 42, 0.95);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-primary: #6366f1;
-      --accent-primary-hover: #4f46e5;
-      --accent-glow: rgba(99, 102, 241, 0.25);
+    :root, [data-theme="light"] {
+      --bg-page: #f8faf8;
+      --card-bg: #ffffff;
+      --card-border: #c9dde7;
+      --text-main: #192723;
+      --text-muted: #536962;
+      --accent-primary: #196f8c;
+      --accent-primary-hover: #13556c;
+      --accent-glow: rgba(25, 111, 140, 0.16);
+      --button-bg: #f4f8fa;
+      --button-hover: #e9f2f6;
+      --key-bg: #ffffff;
+      --key-border: #d4e3ec;
+      --key-hover: #f0f6fa;
+      --key-active: rgba(25, 111, 140, 0.22);
+      --box-bg: #f5f9fb;
+      --success: #2e7d54;
+      --success-bg: #edf7f1;
+      --danger: #c53030;
+      --danger-bg: #fef2f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --slot-border: #196f8c;
+      --header-bg: #ffffff;
+      --header-border: #e1e8e3;
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #131b18;
+      --card-bg: #1c2622;
+      --card-border: #2d3e37;
+      --text-main: #f0f6f2;
+      --text-muted: #95ada3;
+      --accent-primary: #38bdf8;
+      --accent-primary-hover: #0284c7;
+      --accent-glow: rgba(56, 189, 248, 0.22);
       --button-bg: rgba(255, 255, 255, 0.06);
-      --button-hover: rgba(255, 255, 255, 0.12);
-      --key-bg: rgba(255, 255, 255, 0.08);
-      --key-hover: rgba(255, 255, 255, 0.16);
-      --key-active: rgba(99, 102, 241, 0.3);
-      --box-bg: rgba(0, 0, 0, 0.25);
-      --success: #10b981;
-      --success-bg: rgba(16, 185, 129, 0.2);
-      --danger: #ef4444;
-      --danger-bg: rgba(239, 68, 68, 0.2);
-      --warning: #f59e0b;
-      --warning-bg: rgba(245, 158, 11, 0.15);
-      --slot-border: #6366f1;
+      --button-hover: rgba(255, 255, 255, 0.11);
+      --key-bg: #24322d;
+      --key-border: #33463f;
+      --key-hover: #2e3f39;
+      --key-active: rgba(56, 189, 248, 0.25);
+      --box-bg: #16201c;
+      --success: #34d399;
+      --success-bg: rgba(52, 211, 153, 0.18);
+      --danger: #f87171;
+      --danger-bg: rgba(248, 113, 113, 0.18);
+      --warning: #fbbf24;
+      --warning-bg: rgba(251, 191, 36, 0.18);
+      --slot-border: #38bdf8;
+      --header-bg: #17211d;
+      --header-border: #25332c;
     }
 
     [data-theme="sunset"] {
-      --bg-gradient: linear-gradient(135deg, #2a1128 0%, #150614 100%);
-      --card-bg: rgba(45, 18, 42, 0.95);
-      --card-border: rgba(255, 255, 255, 0.12);
-      --text-main: #fff1f2;
-      --text-muted: #f472b6;
-      --accent-primary: #f43f5e;
-      --accent-primary-hover: #e11d48;
-      --accent-glow: rgba(244, 63, 94, 0.28);
-      --button-bg: rgba(255, 255, 255, 0.07);
-      --button-hover: rgba(255, 255, 255, 0.14);
-      --key-bg: rgba(255, 255, 255, 0.09);
-      --key-hover: rgba(255, 255, 255, 0.18);
-      --key-active: rgba(244, 63, 94, 0.3);
-      --box-bg: rgba(0, 0, 0, 0.25);
-      --success: #34d399;
-      --success-bg: rgba(52, 211, 153, 0.2);
-      --danger: #fb7185;
-      --danger-bg: rgba(251, 113, 133, 0.2);
-      --warning: #fbbf24;
-      --warning-bg: rgba(251, 191, 36, 0.18);
-      --slot-border: #f43f5e;
-    }
-
-    [data-theme="light"] {
-      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-      --card-bg: rgba(255, 255, 255, 0.98);
-      --card-border: rgba(0, 0, 0, 0.1);
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --accent-primary: #0284c7;
-      --accent-primary-hover: #0369a1;
-      --accent-glow: rgba(2, 132, 199, 0.2);
-      --button-bg: rgba(0, 0, 0, 0.04);
-      --button-hover: rgba(0, 0, 0, 0.08);
-      --key-bg: rgba(0, 0, 0, 0.05);
-      --key-hover: rgba(0, 0, 0, 0.1);
-      --key-active: rgba(2, 132, 199, 0.2);
-      --box-bg: rgba(0, 0, 0, 0.03);
-      --success: #059669;
-      --success-bg: rgba(5, 150, 105, 0.15);
-      --danger: #dc2626;
-      --danger-bg: rgba(220, 38, 38, 0.15);
-      --warning: #d97706;
-      --warning-bg: rgba(217, 119, 6, 0.15);
-      --slot-border: #0284c7;
+      --bg-page: #f7f3eb;
+      --card-bg: #ffffff;
+      --card-border: #e4dacd;
+      --text-main: #2b221a;
+      --text-muted: #786657;
+      --accent-primary: #a45a2a;
+      --accent-primary-hover: #86461e;
+      --accent-glow: rgba(164, 90, 42, 0.18);
+      --button-bg: #faf5ee;
+      --button-hover: #f1e9dd;
+      --key-bg: #ffffff;
+      --key-border: #e4dacc;
+      --key-hover: #f7f2ea;
+      --key-active: rgba(164, 90, 42, 0.22);
+      --box-bg: #fbf7f0;
+      --success: #2e7d54;
+      --success-bg: #edf7f1;
+      --danger: #c53030;
+      --danger-bg: #fef2f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --slot-border: #a45a2a;
+      --header-bg: #ffffff;
+      --header-border: #e8ded2;
     }
 
     /* ==========================================================================
@@ -91,18 +100,16 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      background: var(--bg-gradient);
+      background-color: var(--bg-page);
       color: var(--text-main);
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      transition: background 0.3s ease, color 0.3s ease;
+      flex-direction: column;
+      transition: background-color 0.25s ease, color 0.25s ease;
       touch-action: manipulation;
     }
 
@@ -113,19 +120,207 @@
       user-select: none;
     }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
     /* ==========================================================================
-       Card Container
+       SPROUT LAB SITE HEADER
        ========================================================================== */
+    .site-header {
+      background-color: var(--header-bg);
+      border-bottom: 1px solid var(--header-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .site-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #2e7d54;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    [data-theme="dark"] .site-title {
+      color: #34d399;
+    }
+
+    .site-tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .site-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 6px;
+    }
+
+    .nav-link {
+      padding: 7px 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 8px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent-primary);
+      background-color: var(--button-bg);
+    }
+
+    /* ==========================================================================
+       BREADCRUMB STRIP
+       ========================================================================== */
+    .breadcrumb-strip {
+      background-color: var(--button-bg);
+      border-bottom: 1px solid var(--card-border);
+      padding: 8px 0;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .breadcrumb-inner {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .breadcrumb-back {
+      font-weight: 600;
+      color: var(--accent-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .breadcrumb-back:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb-separator {
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+
+    .breadcrumb-current {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       MAIN APP PLAYING CARD
+       ========================================================================== */
+    .game-arena-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px 48px;
+    }
+
     .app-card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
+      border: 2.5px solid var(--card-border);
+      border-radius: 20px;
       width: 100%;
-      max-width: 480px;
-      padding: 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(16px);
+      max-width: 500px;
+      padding: 10px;
+      box-shadow: 0 12px 32px rgba(25, 39, 35, 0.08), 0 2px 6px rgba(25, 39, 35, 0.04);
       position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .card-inner-frame {
+      border: 1px dashed var(--card-border);
+      border-radius: 14px;
+      padding: 18px 18px 20px;
+      position: relative;
+    }
+
+    /* Authentic Corner Pips (Rank M, Suit ♦ for Maths Lab) */
+    .card-pip {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      color: var(--accent-primary);
+      pointer-events: none;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .card-pip-tl {
+      top: 10px;
+      left: 10px;
+    }
+
+    .card-pip-br {
+      bottom: 10px;
+      right: 10px;
+      transform: rotate(180deg);
+    }
+
+    .pip-rank {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .pip-suit {
+      font-size: 0.78rem;
+      margin-top: 1px;
+    }
+
+    /* Series Tag Header */
+    .card-series-header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .card-series-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background-color: var(--button-bg);
+      color: var(--accent-primary);
+      border: 1px solid var(--card-border);
     }
 
     /* Top Utility Bar */
@@ -133,7 +328,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--card-border);
     }
@@ -151,18 +346,21 @@
       width: 32px;
       height: 32px;
       border-radius: 10px;
-      background: var(--accent-glow);
-      border: 1px solid var(--accent-primary);
+      background: var(--button-bg);
+      border: 1.5px solid var(--accent-primary);
+      color: var(--accent-primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
+      font-weight: 800;
     }
 
     .brand-title {
       font-size: 1.15rem;
       font-weight: 800;
       letter-spacing: -0.3px;
+      font-family: Georgia, "Times New Roman", serif;
     }
 
     .top-actions {
@@ -188,6 +386,7 @@
 
     .icon-btn:hover {
       background: var(--button-hover);
+      border-color: var(--accent-primary);
       transform: translateY(-1px);
     }
 
@@ -227,7 +426,7 @@
     /* Screen Views */
     .view-screen {
       display: none;
-      animation: fadeIn 0.25s ease-out;
+      animation: fadeIn 0.22s ease-out;
     }
 
     .view-screen.active {
@@ -256,56 +455,60 @@
     }
 
     .screen-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -0.3px;
       margin-bottom: 4px;
+      color: var(--text-main);
+      font-family: Georgia, "Times New Roman", serif;
     }
 
     .screen-subtitle {
       color: var(--text-muted);
       font-size: 0.85rem;
+      line-height: 1.45;
     }
 
     /* Welcome Box */
     .welcome-hero {
       text-align: center;
-      margin: 12px 0 20px;
+      margin: 8px 0 18px;
     }
 
     .welcome-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 64px;
-      height: 64px;
-      border-radius: 20px;
-      background: var(--accent-glow);
-      border: 1px solid var(--accent-primary);
-      font-size: 2rem;
-      margin-bottom: 12px;
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: var(--button-bg);
+      border: 2px solid var(--accent-primary);
+      color: var(--accent-primary);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
     }
 
     .feature-card {
       background: var(--box-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 20px;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
     }
 
     .feature-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .feature-card-title {
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.08em;
       color: var(--accent-primary);
     }
 
@@ -313,7 +516,7 @@
       font-size: 0.72rem;
       padding: 3px 8px;
       border-radius: 999px;
-      background: var(--button-bg);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
       font-weight: 600;
@@ -323,7 +526,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
     }
 
     .feature-item {
@@ -339,13 +542,14 @@
       width: 20px;
       height: 20px;
       border-radius: 6px;
-      background: var(--accent-glow);
+      background: var(--button-bg);
+      border: 1px solid var(--card-border);
       color: var(--accent-primary);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       flex-shrink: 0;
       margin-top: 1px;
     }
@@ -357,8 +561,8 @@
     /* Buttons */
     .btn-control {
       width: 100%;
-      padding: 13px 16px;
-      border-radius: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
       font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
@@ -375,6 +579,7 @@
 
     .btn-control:hover {
       background: var(--button-hover);
+      border-color: var(--accent-primary);
       transform: translateY(-1px);
     }
 
@@ -383,14 +588,15 @@
     }
 
     .btn-control.primary {
-      background: var(--accent-primary);
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-hover) 100%);
       color: #ffffff;
       border: none;
-      box-shadow: 0 4px 14px var(--accent-glow);
+      box-shadow: 0 4px 12px var(--accent-glow);
     }
 
     .btn-control.primary:hover {
-      background: var(--accent-primary-hover);
+      box-shadow: 0 6px 16px var(--accent-glow);
+      filter: brightness(1.05);
     }
 
     .btn-control.dashed {
@@ -419,7 +625,7 @@
     .mode-card {
       width: 100%;
       padding: 14px 16px;
-      border-radius: 16px;
+      border-radius: 14px;
       background: var(--box-bg);
       border: 1px solid var(--card-border);
       display: flex;
@@ -436,6 +642,7 @@
       border-color: var(--accent-primary);
       background: var(--button-hover);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(25, 39, 35, 0.05);
     }
 
     .mode-card-left {
@@ -445,19 +652,19 @@
     }
 
     .mode-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--button-bg);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 19px;
     }
 
     .mode-name {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
       margin-bottom: 2px;
     }
@@ -484,9 +691,10 @@
 
     .progress-track {
       width: 100%;
-      height: 6px;
+      height: 7px;
       border-radius: 999px;
       background: var(--button-bg);
+      border: 1px solid var(--card-border);
       overflow: hidden;
     }
 
@@ -502,11 +710,11 @@
     .prompt-box {
       background: var(--box-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 14px;
       text-align: center;
-      margin-bottom: 18px;
-      transition: all 0.3s ease;
+      margin-bottom: 16px;
+      transition: all 0.25s ease;
     }
 
     .prompt-box.state-correct {
@@ -529,6 +737,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      color: var(--text-main);
     }
 
     .prompt-actions {
@@ -538,7 +747,7 @@
     }
 
     .pill-btn {
-      background: var(--button-bg);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       color: var(--text-main);
       padding: 6px 14px;
@@ -554,12 +763,13 @@
 
     .pill-btn:hover {
       background: var(--button-hover);
+      border-color: var(--accent-primary);
       transform: translateY(-1px);
     }
 
     .pill-btn.active {
-      background: var(--warning);
-      color: #000000;
+      background: var(--warning-bg);
+      color: var(--warning);
       border-color: var(--warning);
       box-shadow: 0 2px 8px var(--warning-bg);
     }
@@ -594,8 +804,9 @@
       gap: 10px;
       font-size: 1.8rem;
       font-weight: 800;
-      margin: 12px 0 20px 0;
+      margin: 12px 0 18px 0;
       min-height: 56px;
+      color: var(--text-main);
     }
 
     .slot-display {
@@ -606,8 +817,9 @@
     .digit-slot {
       width: 44px;
       height: 54px;
-      background: var(--box-bg);
-      border-bottom: 3.5px solid var(--slot-border);
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-bottom: 4px solid var(--slot-border);
       border-radius: 10px 10px 4px 4px;
       font-size: 1.8rem;
       font-weight: 900;
@@ -615,6 +827,8 @@
       align-items: center;
       justify-content: center;
       transition: all 0.15s ease;
+      color: var(--text-main);
+      box-shadow: 0 2px 4px rgba(25, 39, 35, 0.04);
     }
 
     .digit-slot.active-slot {
@@ -645,8 +859,8 @@
 
     .num-key {
       background: var(--key-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
+      border: 1px solid var(--key-border);
+      border-radius: 12px;
       color: var(--text-main);
       font-size: 1.35rem;
       font-weight: 700;
@@ -656,11 +870,12 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.1s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(25, 39, 35, 0.05);
     }
 
     .num-key:hover {
       background: var(--key-hover);
+      border-color: var(--accent-primary);
       transform: translateY(-1px);
     }
 
@@ -672,14 +887,14 @@
     .num-key.action-clear {
       background: var(--warning-bg);
       color: var(--warning);
-      border-color: rgba(245, 158, 11, 0.3);
+      border-color: rgba(180, 83, 9, 0.3);
       font-size: 1rem;
     }
 
     .num-key.action-delete {
       background: var(--danger-bg);
       color: var(--danger);
-      border-color: rgba(239, 68, 68, 0.3);
+      border-color: rgba(197, 48, 48, 0.3);
       font-size: 1.1rem;
     }
 
@@ -695,24 +910,26 @@
     .option-btn {
       background: var(--key-bg);
       border: 2px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 14px;
       width: 100%;
-      height: 80px;
+      height: 78px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 800;
       color: var(--text-main);
       cursor: pointer;
       transition: all 0.15s ease;
       position: relative;
+      box-shadow: 0 2px 4px rgba(25, 39, 35, 0.04);
     }
 
     .option-btn:hover {
       transform: translateY(-2px);
       background: var(--key-hover);
       border-color: var(--accent-primary);
+      box-shadow: 0 4px 10px var(--accent-glow);
     }
 
     .option-btn:active {
@@ -727,6 +944,7 @@
       font-weight: 700;
       color: var(--text-muted);
       background: var(--button-bg);
+      border: 1px solid var(--card-border);
       padding: 2px 6px;
       border-radius: 6px;
     }
@@ -746,11 +964,11 @@
     /* Summary Card */
     .summary-hero {
       text-align: center;
-      margin: 10px 0 16px;
+      margin: 8px 0 16px;
     }
 
     .summary-score {
-      font-size: 3.5rem;
+      font-size: 3.3rem;
       font-weight: 900;
       color: var(--accent-primary);
       line-height: 1;
@@ -763,7 +981,7 @@
       gap: 8px;
       background: var(--box-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 14px;
       margin-bottom: 20px;
     }
@@ -792,10 +1010,10 @@
     }
 
     .form-label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.06em;
       color: var(--accent-primary);
       margin-bottom: 6px;
       display: flex;
@@ -805,9 +1023,9 @@
 
     .form-control {
       width: 100%;
-      background: var(--box-bg);
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
+      border-radius: 10px;
       color: var(--text-main);
       padding: 10px 12px;
       font-size: 0.88rem;
@@ -817,6 +1035,7 @@
 
     .form-control:focus {
       border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
     }
 
     textarea.form-control {
@@ -852,7 +1071,7 @@
     .btn-delete {
       background: var(--danger-bg);
       color: var(--danger);
-      border: 1px solid rgba(239, 68, 68, 0.3);
+      border: 1px solid rgba(197, 48, 48, 0.3);
       border-radius: 6px;
       padding: 4px 8px;
       cursor: pointer;
@@ -882,266 +1101,388 @@
       justify-content: space-between;
       font-size: 0.72rem;
       color: var(--text-muted);
-      opacity: 0.7;
+      opacity: 0.8;
+    }
+
+    /* ==========================================================================
+       SPROUT LAB SITE FOOTER
+       ========================================================================== */
+    .site-footer {
+      border-top: 1px solid var(--header-border);
+      background-color: var(--header-bg);
+      padding: 24px 0;
+      margin-top: auto;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 18px;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .header-inner {
+        flex-direction: column;
+        height: auto;
+        padding: 14px 0;
+        gap: 10px;
+      }
+      .brand-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .site-tagline {
+        display: none;
+      }
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .card-pip {
+        display: none;
+      }
     }
   </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
-  <main class="app-card" id="math-arcade-app">
-
-    <!-- Top Utility Navigation -->
-    <header class="top-bar">
-      <div class="brand" onclick="showScreen('view-welcome')">
-        <div class="brand-icon">⚡</div>
-        <div>
-          <h1 class="brand-title">Math Arcade</h1>
-        </div>
+  <!-- Sprout Lab Navigation Header -->
+  <header id="site-header" class="site-header">
+    <div class="container header-inner">
+      <div id="brand-container" class="brand-group">
+        <a id="brand-link" href="../index.html" class="site-title">
+          <span>Sprout Lab</span>
+        </a>
+        <span id="brand-tagline" class="site-tagline">Interactive Learning &amp; Games for Kids</span>
       </div>
 
-      <div class="top-actions">
-        <!-- Sound Effect Toggle -->
-        <button class="icon-btn" id="btn-sound-toggle" onclick="toggleAudio()" title="Toggle Sound FX">🔊</button>
-
-        <!-- Theme Picker -->
-        <div class="theme-picker">
-          <button class="theme-pill active" id="btn-theme-dark" onclick="setTheme('dark')" title="Modern Dark">🌙</button>
-          <button class="theme-pill" id="btn-theme-sunset" onclick="setTheme('sunset')" title="Sunset Violet">🌅</button>
-          <button class="theme-pill" id="btn-theme-light" onclick="setTheme('light')" title="Minimal Light">⚪</button>
-        </div>
-
-        <!-- Settings Button -->
-        <button class="icon-btn" onclick="showScreen('view-settings')" title="Settings & Custom Curriculum">⚙️</button>
-      </div>
-    </header>
-
-    <!-- 1. WELCOME SCREEN -->
-    <section id="view-welcome" class="view-screen active">
-      <div class="welcome-hero">
-        <div class="welcome-badge">⚡</div>
-        <h2 class="screen-title">Mental Math Practice</h2>
-        <p class="screen-subtitle">Sharpen your recall, speed, and accuracy with visual number lines</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-card-header">
-          <span class="feature-card-title">Practice Modes</span>
-          <span class="badge" id="welcome-badge-count">Library Ready</span>
-        </div>
-        <ul class="feature-list">
-          <li class="feature-item">
-            <div class="feature-number">1</div>
-            <div><strong>Speed Math:</strong> Solve arithmetic quickly with numeric slot input.</div>
-          </li>
-          <li class="feature-item">
-            <div class="feature-number">2</div>
-            <div><strong>Missing Values:</strong> Find missing addends (? + 7 = 15) in context.</div>
-          </li>
-          <li class="feature-item">
-            <div class="feature-number">3</div>
-            <div><strong>Multiple Choice:</strong> Rapid calculation drills with 4 choices.</div>
-          </li>
-          <li class="feature-item">
-            <div class="feature-number">4</div>
-            <div><strong>Visual Aids:</strong> Dynamic SVG number lines & audible speech.</div>
-          </li>
+      <nav id="site-nav" class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a id="nav-link-home" href="../index.html" class="nav-link">Home</a></li>
+          <li><a id="nav-link-arena" href="../arena.html" class="nav-link active">Arena</a></li>
+          <li><a id="nav-link-about" href="../about.html" class="nav-link">About</a></li>
+          <li><a id="nav-link-blog" href="../blog.html" class="nav-link">Blog</a></li>
         </ul>
-      </div>
+      </nav>
+    </div>
+  </header>
 
-      <button class="btn-control primary" onclick="showScreen('view-menu')">⚡ Start Practice</button>
-      <button class="btn-control" onclick="showScreen('view-settings')">⚙️ Settings & Custom Lists</button>
-    </section>
+  <!-- Sprout Lab Breadcrumb Strip -->
+  <div class="breadcrumb-strip">
+    <div class="container breadcrumb-inner">
+      <a href="../arena.html" class="breadcrumb-back">&larr; Return to Practice Arena</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Maths Lab &bull; Numeracy Deck</span>
+    </div>
+  </div>
 
-    <!-- 2. MENU SELECTION SCREEN -->
-    <section id="view-menu" class="view-screen">
-      <div class="screen-header">
-        <h2 class="screen-title">Select Practice Mode</h2>
-        <p class="screen-subtitle">Choose a training drill format</p>
-      </div>
+  <!-- Main Playing Card Wrapper -->
+  <div class="game-arena-wrapper">
+    <main class="app-card" id="math-arcade-app">
+      <div class="card-inner-frame">
 
-      <div class="mode-card" onclick="startActivity('speedmath')">
-        <div class="mode-card-left">
-          <div class="mode-icon-box">🔢</div>
-          <div>
-            <div class="mode-name">Speed Math</div>
-            <div class="mode-desc">Direct equation solving with digit slot input</div>
+        <!-- Authentic Corner Pips (Rank M, Suit ♦ for Maths Lab) -->
+        <div class="card-pip card-pip-tl" aria-hidden="true">
+          <span class="pip-rank">M</span>
+          <span class="pip-suit">&#9830;</span>
+        </div>
+        <div class="card-pip card-pip-br" aria-hidden="true">
+          <span class="pip-rank">M</span>
+          <span class="pip-suit">&#9830;</span>
+        </div>
+
+        <!-- Series Tag Ribbon -->
+        <div class="card-series-header">
+          <span class="card-series-tag">Suite II &bull; Numeracy Deck</span>
+        </div>
+
+        <!-- Top Utility Navigation Bar -->
+        <header class="top-bar">
+          <div class="brand" onclick="showScreen('view-welcome')">
+            <div class="brand-icon">&#9830;</div>
+            <div>
+              <h1 class="brand-title">Maths Lab Arcade</h1>
+            </div>
           </div>
-        </div>
-        <span class="badge" id="badge-count-speedmath">6 items</span>
-      </div>
 
-      <div class="mode-card" onclick="startActivity('fillin')">
-        <div class="mode-card-left">
-          <div class="mode-icon-box">🧩</div>
-          <div>
-            <div class="mode-name">Missing Values</div>
-            <div class="mode-desc">Find the unknown number (? + b = c)</div>
+          <div class="top-actions">
+            <!-- Sound Effect Toggle -->
+            <button class="icon-btn" id="btn-sound-toggle" onclick="toggleAudio()" title="Toggle Sound FX">🔊</button>
+
+            <!-- Theme Picker -->
+            <div class="theme-picker">
+              <button class="theme-pill active" id="btn-theme-light" onclick="setTheme('light')" title="Sprout Daylight">⚪</button>
+              <button class="theme-pill" id="btn-theme-dark" onclick="setTheme('dark')" title="Calm Dusk">🌙</button>
+              <button class="theme-pill" id="btn-theme-sunset" onclick="setTheme('sunset')" title="Warm Parchment">🌅</button>
+            </div>
+
+            <!-- Settings Button -->
+            <button class="icon-btn" onclick="showScreen('view-settings')" title="Settings & Custom Curriculum">⚙️</button>
           </div>
-        </div>
-        <span class="badge" id="badge-count-fillin">6 items</span>
-      </div>
+        </header>
 
-      <div class="mode-card" onclick="startActivity('choice')">
-        <div class="mode-card-left">
-          <div class="mode-icon-box">🎯</div>
-          <div>
-            <div class="mode-name">Multiple Choice</div>
-            <div class="mode-desc">Fast recognition drills with 4 options</div>
+        <!-- 1. WELCOME SCREEN -->
+        <section id="view-welcome" class="view-screen active">
+          <div class="welcome-hero">
+            <div class="welcome-badge">&#9830;</div>
+            <h2 class="screen-title">Mental Math Practice</h2>
+            <p class="screen-subtitle">Sharpen your recall, speed, and accuracy with visual number lines</p>
           </div>
-        </div>
-        <span class="badge" id="badge-count-choice">6 items</span>
-      </div>
 
-      <button class="btn-control dashed" onclick="showScreen('view-welcome')">🏠 Return Home</button>
-    </section>
-
-    <!-- 3. GAMEPLAY SCREEN (SPEED MATH & MISSING VALUES) -->
-    <section id="view-gameplay" class="view-screen">
-      <div class="progress-wrapper">
-        <div class="meta-bar">
-          <span id="gameplay-counter">Problem 1 of 6</span>
-          <span id="gameplay-mode-label">Solve the problem</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="gameplay-progress-bar"></div>
-        </div>
-      </div>
-
-      <div class="prompt-box" id="gameplay-prompt-box">
-        <div class="prompt-title" id="gameplay-prompt-title">SOLVE THE EQUATION</div>
-        <div class="prompt-actions">
-          <button class="pill-btn" onclick="playAudioPrompt()">🔊 Listen</button>
-          <button class="pill-btn" id="btn-hint-gameplay" onclick="toggleHint('hint-drawer-gameplay')">💡 Hint</button>
-        </div>
-        <div class="hint-drawer" id="hint-drawer-gameplay"></div>
-      </div>
-
-      <div class="equation-container" id="equation-display"></div>
-
-      <!-- Virtual Numpad -->
-      <div class="numpad">
-        <button class="num-key" onclick="handleDigit('1')">1</button>
-        <button class="num-key" onclick="handleDigit('2')">2</button>
-        <button class="num-key" onclick="handleDigit('3')">3</button>
-        <button class="num-key" onclick="handleDigit('4')">4</button>
-        <button class="num-key" onclick="handleDigit('5')">5</button>
-        <button class="num-key" onclick="handleDigit('6')">6</button>
-        <button class="num-key" onclick="handleDigit('7')">7</button>
-        <button class="num-key" onclick="handleDigit('8')">8</button>
-        <button class="num-key" onclick="handleDigit('9')">9</button>
-        <button class="num-key action-clear" onclick="handleClear()">C</button>
-        <button class="num-key" onclick="handleDigit('0')">0</button>
-        <button class="num-key action-delete" onclick="handleDelete()">⌫</button>
-      </div>
-
-      <div class="btn-grid-2">
-        <button class="btn-control dashed" onclick="skipItem()">⏭️ Skip</button>
-        <button class="btn-control" onclick="showScreen('view-menu')">Menu</button>
-      </div>
-    </section>
-
-    <!-- 4. MULTIPLE CHOICE SCREEN -->
-    <section id="view-choice" class="view-screen">
-      <div class="progress-wrapper">
-        <div class="meta-bar">
-          <span id="choice-counter">Problem 1 of 6</span>
-          <span>Select the correct answer</span>
-        </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="choice-progress-bar"></div>
-        </div>
-      </div>
-
-      <div class="prompt-box" id="choice-prompt-box">
-        <div class="prompt-title" id="choice-prompt-title" style="font-size: 1.5rem; text-transform: none;">7 + 5 = ?</div>
-        <div class="prompt-actions">
-          <button class="pill-btn" onclick="playAudioPrompt()">🔊 Listen</button>
-          <button class="pill-btn" id="btn-hint-choice" onclick="toggleHint('hint-drawer-choice')">💡 Hint</button>
-        </div>
-        <div class="hint-drawer" id="hint-drawer-choice"></div>
-      </div>
-
-      <!-- 2x2 Options Grid -->
-      <div class="options-grid" id="choice-options-grid"></div>
-
-      <div class="btn-grid-2">
-        <button class="btn-control dashed" onclick="skipItem()">⏭️ Skip</button>
-        <button class="btn-control" onclick="showScreen('view-menu')">Menu</button>
-      </div>
-    </section>
-
-    <!-- 5. SUMMARY SCREEN -->
-    <section id="view-summary" class="view-screen">
-      <div class="summary-hero">
-        <div class="welcome-badge">🏆</div>
-        <h2 class="screen-title">Session Complete!</h2>
-        <p class="screen-subtitle" id="summary-feedback-msg">Outstanding recall and calculation speed!</p>
-        <div class="summary-score" id="summary-percentage">100%</div>
-      </div>
-
-      <div class="summary-stats">
-        <div class="stat-cell">
-          <span class="stat-title">Correct</span>
-          <span class="stat-number" id="summary-correct" style="color: var(--success);">0</span>
-        </div>
-        <div class="stat-cell" style="border-left: 1px solid var(--card-border); border-right: 1px solid var(--card-border);">
-          <span class="stat-title">Skipped</span>
-          <span class="stat-number" id="summary-skipped" style="color: var(--danger);">0</span>
-        </div>
-        <div class="stat-cell">
-          <span class="stat-title">Total</span>
-          <span class="stat-number" id="summary-total">0</span>
-        </div>
-      </div>
-
-      <button class="btn-control primary" onclick="startActivity(currentMode)">🔄 Play Again</button>
-      <div class="btn-grid-2">
-        <button class="btn-control" onclick="showScreen('view-menu')">📋 Activity Menu</button>
-        <button class="btn-control" onclick="showScreen('view-welcome')">🏠 Home</button>
-      </div>
-    </section>
-
-    <!-- 6. SETTINGS & CUSTOM EQUATIONS SCREEN -->
-    <section id="view-settings" class="view-screen">
-      <div class="screen-header">
-        <h2 class="screen-title">Settings & Curriculum</h2>
-        <p class="screen-subtitle">Personalize theme, audio, and custom equations</p>
-      </div>
-
-      <!-- Custom Equations Import -->
-      <div class="form-group">
-        <div class="form-label">
-          <span>➕ Add Custom Equations</span>
-          <div class="preset-links">
-            <span>Presets:</span>
-            <a onclick="loadPreset('doubles')">Doubles</a>
-            <a onclick="loadPreset('tens')">Tens</a>
-            <a onclick="loadPreset('times')">Times</a>
+          <div class="feature-card">
+            <div class="feature-card-header">
+              <span class="feature-card-title">Practice Modes</span>
+              <span class="badge" id="welcome-badge-count">Library Ready</span>
+            </div>
+            <ul class="feature-list">
+              <li class="feature-item">
+                <div class="feature-number">1</div>
+                <div><strong>Speed Math:</strong> Solve arithmetic quickly with numeric slot input.</div>
+              </li>
+              <li class="feature-item">
+                <div class="feature-number">2</div>
+                <div><strong>Missing Values:</strong> Find missing addends (? + 7 = 15) in context.</div>
+              </li>
+              <li class="feature-item">
+                <div class="feature-number">3</div>
+                <div><strong>Multiple Choice:</strong> Rapid calculation drills with 4 choices.</div>
+              </li>
+              <li class="feature-item">
+                <div class="feature-number">4</div>
+                <div><strong>Visual Aids:</strong> Dynamic SVG number lines &amp; audible speech.</div>
+              </li>
+            </ul>
           </div>
-        </div>
-        <textarea id="bulk-input" class="form-control" placeholder="Paste equations (one per line):&#10;3 + 2 = 5&#10;7 + 5 = 12&#10;55 + 45 = 100"></textarea>
-        <button class="btn-control primary" style="margin-top: 8px; padding: 10px;" onclick="addBulkCustomProblems()">Add Equations to Library</button>
+
+          <button class="btn-control primary" onclick="showScreen('view-menu')">&#9654; Start Practice</button>
+          <button class="btn-control" onclick="showScreen('view-settings')">⚙️ Settings &amp; Custom Lists</button>
+          <a href="../arena.html" class="btn-control dashed" style="text-decoration: none;">&larr; Return to Practice Arena</a>
+        </section>
+
+        <!-- 2. MENU SELECTION SCREEN -->
+        <section id="view-menu" class="view-screen">
+          <div class="screen-header">
+            <h2 class="screen-title">Select Practice Mode</h2>
+            <p class="screen-subtitle">Choose a training drill format</p>
+          </div>
+
+          <div class="mode-card" onclick="startActivity('speedmath')">
+            <div class="mode-card-left">
+              <div class="mode-icon-box">🔢</div>
+              <div>
+                <div class="mode-name">Speed Math</div>
+                <div class="mode-desc">Direct equation solving with digit slot input</div>
+              </div>
+            </div>
+            <span class="badge" id="badge-count-speedmath">6 items</span>
+          </div>
+
+          <div class="mode-card" onclick="startActivity('fillin')">
+            <div class="mode-card-left">
+              <div class="mode-icon-box">🧩</div>
+              <div>
+                <div class="mode-name">Missing Values</div>
+                <div class="mode-desc">Find the unknown number (? + b = c)</div>
+              </div>
+            </div>
+            <span class="badge" id="badge-count-fillin">6 items</span>
+          </div>
+
+          <div class="mode-card" onclick="startActivity('choice')">
+            <div class="mode-card-left">
+              <div class="mode-icon-box">🎯</div>
+              <div>
+                <div class="mode-name">Multiple Choice</div>
+                <div class="mode-desc">Fast recognition drills with 4 options</div>
+              </div>
+            </div>
+            <span class="badge" id="badge-count-choice">6 items</span>
+          </div>
+
+          <button class="btn-control dashed" onclick="showScreen('view-welcome')">🏠 Return to Deck Menu</button>
+        </section>
+
+        <!-- 3. GAMEPLAY SCREEN (SPEED MATH & MISSING VALUES) -->
+        <section id="view-gameplay" class="view-screen">
+          <div class="progress-wrapper">
+            <div class="meta-bar">
+              <span id="gameplay-counter">Problem 1 of 6</span>
+              <span id="gameplay-mode-label">Solve the problem</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="gameplay-progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="prompt-box" id="gameplay-prompt-box">
+            <div class="prompt-title" id="gameplay-prompt-title">SOLVE THE EQUATION</div>
+            <div class="prompt-actions">
+              <button class="pill-btn" onclick="playAudioPrompt()">🔊 Listen</button>
+              <button class="pill-btn" id="btn-hint-gameplay" onclick="toggleHint('hint-drawer-gameplay')">💡 Hint</button>
+            </div>
+            <div class="hint-drawer" id="hint-drawer-gameplay"></div>
+          </div>
+
+          <div class="equation-container" id="equation-display"></div>
+
+          <!-- Virtual Numpad -->
+          <div class="numpad">
+            <button class="num-key" onclick="handleDigit('1')">1</button>
+            <button class="num-key" onclick="handleDigit('2')">2</button>
+            <button class="num-key" onclick="handleDigit('3')">3</button>
+            <button class="num-key" onclick="handleDigit('4')">4</button>
+            <button class="num-key" onclick="handleDigit('5')">5</button>
+            <button class="num-key" onclick="handleDigit('6')">6</button>
+            <button class="num-key" onclick="handleDigit('7')">7</button>
+            <button class="num-key" onclick="handleDigit('8')">8</button>
+            <button class="num-key" onclick="handleDigit('9')">9</button>
+            <button class="num-key action-clear" onclick="handleClear()">C</button>
+            <button class="num-key" onclick="handleDigit('0')">0</button>
+            <button class="num-key action-delete" onclick="handleDelete()">⌫</button>
+          </div>
+
+          <div class="btn-grid-2">
+            <button class="btn-control dashed" onclick="skipItem()">⏭️ Skip</button>
+            <button class="btn-control" onclick="showScreen('view-menu')">Menu</button>
+          </div>
+        </section>
+
+        <!-- 4. MULTIPLE CHOICE SCREEN -->
+        <section id="view-choice" class="view-screen">
+          <div class="progress-wrapper">
+            <div class="meta-bar">
+              <span id="choice-counter">Problem 1 of 6</span>
+              <span>Select the correct answer</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="choice-progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="prompt-box" id="choice-prompt-box">
+            <div class="prompt-title" id="choice-prompt-title" style="font-size: 1.5rem; text-transform: none;">7 + 5 = ?</div>
+            <div class="prompt-actions">
+              <button class="pill-btn" onclick="playAudioPrompt()">🔊 Listen</button>
+              <button class="pill-btn" id="btn-hint-choice" onclick="toggleHint('hint-drawer-choice')">💡 Hint</button>
+            </div>
+            <div class="hint-drawer" id="hint-drawer-choice"></div>
+          </div>
+
+          <!-- 2x2 Options Grid -->
+          <div class="options-grid" id="choice-options-grid"></div>
+
+          <div class="btn-grid-2">
+            <button class="btn-control dashed" onclick="skipItem()">⏭️ Skip</button>
+            <button class="btn-control" onclick="showScreen('view-menu')">Menu</button>
+          </div>
+        </section>
+
+        <!-- 5. SUMMARY SCREEN -->
+        <section id="view-summary" class="view-screen">
+          <div class="summary-hero">
+            <div class="welcome-badge">🏆</div>
+            <h2 class="screen-title">Session Complete!</h2>
+            <p class="screen-subtitle" id="summary-feedback-msg">Outstanding recall and calculation speed!</p>
+            <div class="summary-score" id="summary-percentage">100%</div>
+          </div>
+
+          <div class="summary-stats">
+            <div class="stat-cell">
+              <span class="stat-title">Correct</span>
+              <span class="stat-number" id="summary-correct" style="color: var(--success);">0</span>
+            </div>
+            <div class="stat-cell" style="border-left: 1px solid var(--card-border); border-right: 1px solid var(--card-border);">
+              <span class="stat-title">Skipped</span>
+              <span class="stat-number" id="summary-skipped" style="color: var(--danger);">0</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-title">Total</span>
+              <span class="stat-number" id="summary-total">0</span>
+            </div>
+          </div>
+
+          <button class="btn-control primary" onclick="startActivity(currentMode)">🔄 Play Again</button>
+          <div class="btn-grid-2">
+            <button class="btn-control" onclick="showScreen('view-menu')">📋 Activity Menu</button>
+            <button class="btn-control" onclick="showScreen('view-welcome')">🏠 Home Deck</button>
+          </div>
+        </section>
+
+        <!-- 6. SETTINGS & CUSTOM EQUATIONS SCREEN -->
+        <section id="view-settings" class="view-screen">
+          <div class="screen-header">
+            <h2 class="screen-title">Settings &amp; Curriculum</h2>
+            <p class="screen-subtitle">Personalize theme, audio, and custom equations</p>
+          </div>
+
+          <!-- Custom Equations Import -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>➕ Add Custom Equations</span>
+              <div class="preset-links">
+                <span>Presets:</span>
+                <a onclick="loadPreset('doubles')">Doubles</a>
+                <a onclick="loadPreset('tens')">Tens</a>
+                <a onclick="loadPreset('times')">Times</a>
+              </div>
+            </div>
+            <textarea id="bulk-input" class="form-control" placeholder="Paste equations (one per line):&#10;3 + 2 = 5&#10;7 + 5 = 12&#10;55 + 45 = 100"></textarea>
+            <button class="btn-control primary" style="margin-top: 8px; padding: 10px;" onclick="addBulkCustomProblems()">Add Equations to Library</button>
+          </div>
+
+          <!-- Active Custom Equations List -->
+          <div class="form-group">
+            <div class="form-label">
+              <span>📋 Active Custom Equations (<span id="custom-count-label">0</span>)</span>
+              <a style="color: var(--danger); font-size: 0.72rem; text-decoration: underline; cursor: pointer;" onclick="clearAllCustomProblems()">Clear All</a>
+            </div>
+            <div class="custom-items-list" id="custom-items-container"></div>
+          </div>
+
+          <button class="btn-control" onclick="showScreen('view-welcome')">Save &amp; Return to Deck</button>
+        </section>
+
+        <!-- Keyboard shortcut footer -->
+        <footer class="keyboard-hint">
+          <span>⌨️ 0–9, Backspace, C (clear)</span>
+          <span>H (hint) &bull; L (listen) &bull; 1–4 (options)</span>
+        </footer>
+
       </div>
+    </main>
+  </div>
 
-      <!-- Active Custom Equations List -->
-      <div class="form-group">
-        <div class="form-label">
-          <span>📋 Active Custom Equations (<span id="custom-count-label">0</span>)</span>
-          <a style="color: var(--danger); font-size: 0.72rem; text-decoration: underline; cursor: pointer;" onclick="clearAllCustomProblems()">Clear All</a>
-        </div>
-        <div class="custom-items-list" id="custom-items-container"></div>
-      </div>
-
-      <button class="btn-control" onclick="showScreen('view-welcome')">Save & Return Home</button>
-    </section>
-
-    <!-- Keyboard shortcut footer -->
-    <footer class="keyboard-hint">
-      <span>⌨️ 0–9, Backspace, C (clear)</span>
-      <span>H (hint) · L (listen) · 1–4 (options)</span>
-    </footer>
-
-  </main>
+  <!-- Sprout Lab Site Footer -->
+  <footer id="site-footer" class="site-footer">
+    <div class="container footer-inner">
+      <p id="footer-copyright">&copy; 2025 Sprout Lab. All rights reserved.</p>
+      <nav id="footer-nav" class="footer-nav" aria-label="Footer Navigation">
+        <ul>
+          <li><a id="footer-link-home" href="../index.html" class="footer-link">Home</a></li>
+          <li><a id="footer-link-arena" href="../arena.html" class="footer-link">Arena</a></li>
+          <li><a id="footer-link-about" href="../about.html" class="footer-link">About</a></li>
+          <li><a id="footer-link-blog" href="../blog.html" class="footer-link">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
 
   <script>
     /* ==========================================================================
@@ -2091,7 +2432,7 @@
        Initialization
        ========================================================================== */
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('mathArcade_theme') || 'dark';
+      const savedTheme = localStorage.getItem('mathArcade_theme') || 'light';
       setTheme(savedTheme);
 
       soundMuted = localStorage.getItem('mathArcade_muted') === 'true';
