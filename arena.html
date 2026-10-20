@@ -849,11 +849,12 @@
   <!-- ==================== HEADER ==================== -->
   <header class="site-header screen-only">
     <div class="container header-inner">
-      <a href="#" class="brand-wordmark">
+      <a href="#" id="homeLinkBrand" class="brand-wordmark">
         <span>🌱 Sprout Lab</span>
       </a>
 
       <nav class="nav-links">
+        <button type="button" class="nav-link" id="navHomeBtn">Home</button>
         <a href="#arcade" class="nav-link">Word Arcade</a>
         <button type="button" class="nav-link" id="navOpenStudioBtn">Worksheet Studio</button>
         <button type="button" class="nav-link" id="navOpenSettingsBtn">Word List</button>
@@ -1589,6 +1590,20 @@
     // --- MAIN INITIALIZATION ON DOM READY ---
     document.addEventListener('DOMContentLoaded', () => {
       loadSavedState();
+
+      // Home Navigation bindings
+      const goHome = (e) => {
+        if (e) e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        currentWordIndex = 0;
+        loadArcadeWord();
+      };
+
+      const homeBtn = document.getElementById('navHomeBtn');
+      if (homeBtn) homeBtn.addEventListener('click', goHome);
+
+      const brandBtn = document.getElementById('homeLinkBrand');
+      if (brandBtn) brandBtn.addEventListener('click', goHome);
 
       // Submit & Keypress
       const submitBtn = document.getElementById('submitBtn');
