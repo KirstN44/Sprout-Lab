@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arena - Word Lab &amp; Maths Lab - Sprout Lab</title>
-  <meta name="description" content="Explore the Sprout Lab Arena featuring Word Lab and Maths Lab all-in-one suites, interactive mini-games, and skill practice drills.">
-  <meta property="og:title" content="Arena - Word Lab &amp; Maths Lab - Sprout Lab">
-  <meta property="og:description" content="Explore the Sprout Lab Arena featuring Word Lab and Maths Lab all-in-one suites, interactive mini-games, and skill practice drills.">
-  <meta property="og:type" content="website">
+  <title>Sprout Lab: Word Arcade &amp; Worksheet Studio</title>
+  <meta name="description" content="Interactive vocabulary arcade and professional printable handwriting worksheet generator with clear guidelines, phonics word boxes, scrambles, and word searches.">
+
+  <!-- Google Fonts: Plus Jakarta Sans for UI + Comic Neue & Shantell Sans for Handwriting -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Shantell+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after {
@@ -16,8 +18,10 @@
       padding: 0;
     }
 
+    /* THEME SYSTEM */
     :root {
-      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-hw: 'Shantell Sans', 'Comic Neue', cursive, sans-serif;
       --bg-page: #f8faf8;
       --bg-card: #ffffff;
       --bg-subtle: #f0f4f1;
@@ -25,51 +29,75 @@
       --text-secondary: #4d5f5a;
       --text-muted: #72847f;
       --border-color: #e1e8e3;
-      --border-hover: #c4d4c8;
-      --word-accent: #2e7d54;
+      --word-accent: #15803d;
+      --word-accent-hover: #166534;
       --word-tint: #edf7f1;
-      --math-accent: #196f8c;
-      --math-tint: #ebf5f9;
-      --logic-accent: #6f53a1;
-      --logic-tint: #f3f0f9;
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
+      --radius-xl: 18px;
       --shadow-sm: 0 1px 3px rgba(25, 39, 35, 0.05);
-      --shadow-md: 0 4px 12px rgba(25, 39, 35, 0.08);
+      --shadow-md: 0 4px 14px rgba(25, 39, 35, 0.08);
       --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    body.theme-dusk {
+      --bg-page: #0f172a;
+      --bg-card: #1e293b;
+      --bg-subtle: #293548;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-color: #334155;
+      --word-accent: #10b981;
+      --word-accent-hover: #059669;
+      --word-tint: #064e3b;
+    }
+
+    body.theme-parchment {
+      --bg-page: #fcfaf6;
+      --bg-card: #ffffff;
+      --bg-subtle: #f5efe3;
+      --text-primary: #292524;
+      --text-secondary: #57534e;
+      --text-muted: #857e77;
+      --border-color: #e7e0d3;
+      --word-accent: #9a3412;
+      --word-accent-hover: #7c2d12;
+      --word-tint: #fff1e6;
+    }
+
+    body.theme-ocean {
+      --bg-page: #f0fdfa;
+      --bg-card: #ffffff;
+      --bg-subtle: #ccfbf1;
+      --text-primary: #134e4a;
+      --text-secondary: #2dd4bf;
+      --text-muted: #14b8a6;
+      --border-color: #99f6e4;
+      --word-accent: #0f766e;
+      --word-accent-hover: #115e59;
+      --word-tint: #e6fffa;
+    }
+
     body {
-      font-family: var(--font-family);
+      font-family: var(--font-sans);
       background-color: var(--bg-page);
       color: var(--text-primary);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
     .container {
       width: 100%;
-      max-width: 1040px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 0 20px;
     }
 
-    main {
-      flex: 1;
-    }
-
-    /* ==========================================================================
-       HEADER & NAVIGATION
-       ========================================================================== */
+    /* TOP BAR CONTRACT */
     .site-header {
       background-color: var(--bg-card);
       border-bottom: 1px solid var(--border-color);
@@ -83,909 +111,1651 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px;
+      gap: 32px;
+      height: 68px;
     }
 
-    .brand-group {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-    }
-
-    .site-title {
-      font-size: 1.45rem;
-      font-weight: 700;
+    .brand-wordmark {
+      font-size: 1.25rem;
+      font-weight: 800;
       color: var(--word-accent);
-      letter-spacing: -0.01em;
-    }
-
-    .site-tagline {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 400;
-      display: none;
-    }
-
-    @media (min-width: 700px) {
-      .site-tagline {
-        display: inline-block;
-      }
-    }
-
-    .site-nav ul {
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
       display: flex;
-      list-style: none;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
 
     .nav-link {
-      padding: 8px 16px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-secondary);
-      border-radius: var(--radius-sm);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
       transition: var(--transition);
     }
 
     .nav-link:hover {
       color: var(--word-accent);
-      background-color: var(--word-tint);
     }
 
-    .nav-link.active {
-      color: var(--word-accent);
-      background-color: var(--word-tint);
-      font-weight: 600;
-    }
-
-    /* ==========================================================================
-       ARENA PAGE HERO
-       ========================================================================== */
-    .arena-hero {
-      padding: 36px 0 20px;
-    }
-
-    .arena-hero-card {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 32px 36px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .hero-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: var(--radius-sm);
-      background-color: var(--word-tint);
-      color: var(--word-accent);
-      margin-bottom: 12px;
-    }
-
-    .arena-hero-title {
-      font-size: 1.85rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      margin-bottom: 10px;
-      line-height: 1.25;
-    }
-
-    .arena-hero-intro {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 820px;
-    }
-
-    /* ==========================================================================
-       SECTION HEADERS
-       ========================================================================== */
-    .section-header {
-      margin-bottom: 24px;
-    }
-
-    .section-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-
-    .section-subtitle {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-    }
-
-    /* ==========================================================================
-       PRACTICE SUITES (PLAYING CARDS: WORD LAB & MATHS LAB)
-       ========================================================================== */
-    .arena-section {
-      padding: 20px 0 36px;
-    }
-
-    .grid-two-col {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      perspective: 1200px;
-      flex-wrap: wrap;
-    }
-
-    /* Base Playing Card */
-    .suite-card {
-      flex: 1 1 380px;
-      max-width: 520px;
-      min-width: 320px;
-      display: flex;
-      flex-direction: column;
-      background-color: #ffffff;
-      border: 2.5px solid #d4dfd8;
-      border-radius: 20px;
-      padding: 12px;
-      box-shadow: 0 8px 24px rgba(25, 39, 35, 0.08), 0 2px 6px rgba(25, 39, 35, 0.04);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .suite-word {
-      transform: rotate(-1.5deg);
-    }
-
-    .suite-maths {
-      transform: rotate(1.5deg);
-    }
-
-    .suite-card:hover {
-      transform: translateY(-8px) rotate(0deg) scale(1.015);
-      box-shadow: 0 22px 42px rgba(25, 39, 35, 0.15), 0 8px 14px rgba(25, 39, 35, 0.06);
-    }
-
-    .suite-word:hover {
-      border-color: var(--word-accent);
-    }
-
-    .suite-maths:hover {
-      border-color: var(--math-accent);
-    }
-
-    /* Inner Card Stock Frame */
-    .card-inner-frame {
-      border: 1.5px solid #e1e8e3;
-      border-radius: 14px;
-      padding: 22px 20px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      background: radial-gradient(circle at 50% 18%, #ffffff 0%, #fbfdfc 100%);
-    }
-
-    .suite-word .card-inner-frame {
-      border-color: #d1e4d7;
-    }
-
-    .suite-maths .card-inner-frame {
-      border-color: #cce2ec;
-    }
-
-    /* Playing Card Corner Pips */
-    .card-pip {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      line-height: 1;
-      font-weight: 800;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    .card-pip-tl {
-      top: 10px;
-      left: 12px;
-    }
-
-    .card-pip-br {
-      bottom: 10px;
-      right: 12px;
-      transform: rotate(180deg);
-    }
-
-    .pip-rank {
-      font-size: 1.35rem;
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-    }
-
-    .pip-suit {
-      font-size: 1rem;
-      margin-top: 2px;
-    }
-
-    .suite-word .pip-rank,
-    .suite-word .pip-suit {
-      color: var(--word-accent);
-    }
-
-    .suite-maths .pip-rank,
-    .suite-maths .pip-suit {
-      color: var(--math-accent);
-    }
-
-    /* Card Series Tag Header */
-    .card-series-header {
-      text-align: center;
-      margin-bottom: 14px;
-      padding: 0 28px;
-    }
-
-    .card-series-tag {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    .suite-word .card-series-tag {
-      background-color: var(--word-tint);
-      color: var(--word-accent);
-      border: 1px solid #c7e5d2;
-    }
-
-    .suite-maths .card-series-tag {
-      background-color: var(--math-tint);
-      color: var(--math-accent);
-      border: 1px solid #c0e0ef;
-    }
-
-    /* Centerpiece Crest Emblem */
-    .card-emblem-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .card-emblem {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
+    .header-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 3px 8px rgba(0, 0, 0, 0.06);
-    }
-
-    .suite-word .card-emblem {
-      background: linear-gradient(135deg, #edf7f1 0%, #d8eee0 100%);
-      border: 2px solid var(--word-accent);
-      color: var(--word-accent);
-    }
-
-    .suite-maths .card-emblem {
-      background: linear-gradient(135deg, #ebf5f9 0%, #d5ebf5 100%);
-      border: 2px solid var(--math-accent);
-      color: var(--math-accent);
-    }
-
-    /* Royal Card Typography */
-    .card-main-info {
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .card-title-royal {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-    }
-
-    .card-flavor-text {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      font-style: italic;
-      padding: 0 10px;
-    }
-
-    /* Dealt Hand / Mini-Games Box */
-    .card-hand-box {
-      border: 1px dashed var(--border-color);
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 18px;
-    }
-
-    .suite-word .card-hand-box {
-      background-color: #f4f9f6;
-      border-color: #c9e0d1;
-    }
-
-    .suite-maths .card-hand-box {
-      background-color: #f2f7fa;
-      border-color: #c4dbe6;
-    }
-
-    .card-hand-label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .card-hand-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 0.84rem;
-    }
-
-    .card-hand-item {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .card-hand-suit {
-      font-size: 0.88rem;
-      font-weight: 700;
+      gap: 10px;
       flex-shrink: 0;
     }
 
-    .suite-word .card-hand-suit {
-      color: var(--word-accent);
-    }
-
-    .suite-maths .card-hand-suit {
-      color: var(--math-accent);
-    }
-
-    .card-hand-game-name {
+    /* BUTTONS */
+    .btn-primary {
+      background-color: var(--word-accent);
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
       font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--word-accent-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-subtle);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      opacity: 0.9;
+    }
+
+    /* MAIN APP BODY */
+    main {
+      flex: 1;
+      padding: 32px 0 48px;
+    }
+
+    .hero-strip {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .hero-strip h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
       color: var(--text-primary);
     }
 
-    .card-hand-game-desc {
+    .hero-strip p {
+      font-size: 0.95rem;
       color: var(--text-secondary);
-      font-size: 0.8rem;
+      max-width: 620px;
+      margin: 0 auto;
     }
 
-    /* Card Action Footer */
-    .card-play-btn {
+    .hero-meta {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 11px 16px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      border-radius: var(--radius-sm);
-      letter-spacing: 0.02em;
-      color: #ffffff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      transition: var(--transition);
-      margin-top: auto;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
-    .suite-word .card-play-btn {
-      background: linear-gradient(135deg, #2e7d54 0%, #246543 100%);
+    /* ARCADE CONTAINER */
+    .arcade-wrapper {
+      margin-bottom: 36px;
     }
 
-    .suite-maths .card-play-btn {
-      background: linear-gradient(135deg, #196f8c 0%, #13556c 100%);
+    .arcade-card {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      position: relative;
     }
 
-    .suite-card:hover .card-play-btn {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-    }
-
-    .suite-footer-row {
+    .mode-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-color);
+      margin-bottom: 24px;
     }
 
-    .tag-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .skill-tag {
-      display: inline-block;
-      font-size: 0.74rem;
-      font-weight: 500;
-      padding: 3px 8px;
-      border-radius: 4px;
-      white-space: nowrap;
+    .segmented-control {
+      display: inline-flex;
       background-color: var(--bg-subtle);
-      color: var(--text-secondary);
+      padding: 4px;
+      border-radius: var(--radius-md);
       border: 1px solid var(--border-color);
+      gap: 2px;
     }
 
-    .suite-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.88rem;
+    .segment-btn {
+      background: none;
+      border: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
       font-weight: 600;
-    }
-
-    .suite-word .suite-cta {
-      color: var(--word-accent);
-    }
-
-    .suite-maths .suite-cta {
-      color: var(--math-accent);
-    }
-
-    /* ==========================================================================
-       FOR TEACHERS & CAREGIVERS HIGHLIGHT CARD
-       ========================================================================== */
-    .highlight-section {
-      padding: 8px 0 36px;
-    }
-
-    .highlight-card {
-      background-color: #f6faf7;
-      border: 1px solid #d5e8dc;
-      border-radius: var(--radius-lg);
-      padding: 32px 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 32px;
-    }
-
-    .highlight-content {
-      max-width: 760px;
-    }
-
-    .highlight-pill {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--word-accent);
-      margin-bottom: 8px;
-    }
-
-    .highlight-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .highlight-body {
-      font-size: 0.98rem;
       color: var(--text-secondary);
-      line-height: 1.55;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      white-space: nowrap;
     }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+    .segment-btn.active {
       background-color: var(--bg-card);
       color: var(--word-accent);
-      border: 1px solid #b8dac2;
-      padding: 10px 20px;
-      font-size: 0.92rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .stats-ticker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.85rem;
       font-weight: 600;
-      border-radius: var(--radius-sm);
-      white-space: nowrap;
+      color: var(--text-secondary);
+    }
+
+    .stats-ticker strong {
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .word-stage {
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0 24px;
+    }
+
+    .stage-prompt {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .target-word-display {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--word-accent);
+      text-transform: uppercase;
+    }
+
+    .tiles-rack {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .letter-tile {
+      width: 44px;
+      height: 52px;
+      border: 2px solid var(--word-accent);
+      background-color: var(--word-tint);
+      color: var(--word-accent);
+      border-radius: 8px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 0 var(--border-color);
       transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .letter-tile:active {
+      transform: translateY(2px);
+    }
+
+    .input-row {
+      max-width: 380px;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+
+    .game-input {
+      width: 100%;
+      font-size: 1.35rem;
+      font-weight: 700;
+      padding: 12px 18px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      text-align: center;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: inherit;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .game-input:focus {
+      border-color: var(--word-accent);
+      background-color: var(--bg-card);
+      box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.12);
+    }
+
+    .actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .feedback-banner {
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .feedback-banner.success {
+      background-color: #dcfce7;
+      color: #14532d;
+    }
+
+    .feedback-banner.mistake {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* SUITE SHOWCASE CARDS */
+    .worksheet-showcase {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+    }
+
+    .showcase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .showcase-card {
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-page);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+    }
+
+    .showcase-card:hover {
+      border-color: var(--word-accent);
+      background-color: var(--bg-card);
       box-shadow: var(--shadow-sm);
     }
 
-    .btn-secondary:hover {
-      background-color: var(--word-tint);
-      border-color: var(--word-accent);
+    .showcase-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
     }
 
-    /* ==========================================================================
-       FOOTER
-       ========================================================================== */
+    .showcase-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* MODAL OVERLAY & CONTENT */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(2px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-overlay.open {
+      display: flex !important;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      padding: 24px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .form-group textarea,
+    .form-group select,
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.88rem;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+    }
+
+    /* STUDIO MODAL: 2-COLUMN SPLIT */
+    .studio-modal-content {
+      max-width: 1100px;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .studio-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-subtle);
+    }
+
+    .studio-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    .studio-controls {
+      width: 320px;
+      border-right: 1px solid var(--border-color);
+      padding: 20px;
+      overflow-y: auto;
+      background-color: var(--bg-page);
+    }
+
+    .studio-preview {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background-color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .studio-paper-sheet {
+      background: #ffffff;
+      width: 100%;
+      max-width: 720px;
+      min-height: 850px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border-radius: 4px;
+      padding: 32px 36px;
+      color: #111827;
+    }
+
+    /* ===================================================
+       PROFESSIONAL PRINTABLE WORKSHEET SYSTEM
+       =================================================== */
+    #printableWorksheet {
+      display: none;
+    }
+
+    @media print {
+      @page {
+        size: letter portrait;
+        margin: 10mm 12mm 10mm 12mm;
+      }
+
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .screen-only {
+        display: none !important;
+      }
+
+      #printableWorksheet {
+        display: block !important;
+        position: static !important;
+        width: 100% !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        font-family: var(--font-sans);
+        padding: 0 !important;
+      }
+
+      .page-break-avoid {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+    }
+
+    /* WORKSHEET SHARED ELEMENTS */
+    .ws-masthead {
+      border-bottom: 2px solid #111827;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+
+    .ws-kicker {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #15803d;
+      margin-bottom: 2px;
+    }
+
+    .ws-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.01em;
+    }
+
+    .ws-subtitle {
+      font-size: 13px;
+      color: #4b5563;
+      margin-top: 2px;
+    }
+
+    .ws-meta-bar {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .ws-underline {
+      display: inline-block;
+      border-bottom: 1px solid #111827;
+      margin-left: 6px;
+    }
+
+    .ws-directions {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-size: 11px;
+      color: #334155;
+      margin-top: 10px;
+    }
+
+    /* GRID & CARDS */
+    .ws-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .ws-cards-grid.cols-2 {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .ws-item-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 16px 18px;
+      background: #ffffff;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .ws-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .ws-item-num {
+      font-size: 13px;
+      font-weight: 800;
+      color: #111827;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* PHONICS SHAPE BOXES */
+    .phonics-boxes-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      margin: 10px 0;
+    }
+
+    .phonics-box {
+      border: 2px solid #1f2937;
+      background: #ffffff;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-hw);
+      font-size: 20px;
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    .phonics-box.ascender {
+      width: 36px;
+      height: 52px;
+    }
+
+    .phonics-box.small {
+      width: 36px;
+      height: 32px;
+      margin-top: 20px;
+    }
+
+    .phonics-box.descender {
+      width: 36px;
+      height: 52px;
+      margin-top: 20px;
+    }
+
+    /* WORD SEARCH GRID */
+    .ws-search-table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    .ws-search-table td {
+      width: 32px;
+      height: 32px;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 800;
+      font-size: 15px;
+      border: 1px solid #e2e8f0;
+      color: #111827;
+    }
+
+    .ws-bank-box {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #f8fafc;
+      padding: 12px 16px;
+      margin-top: 16px;
+    }
+
+    .ws-bank-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      list-style: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-top: 8px;
+    }
+
+    .ws-bank-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ws-bank-item .check-circle {
+      width: 14px;
+      height: 14px;
+      border: 1px solid #64748b;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* FOOTER */
+    .ws-footer {
+      border-top: 1px solid #cbd5e1;
+      padding-top: 10px;
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #64748b;
+      break-inside: avoid;
+    }
+
     .site-footer {
       border-top: 1px solid var(--border-color);
       background-color: var(--bg-card);
-      padding: 28px 0;
-      margin-top: 24px;
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-    }
-
-    .footer-nav ul {
-      display: flex;
-      list-style: none;
-      gap: 20px;
-    }
-
-    .footer-link:hover {
-      color: var(--word-accent);
-      text-decoration: underline;
-    }
-
-    /* ==========================================================================
-       RESPONSIVE BREAKPOINTS
-       ========================================================================== */
-    @media (max-width: 900px) {
-      .suite-word,
-      .suite-maths {
-        transform: none;
-      }
-      .suite-card {
-        max-width: 100%;
-      }
-      .highlight-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .arena-hero-card {
-        padding: 28px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .header-inner {
-        flex-direction: column;
-        justify-content: center;
-        gap: 12px;
-        height: auto;
-        padding: 16px 0;
-      }
-      .site-title {
-        font-size: 1.25rem;
-      }
-      .footer-inner {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-      }
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
   </style>
 </head>
-<body id="arena-page-body">
+<body>
 
-  <!-- ==========================================================================
-       HEADER & NAVIGATION
-       ========================================================================== -->
-  <header id="site-header" class="site-header">
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header screen-only">
     <div class="container header-inner">
-      <div id="brand-container" class="brand-group">
-        <a id="brand-link" href="index.html" class="site-title">
-          <span>Sprout Lab</span>
-        </a>
-        <span id="brand-tagline" class="site-tagline">Interactive Learning &amp; Games for Kids</span>
-      </div>
+      <a href="#" class="brand-wordmark">
+        <span>🌱 Sprout Lab</span>
+      </a>
 
-      <nav id="site-nav" class="site-nav" aria-label="Main Navigation">
-        <ul>
-          <li><a id="nav-link-home" href="index.html" class="nav-link">Home</a></li>
-          <li><a id="nav-link-arena" href="arena.html" class="nav-link active">Arena</a></li>
-          <li><a id="nav-link-standalone" href="standalone.html" class="nav-link">Standalone Game</a></li>
-          <li><a id="nav-link-about" href="about.html" class="nav-link">About</a></li>
-          <li><a id="nav-link-blog" href="blog.html" class="nav-link">Blog</a></li>
-        </ul>
+      <nav class="nav-links">
+        <a href="#arcade" class="nav-link">Word Arcade</a>
+        <button type="button" class="nav-link" id="navOpenStudioBtn">Worksheet Studio</button>
+        <button type="button" class="nav-link" id="navOpenSettingsBtn">Word List</button>
       </nav>
+
+      <div class="header-actions">
+        <button type="button" id="openSettingsBtn" class="btn-secondary" title="Configure words, themes & audio">
+          ⚙️ Settings
+        </button>
+        <button type="button" id="headerPrintBtn" class="btn-primary" title="Open Worksheet Studio & Print">
+          🖨️ Print Worksheet
+        </button>
+      </div>
     </div>
   </header>
 
-  <main id="main-content">
-    <!-- ==========================================================================
-         ARENA HERO BANNER
-         ========================================================================== -->
-    <section id="arena-hero" class="arena-hero">
-      <div class="container">
-        <div id="arena-hero-card" class="arena-hero-card">
-          <span id="arena-hero-badge" class="hero-badge">Interactive Practice Hub</span>
-          <h1 id="arena-hero-heading" class="arena-hero-title">Practice Arena</h1>
-          <p id="arena-hero-desc" class="arena-hero-intro">
-            Welcome to the Sprout Lab Arena. Draw a playing card below to launch your comprehensive Word Lab or Maths Lab learning arcade.
+  <!-- ==================== MAIN SCREEN CONTENT ==================== -->
+  <main class="container screen-only">
+    <div class="hero-strip">
+      <h1>Word Lab Arcade &amp; Worksheet Studio</h1>
+      <p>Practice spelling and phonics interactively on screen, then generate print-perfect handwriting worksheets for classroom or home practice.</p>
+      <div class="hero-meta">
+        <span id="activeWordsCountBadge">0 Words Loaded</span>
+        <span>&bull;</span>
+        <span id="activeDifficultyBadge">Intermediate</span>
+        <span>&bull;</span>
+        <a href="javascript:void(0)" id="quickEditWordsLink" style="color: var(--word-accent); font-weight: 600;">Enter Your Words</a>
+      </div>
+    </div>
+
+    <!-- SECTION 1: INTERACTIVE WORD ARCADE -->
+    <section id="arcade" class="arcade-wrapper">
+      <div class="arcade-card">
+        <div class="mode-bar">
+          <div class="segmented-control" id="gameModeControl">
+            <button type="button" class="segment-btn active" data-mode="unscramble">Unscramble</button>
+            <button type="button" class="segment-btn" data-mode="flash">Flash &amp; Spell</button>
+            <button type="button" class="segment-btn" data-mode="missing">Missing Letters</button>
+            <button type="button" class="segment-btn" data-mode="sprint">Speed Type</button>
+          </div>
+
+          <div class="stats-ticker">
+            <div>Score: <strong id="scoreVal">0</strong></div>
+            <span>&bull;</span>
+            <div>Streak: <strong id="streakVal">0</strong> 🔥</div>
+            <span>&bull;</span>
+            <div>Word: <strong id="wordProgressVal">0 / 0</strong></div>
+          </div>
+        </div>
+
+        <div class="word-stage">
+          <div class="stage-prompt" id="gamePrompt">Enter your words in Settings to begin!</div>
+          <div id="stageContent"></div>
+        </div>
+
+        <div class="input-row">
+          <input type="text" id="userInput" class="game-input" placeholder="Type your spelling answer..." autocomplete="off">
+        </div>
+
+        <div class="actions-row">
+          <button type="button" id="submitBtn" class="btn-primary" style="padding: 10px 24px; font-size: 0.95rem;">
+            Submit Answer &rarr;
+          </button>
+          <button type="button" id="speakWordBtn" class="btn-secondary" title="Pronounce word aloud">
+            🔊 Hear Word
+          </button>
+          <button type="button" id="hintBtn" class="btn-secondary" title="Get first letter hint">
+            💡 Hint
+          </button>
+          <button type="button" id="skipBtn" class="btn-secondary" style="border: none; background: none; color: var(--text-muted); cursor: pointer;">
+            Skip
+          </button>
+        </div>
+
+        <div id="feedbackBanner" class="feedback-banner" style="display: none;"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: WORKSHEET PRINT STUDIO SUITE -->
+    <section class="worksheet-showcase">
+      <div class="showcase-header">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 800;">Classroom &amp; Homeschool Printable Studio</h2>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
+            Choose from 6 teacher-approved printable formats tailored to your custom word list.
           </p>
         </div>
+        <button type="button" id="openStudioMainBtn" class="btn-primary">
+          ✏️ Open Worksheet Studio
+        </button>
       </div>
-    </section>
 
-    <!-- ==========================================================================
-         PRACTICE SUITES (PLAYING CARDS: WORD LAB & MATHS LAB)
-         ========================================================================== -->
-    <section id="practice-suites" class="arena-section">
-      <div class="container">
-        <div id="suites-header" class="section-header">
-          <h2 id="suites-title" class="section-title">The Learning Deck: All-in-One Suites</h2>
-          <p id="suites-subtitle" class="section-subtitle">Draw a playing card to launch your comprehensive learning arcade.</p>
+      <div class="showcase-grid">
+        <div class="showcase-card" data-format="handwriting">
+          <div class="showcase-title">1. Handwriting &amp; Tracing</div>
+          <div class="showcase-desc">Clear 3-tier ruled lines with comfortable writing space and multiple practice lines.</div>
         </div>
-
-        <!-- Standalone Single-File HTML Banner -->
-        <div style="background: var(--bg-card); border: 2px dashed var(--word-accent); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 1.5rem;">💾</span>
-            <div>
-              <div style="font-weight: 700; color: var(--text-primary); font-size: 0.95rem;">Word Lab Arcade &bull; Standalone Single-File Edition</div>
-              <div style="font-size: 0.82rem; color: var(--text-secondary);">Self-contained offline application with Caregiver &amp; Educator Controls (Pillar III), custom word lists, and difficulty tiers.</div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 10px; align-items: center;">
-            <a href="standalone.html" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--word-accent); color: #fff; font-size: 0.85rem; font-weight: 700; border-radius: var(--radius-sm); text-decoration: none;">
-              <span>Launch Standalone File</span> &rarr;
-            </a>
-          </div>
+        <div class="showcase-card" data-format="word-boxes">
+          <div class="showcase-title">2. Phonics Letter Shape Boxes</div>
+          <div class="showcase-desc">Tall ascender, small mid, and hanging descender shape boxes to teach letter heights and phonics structure.</div>
         </div>
-
-        <div id="suites-grid" class="grid-two-col">
-
-          <!-- PLAYING CARD 1: WORD LAB -->
-          <a id="suite-card-word" href="games/word-arcade.html" class="suite-card suite-word" aria-label="Play Word Lab Card">
-            <div class="card-inner-frame">
-
-              <!-- Corner Pips: Top-Left -->
-              <div class="card-pip card-pip-tl" aria-hidden="true">
-                <span class="pip-rank">W</span>
-                <span class="pip-suit">&#9827;</span>
-              </div>
-
-              <!-- Corner Pips: Inverted Bottom-Right -->
-              <div class="card-pip card-pip-br" aria-hidden="true">
-                <span class="pip-rank">W</span>
-                <span class="pip-suit">&#9827;</span>
-              </div>
-
-              <!-- Card Series Tag Header -->
-              <div class="card-series-header">
-                <span class="card-series-tag">Suite I &bull; Literacy Deck</span>
-              </div>
-
-              <!-- Center Medallion Emblem -->
-              <div class="card-emblem-wrap">
-                <div class="card-emblem">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    <path d="M8 7h8"></path>
-                    <path d="M8 11h6"></path>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Card Main Identity -->
-              <div class="card-main-info">
-                <h3 id="title-word-suite" class="card-title-royal">Word Lab Arcade</h3>
-                <p class="card-flavor-text">
-                  Sentence syntax, phonics rules, sight word recognition, and vocabulary decoding in one cohesive deck.
-                </p>
-              </div>
-
-              <!-- Dealt Hand / Mini-Games Box -->
-              <div id="box-word-games" class="card-hand-box">
-                <span class="card-hand-label">Dealt Hand &bull; Included Games</span>
-                <ul id="list-word-games" class="card-hand-list">
-                  <li id="game-item-sentence-builder" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&spades;</span>
-                    <div>
-                      <span class="card-hand-game-name">Sentence Builder</span>
-                      <span class="card-hand-game-desc">&mdash; Syntax &amp; grammar mechanics</span>
-                    </div>
-                  </li>
-                  <li id="game-item-spelling-arena" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&clubs;</span>
-                    <div>
-                      <span class="card-hand-game-name">Spelling Arena</span>
-                      <span class="card-hand-game-desc">&mdash; Phonics rules &amp; orthography</span>
-                    </div>
-                  </li>
-                  <li id="game-item-word-match" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&hearts;</span>
-                    <div>
-                      <span class="card-hand-game-name">Word Match</span>
-                      <span class="card-hand-game-desc">&mdash; Sight words &amp; vocabulary pairing</span>
-                    </div>
-                  </li>
-                  <li id="game-item-word-unscramble" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&diams;</span>
-                    <div>
-                      <span class="card-hand-game-name">Word Unscramble</span>
-                      <span class="card-hand-game-desc">&mdash; Letter patterns &amp; phonetic blending</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Skill Tags Row -->
-              <div id="footer-word-suite" class="suite-footer-row">
-                <div id="tags-word-suite" class="tag-container">
-                  <span class="skill-tag">Syntax</span>
-                  <span class="skill-tag">Phonics</span>
-                  <span class="skill-tag">Sight Words</span>
-                  <span class="skill-tag">Vocabulary</span>
-                </div>
-              </div>
-
-              <!-- Play Action Footer -->
-              <div class="card-play-btn">
-                <span>Play Word Lab</span>
-                <span aria-hidden="true">&rarr;</span>
-              </div>
-
-            </div>
-          </a>
-
-          <!-- PLAYING CARD 2: MATHS LAB -->
-          <a id="suite-card-maths" href="games/maths-arcade.html" class="suite-card suite-maths" aria-label="Play Maths Lab Card">
-            <div class="card-inner-frame">
-
-              <!-- Corner Pips: Top-Left -->
-              <div class="card-pip card-pip-tl" aria-hidden="true">
-                <span class="pip-rank">M</span>
-                <span class="pip-suit">&#9830;</span>
-              </div>
-
-              <!-- Corner Pips: Inverted Bottom-Right -->
-              <div class="card-pip card-pip-br" aria-hidden="true">
-                <span class="pip-rank">M</span>
-                <span class="pip-suit">&#9830;</span>
-              </div>
-
-              <!-- Card Series Tag Header -->
-              <div class="card-series-header">
-                <span class="card-series-tag">Suite II &bull; Numeracy Deck</span>
-              </div>
-
-              <!-- Center Medallion Emblem -->
-              <div class="card-emblem-wrap">
-                <div class="card-emblem">
-                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                    <path d="M8 12h8"></path>
-                    <path d="M12 8v8"></path>
-                    <circle cx="8" cy="8" r="1.2" fill="currentColor"></circle>
-                    <circle cx="16" cy="16" r="1.2" fill="currentColor"></circle>
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Card Main Identity -->
-              <div class="card-main-info">
-                <h3 id="title-maths-suite" class="card-title-royal">Maths Lab Arcade</h3>
-                <p class="card-flavor-text">
-                  Rapid fact fluency, mental calculation bonds, and spatial number line magnitude intuition in one cohesive deck.
-                </p>
-              </div>
-
-              <!-- Dealt Hand / Mini-Games Box -->
-              <div id="box-maths-games" class="card-hand-box">
-                <span class="card-hand-label">Dealt Hand &bull; Included Games</span>
-                <ul id="list-maths-games" class="card-hand-list">
-                  <li id="game-item-speed-math" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&spades;</span>
-                    <div>
-                      <span class="card-hand-game-name">Speed Math Arcade</span>
-                      <span class="card-hand-game-desc">&mdash; Rapid arithmetic &amp; fact fluency</span>
-                    </div>
-                  </li>
-                  <li id="game-item-mental-math" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&clubs;</span>
-                    <div>
-                      <span class="card-hand-game-name">Mental Math</span>
-                      <span class="card-hand-game-desc">&mdash; Number bonds &amp; strategic estimation</span>
-                    </div>
-                  </li>
-                  <li id="game-item-number-line" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&hearts;</span>
-                    <div>
-                      <span class="card-hand-game-name">Number Line Visualizer</span>
-                      <span class="card-hand-game-desc">&mdash; Magnitude scale &amp; interval plotting</span>
-                    </div>
-                  </li>
-                  <li id="game-item-fraction-pizza" class="card-hand-item">
-                    <span class="card-hand-suit" aria-hidden="true">&diams;</span>
-                    <div>
-                      <span class="card-hand-game-name">Fraction Pizza Baker</span>
-                      <span class="card-hand-game-desc">&mdash; Visual fractions &amp; proportions</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Skill Tags Row -->
-              <div id="footer-maths-suite" class="suite-footer-row">
-                <div id="tags-maths-suite" class="tag-container">
-                  <span class="skill-tag">Arithmetic</span>
-                  <span class="skill-tag">Mental Math</span>
-                  <span class="skill-tag">Fact Fluency</span>
-                  <span class="skill-tag">Number Sense</span>
-                </div>
-              </div>
-
-              <!-- Play Action Footer -->
-              <div class="card-play-btn">
-                <span>Play Maths Lab</span>
-                <span aria-hidden="true">&rarr;</span>
-              </div>
-
-            </div>
-          </a>
-
+        <div class="showcase-card" data-format="word-search">
+          <div class="showcase-title">3. Word Search Puzzle</div>
+          <div class="showcase-desc">Clean vector puzzle grid with hidden custom vocabulary, student word bank, and optional Teacher Answer Key.</div>
         </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-         FOR TEACHERS & CAREGIVERS HIGHLIGHT CARD
-         ========================================================================== -->
-    <section id="caregivers-highlight" class="highlight-section">
-      <div class="container">
-        <div id="highlight-card" class="highlight-card">
-          <div class="highlight-content">
-            <span id="highlight-badge" class="highlight-pill">For Teachers &amp; Caregivers</span>
-            <h2 id="highlight-title" class="highlight-title">Customizable Learning Content</h2>
-            <p id="highlight-body" class="highlight-body">
-              Tailor game difficulty and vocabulary targets to meet individual student goals. All practice modules support custom word lists, targeted sight words, and custom math problem sets for seamless lesson reinforcement.
-            </p>
-          </div>
-          <div class="highlight-action">
-            <a id="btn-learn-more-caregiver" href="about.html" class="btn-secondary">
-              Learn How to Customize &rarr;
-            </a>
-          </div>
+        <div class="showcase-card" data-format="scramble">
+          <div class="showcase-title">4. Word Scramble &amp; Solve</div>
+          <div class="showcase-desc">Jumbled letter tiles with length clues and spacious ruled handwriting lines for student solutions.</div>
+        </div>
+        <div class="showcase-card" data-format="flashcards">
+          <div class="showcase-title">5. Cut-Out Vocabulary Cards</div>
+          <div class="showcase-desc">Dotted scissor cutting lines, bold vocabulary terms, handwriting guidelines, and draw-a-clue boxes.</div>
+        </div>
+        <div class="showcase-card" data-format="rainbow-write">
+          <div class="showcase-title">6. Rainbow Writing Repetition</div>
+          <div class="showcase-desc">Multi-sensory repetition rows with blank ruled writing guidelines.</div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ==========================================================================
-       FOOTER
-       ========================================================================== -->
-  <footer id="site-footer" class="site-footer">
-    <div class="container footer-inner">
-      <p id="footer-copyright">&copy; 2025 Sprout Lab. All rights reserved.</p>
-      <nav id="footer-nav" class="footer-nav" aria-label="Footer Navigation">
-        <ul>
-          <li><a id="footer-link-home" href="index.html" class="footer-link">Home</a></li>
-          <li><a id="footer-link-arena" href="arena.html" class="footer-link">Arena</a></li>
-          <li><a id="footer-link-about" href="about.html" class="footer-link">About</a></li>
-          <li><a id="footer-link-blog" href="blog.html" class="footer-link">Blog</a></li>
-        </ul>
-      </nav>
+  <!-- ==================== STUDIO MODAL ==================== -->
+  <div id="studioModal" class="modal-overlay">
+    <div class="modal-content studio-modal-content">
+      <div class="studio-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.3rem;">🌱</span>
+          <div>
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: #111827;">Worksheet Studio &amp; Live Print Preview</h3>
+            <span style="font-size: 0.75rem; color: #64748b;">Customizable pedagogical print engine</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" id="studioPrintBtn" class="btn-primary">
+            🖨️ Print Worksheet Now
+          </button>
+          <button type="button" id="closeStudioBtn" class="close-btn" aria-label="Close studio">&times;</button>
+        </div>
+      </div>
+
+      <div class="studio-body">
+        <div class="studio-controls">
+          <div class="form-group">
+            <label for="wsFormatSelect">Worksheet Format:</label>
+            <select id="wsFormatSelect">
+              <option value="handwriting">Handwriting &amp; Tracing</option>
+              <option value="word-boxes">Phonics Letter Shape Boxes</option>
+              <option value="scramble">Word Scramble &amp; Write</option>
+              <option value="word-search">Word Search Puzzle</option>
+              <option value="flashcards">Cut-Out Flashcards</option>
+              <option value="rainbow-write">Rainbow Writing Table</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="wsRulingSelect">Ruling Color Style:</label>
+            <select id="wsRulingSelect">
+              <option value="zaner-bloser">Classic Blue &amp; Red</option>
+              <option value="sprout-garden">Sprout Forest (Earthy Green)</option>
+              <option value="ink-saver">Ink-Saver (Crisp Grayscale)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="wsGradeHeightSelect">Line Height / Writing Space:</label>
+            <select id="wsGradeHeightSelect">
+              <option value="kindergarten">Generous / Young Child (72px)</option>
+              <option value="primary" selected>Standard / Primary (60px)</option>
+              <option value="elementary">Compact / Older Child &amp; Adult (48px)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="wsColumnsSelect">Page Columns:</label>
+            <select id="wsColumnsSelect">
+              <option value="1">1 Column (Spacious)</option>
+              <option value="2">2 Columns (Save Paper)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="checkbox" id="wsShowNameDateCheck" checked>
+              <span>Include Student Name &amp; Date line</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="checkbox" id="wsShowScoreCheck" checked>
+              <span>Include Teacher Score / Rating box</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="wsTitleInput">Custom Title:</label>
+            <input type="text" id="wsTitleInput" value="Sprout Lab • Spelling &amp; Handwriting Practice">
+          </div>
+
+          <div class="form-group">
+            <label for="wsSubtitleInput">Subtitle / Directions:</label>
+            <input type="text" id="wsSubtitleInput" value="Write each word carefully along the guidelines.">
+          </div>
+        </div>
+
+        <div class="studio-preview">
+          <div class="studio-paper-sheet" id="studioLivePreviewContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SETTINGS MODAL ==================== -->
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Custom Word List &amp; Settings</h3>
+        <button type="button" id="closeSettingsBtn" class="close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label for="customWordsInput">Enter Your Words (comma-separated):</label>
+        <textarea id="customWordsInput" rows="5" placeholder="Type or paste your custom words here, e.g. apple, banana, blossom, sunshine"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="difficultySelect">Arcade Difficulty Tier:</label>
+        <select id="difficultySelect">
+          <option value="beginner">Beginner (Gentle Pacing &amp; First-Letter Hints)</option>
+          <option value="intermediate" selected>Intermediate (Standard)</option>
+          <option value="advanced">Advanced (Fast Challenge)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="themeSelect">Color Theme:</label>
+        <select id="themeSelect">
+          <option value="daylight">Sprout Daylight (Clean &amp; Fresh)</option>
+          <option value="dusk">Calm Dusk (Gentle Dark Mode)</option>
+          <option value="parchment">Warm Parchment (Cozy Earthy)</option>
+          <option value="ocean">Ocean Bloom (Teal Marine)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="soundSelect">Audio Synthesizer:</label>
+        <select id="soundSelect">
+          <option value="on">Sound Chimes On</option>
+          <option value="off">Mute Sound Effects</option>
+        </select>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); gap: 8px;">
+        <button type="button" id="cancelSettingsBtn" class="btn-secondary">Cancel</button>
+        <button type="button" id="saveSettingsBtn" class="btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="printableWorksheet"></div>
+
+  <footer class="site-footer screen-only">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+      <p>&copy; 2026 Sprout Lab &bull; Word Lab Arcade &amp; Worksheet Studio</p>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Calm &amp; Ad-Free &bull; Classroom &amp; Homeschool Ready</p>
     </div>
   </footer>
 
+  <script>
+    let words = [];
+    let currentWordIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let currentMode = 'unscramble';
+    let difficulty = 'intermediate';
+    let theme = 'daylight';
+    let soundEnabled = true;
+
+    let wsConfig = {
+      type: 'handwriting',
+      ruling: 'zaner-bloser',
+      height: 'primary',
+      columns: 1,
+      showNameDate: true,
+      showScore: true,
+      title: 'Sprout Lab • Spelling & Handwriting Practice',
+      subtitle: 'Write each word carefully along the guidelines.'
+    };
+
+    let audioCtx = null;
+    function playChime(type) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+
+        if (type === 'success') {
+          [523.25, 659.25, 783.99].forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(freq, now + i * 0.08);
+            gain.gain.setValueAtTime(0.001, now + i * 0.08);
+            gain.gain.linearRampToValueAtTime(0.12, now + i * 0.08 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.08 + 0.25);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + i * 0.08);
+            osc.stop(now + i * 0.08 + 0.28);
+          });
+        } else if (type === 'error') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.exponentialRampToValueAtTime(170, now + 0.15);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        }
+      } catch (e) {}
+    }
+
+    function speakCurrentWord() {
+      if (words.length === 0) return;
+      const word = words[currentWordIndex % words.length] || '';
+      if ('speechSynthesis' in window && word) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(word);
+        utter.rate = 0.85;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function loadSavedState() {
+      const savedWords = localStorage.getItem('sprout_standalone_words');
+      if (savedWords) {
+        try {
+          const arr = JSON.parse(savedWords);
+          if (Array.isArray(arr) && arr.length > 0) words = arr;
+        } catch(e) {}
+      }
+
+      theme = localStorage.getItem('sprout_standalone_theme') || 'daylight';
+      applyTheme(theme);
+
+      difficulty = localStorage.getItem('sprout_standalone_diff') || 'intermediate';
+      soundEnabled = localStorage.getItem('sprout_standalone_sound') !== 'off';
+
+      updateBadges();
+      loadArcadeWord();
+    }
+
+    function applyTheme(newTheme) {
+      document.body.classList.remove('theme-dusk', 'theme-parchment', 'theme-ocean');
+      if (newTheme !== 'daylight') {
+        document.body.classList.add('theme-' + newTheme);
+      }
+    }
+
+    function updateBadges() {
+      const countEl = document.getElementById('activeWordsCountBadge');
+      const diffEl = document.getElementById('activeDifficultyBadge');
+      if (countEl) countEl.textContent = words.length + ' Words Loaded';
+      if (diffEl) diffEl.textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+    }
+
+    function renderHandwritingSvg(options = {}) {
+      const ruling = options.ruling || wsConfig.ruling;
+      const heightType = options.height || wsConfig.height;
+
+      const configs = {
+        kindergarten: { totalH: 72, headlineY: 12, midlineY: 34, baselineY: 58, descenderY: 68 },
+        primary: { totalH: 60, headlineY: 10, midlineY: 28, baselineY: 46, descenderY: 56 },
+        elementary: { totalH: 48, headlineY: 8, midlineY: 22, baselineY: 36, descenderY: 44 }
+      }[heightType];
+
+      const palette = {
+        'zaner-bloser': { headline: '#2563eb', midline: '#ef4444', baseline: '#ef4444', descender: '#cbd5e1' },
+        'sprout-garden': { headline: '#15803d', midline: '#22c55e', baseline: '#14532d', descender: '#bbf7d0' },
+        'ink-saver': { headline: '#475569', midline: '#94a3b8', baseline: '#0f172a', descender: '#e2e8f0' }
+      }[ruling];
+
+      return `
+        <svg viewBox="0 0 800 ${configs.totalH}" preserveAspectRatio="none" style="width: 100%; height: ${configs.totalH}px; display: block; margin-top: 6px; margin-bottom: 6px;">
+          <line x1="0" y1="${configs.descenderY}" x2="800" y2="${configs.descenderY}" stroke="${palette.descender}" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="0" y1="${configs.baselineY}" x2="800" y2="${configs.baselineY}" stroke="${palette.baseline}" stroke-width="1.6"/>
+          <line x1="0" y1="${configs.midlineY}" x2="800" y2="${configs.midlineY}" stroke="${palette.midline}" stroke-width="1.2" stroke-dasharray="6 4"/>
+          <line x1="0" y1="${configs.headlineY}" x2="800" y2="${configs.headlineY}" stroke="${palette.headline}" stroke-width="1.4"/>
+        </svg>
+      `;
+    }
+
+    function renderPhonicsBoxes(word) {
+      const letters = word.toLowerCase().split('');
+      let html = '<div class="phonics-boxes-row">';
+      letters.forEach(char => {
+        let type = 'small';
+        if (['b', 'd', 'f', 'h', 'k', 'l', 't'].includes(char)) type = 'ascender';
+        else if (['g', 'j', 'p', 'q', 'y'].includes(char)) type = 'descender';
+        html += `<div class="phonics-box ${type}"></div>`;
+      });
+      html += '</div>';
+      return html;
+    }
+
+    function scramble(word) {
+      const arr = word.split('');
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr.join('');
+    }
+
+    function generateWordSearch(wordList, size = 10) {
+      const grid = Array.from({ length: size }, () => Array.from({ length: size }, () => ''));
+      const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+
+      wordList.forEach(w => {
+        const clean = w.toUpperCase().replace(/[^A-Z]/g, '');
+        if (clean.length > size) return;
+        let placed = false;
+        let attempts = 0;
+        while (!placed && attempts < 100) {
+          attempts++;
+          const isHoriz = Math.random() > 0.5;
+          const maxR = isHoriz ? size - 1 : size - clean.length;
+          const maxC = isHoriz ? size - clean.length : size - 1;
+          const r = Math.floor(Math.random() * (maxR + 1));
+          const c = Math.floor(Math.random() * (maxC + 1));
+          let fits = true;
+          for (let i = 0; i < clean.length; i++) {
+            const cell = isHoriz ? grid[r][c + i] : grid[r + i][c];
+            if (cell !== '' && cell !== clean[i]) { fits = false; break; }
+          }
+          if (fits) {
+            for (let i = 0; i < clean.length; i++) {
+              if (isHoriz) grid[r][c + i] = clean[i];
+              else grid[r + i][c] = clean[i];
+            }
+            placed = true;
+          }
+        }
+      });
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (!grid[r][c]) {
+            grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+          }
+        }
+      }
+      return grid;
+    }
+
+    function buildWorksheetHtml() {
+      if (words.length === 0) {
+        return `<div style="text-align: center; padding: 40px; color: #64748b;"><h3>No words entered yet!</h3><p>Please click "Settings" to enter your custom word list.</p></div>`;
+      }
+
+      const colsClass = wsConfig.columns === 2 ? 'cols-2' : '';
+      let bodyContent = '';
+
+      if (wsConfig.type === 'handwriting') {
+        bodyContent = `
+          <div class="ws-cards-grid ${colsClass}">
+            ${words.map((w, i) => `
+              <div class="ws-item-card">
+                <div class="ws-item-header">
+                  <div class="ws-item-num">
+                    <span style="display:inline-block; width:20px; height:20px; border-radius:50%; background:#f1f5f9; text-align:center; line-height:20px; font-size:11px;">${i + 1}</span>
+                    <span style="font-size:15px; font-weight:700;">${w}</span>
+                  </div>
+                  <span style="font-size:11px; color:#64748b;">${w.length} letters</span>
+                </div>
+                <div style="margin-bottom: 8px;">${renderHandwritingSvg()}</div>
+                <div style="margin-bottom: 8px;">${renderHandwritingSvg()}</div>
+                <div>${renderHandwritingSvg()}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (wsConfig.type === 'word-boxes') {
+        bodyContent = `
+          <div style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; background: #f8fafc; margin-bottom: 18px;">
+            <strong style="font-size: 11px; text-transform: uppercase; color: #475569;">Word Bank:</strong>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;">
+              ${words.map(w => `<span style="font-size:13px; font-weight:700; background:#ffffff; border:1px solid #cbd5e1; padding:3px 10px; border-radius:3px;">${w}</span>`).join('')}
+            </div>
+          </div>
+          <div class="ws-cards-grid ${colsClass}">
+            ${words.map((w, i) => `
+              <div class="ws-item-card">
+                <div class="ws-item-header">
+                  <div class="ws-item-num"><span>${i + 1}. Match &amp; Write:</span></div>
+                </div>
+                ${renderPhonicsBoxes(w)}
+                <div style="margin-top: 12px;">${renderHandwritingSvg()}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (wsConfig.type === 'scramble') {
+        bodyContent = `
+          <div class="ws-cards-grid ${colsClass}">
+            ${words.map((w, i) => `
+              <div class="ws-item-card">
+                <div class="ws-item-header">
+                  <div class="ws-item-num">
+                    <span>${i + 1}. Unscramble:</span>
+                    <strong style="letter-spacing: 2px; color: #15803d; margin-left: 8px; font-size: 16px;">${scramble(w).toUpperCase()}</strong>
+                  </div>
+                  <span style="font-size: 11px; color: #64748b;">Starts with: ${w.charAt(0).toUpperCase()}</span>
+                </div>
+                <div style="margin-top: 10px;">${renderHandwritingSvg()}</div>
+                <div style="margin-top: 8px;">${renderHandwritingSvg()}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (wsConfig.type === 'word-search') {
+        const grid = generateWordSearch(words, 10);
+        bodyContent = `
+          <div style="text-align: center;">
+            <table class="ws-search-table">
+              ${grid.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}
+            </table>
+            <div class="ws-bank-box">
+              <strong style="font-size: 11px; text-transform: uppercase; color: #1e293b;">Word Bank (${words.length} Words to find):</strong>
+              <ul class="ws-bank-list">
+                ${words.map(w => `<li class="ws-bank-item"><span class="check-circle"></span><span>${w.toUpperCase()}</span></li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+      } else if (wsConfig.type === 'flashcards') {
+        bodyContent = `
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            ${words.map((w, i) => `
+              <div style="border: 2px dashed #94a3b8; border-radius: 8px; padding: 16px; break-inside: avoid; position: relative;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: #64748b;">
+                  <span>CARD ${i + 1}</span><span>✂️ Cut Out</span>
+                </div>
+                <div style="font-size: 22px; font-weight: 800; text-transform: uppercase; margin: 10px 0; color: #111827;">${w}</div>
+                <div>${renderHandwritingSvg()}</div>
+                <div style="margin-top: 10px; border: 1px solid #e2e8f0; height: 56px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">Draw illustration or write a clue sentence</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (wsConfig.type === 'rainbow-write') {
+        bodyContent = `
+          <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+            <thead>
+              <tr style="background: #f1f5f9; border: 1px solid #cbd5e1; text-align: left;">
+                <th style="padding: 8px; width: 30px; text-align: center;">#</th>
+                <th style="padding: 8px; width: 35%;">1. Write in Pencil</th>
+                <th style="padding: 8px;">2. Rainbow Color Write</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${words.map((w, i) => `
+                <tr style="border-bottom: 1px solid #e2e8f0; break-inside: avoid;">
+                  <td style="padding: 6px; text-align: center; font-weight: bold; color: #64748b;">${i + 1}</td>
+                  <td style="padding: 6px;">${renderHandwritingSvg()}</td>
+                  <td style="padding: 6px;">${renderHandwritingSvg()}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      }
+
+      return `
+        <div class="ws-masthead">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <div class="ws-kicker">Sprout Lab &bull; Educational Series</div>
+              <h1 class="ws-title">${wsConfig.title}</h1>
+              <div class="ws-subtitle">${wsConfig.subtitle}</div>
+            </div>
+            ${wsConfig.showScore ? `
+              <div style="border: 1px solid #94a3b8; border-radius: 4px; padding: 6px 14px; text-align: center; background: #f8fafc;">
+                <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b; display: block;">Score</span>
+                <span style="font-size: 14px; font-weight: 800;">___ / ${words.length * 10}</span>
+              </div>
+            ` : ''}
+          </div>
+          ${wsConfig.showNameDate ? `
+            <div class="ws-meta-bar">
+              <div>Name: <span class="ws-underline" style="width: 200px;"></span></div>
+              <div>Date: <span class="ws-underline" style="width: 130px;"></span></div>
+              <div>Grade/Level: <span class="ws-underline" style="width: 90px;"></span></div>
+            </div>
+          ` : ''}
+          <div class="ws-directions"><strong>Directions: </strong> ${wsConfig.subtitle}</div>
+        </div>
+        ${bodyContent}
+        <div class="ws-footer">
+          <span>Sprout Lab &bull; Printable Worksheet Studio &bull; Classroom &amp; Home</span>
+          <span>&ldquo;Every expert was once a beginner.&rdquo; 🌱</span>
+        </div>
+      `;
+    }
+
+    function loadArcadeWord() {
+      const promptEl = document.getElementById('gamePrompt');
+      const stageEl = document.getElementById('stageContent');
+      const inputEl = document.getElementById('userInput');
+
+      if (!inputEl) return;
+      if (words.length === 0) {
+        promptEl.textContent = 'No words loaded! Click "Settings" to enter your words.';
+        stageEl.innerHTML = '';
+        document.getElementById('wordProgressVal').textContent = '0 / 0';
+        return;
+      }
+
+      const target = words[currentWordIndex % words.length] || '';
+      inputEl.value = '';
+      inputEl.focus();
+      document.getElementById('wordProgressVal').textContent = ((currentWordIndex % words.length) + 1) + ' / ' + words.length;
+
+      if (currentMode === 'unscramble') {
+        promptEl.textContent = 'Unscramble These Letters:';
+        const scrambled = scramble(target);
+        stageEl.innerHTML = `
+          <div class="tiles-rack">
+            ${scrambled.split('').map(char => `<button type="button" class="letter-tile" data-char="${char}">${char.toUpperCase()}</button>`).join('')}
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">Click tiles in order or type below</div>
+        `;
+        stageEl.querySelectorAll('.letter-tile').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appendLetter(btn.dataset.char);
+          });
+        });
+      } else if (currentMode === 'flash') {
+        promptEl.textContent = 'Memorize Target Word:';
+        stageEl.innerHTML = `<div class="target-word-display">${target.toUpperCase()}</div>`;
+        setTimeout(() => {
+          promptEl.textContent = 'Word Hidden! Type from memory:';
+          stageEl.innerHTML = `<div style="font-size: 1.8rem; font-weight: bold; color: var(--text-muted); letter-spacing: 6px;">&bull; &bull; &bull; &bull; &bull;</div>`;
+        }, difficulty === 'beginner' ? 3000 : 1800);
+      } else if (currentMode === 'missing') {
+        promptEl.textContent = 'Fill in the Missing Letters:';
+        const len = target.length;
+        const hideIdx = len > 2 ? 1 + Math.floor(Math.random() * (len - 2)) : 0;
+        const masked = target.split('').map((c, i) => i === hideIdx ? '?' : c.toUpperCase()).join(' ');
+        stageEl.innerHTML = `<div class="target-word-display" style="letter-spacing: 8px;">${masked}</div>`;
+      } else if (currentMode === 'sprint') {
+        promptEl.textContent = 'Type Target Word Quickly:';
+        stageEl.innerHTML = `<div class="target-word-display">${target.toUpperCase()}</div>`;
+      }
+    }
+
+    function appendLetter(char) {
+      const inputEl = document.getElementById('userInput');
+      if (inputEl) {
+        inputEl.value += char.toLowerCase();
+        inputEl.focus();
+      }
+    }
+
+    function checkAnswer() {
+      if (words.length === 0) return;
+      const target = (words[currentWordIndex % words.length] || '').toLowerCase();
+      const inputEl = document.getElementById('userInput');
+      if (!inputEl) return;
+      const inputVal = inputEl.value.trim().toLowerCase();
+      const banner = document.getElementById('feedbackBanner');
+
+      if (inputVal === target) {
+        playChime('success');
+        score += 10 + streak * 2;
+        streak += 1;
+        document.getElementById('scoreVal').textContent = score;
+        document.getElementById('streakVal').textContent = streak;
+
+        banner.className = 'feedback-banner success';
+        banner.textContent = '🌟 Splendid! Correct spelling!';
+        banner.style.display = 'inline-block';
+
+        currentWordIndex++;
+        setTimeout(() => {
+          banner.style.display = 'none';
+          loadArcadeWord();
+        }, 700);
+      } else {
+        playChime('error');
+        streak = 0;
+        document.getElementById('streakVal').textContent = 0;
+
+        banner.className = 'feedback-banner mistake';
+        banner.textContent = `Almost! Correct word: ${target.toUpperCase()}`;
+        banner.style.display = 'inline-block';
+
+        setTimeout(() => {
+          banner.style.display = 'none';
+        }, 1800);
+      }
+    }
+
+    function updateStudioLivePreview() {
+      const previewContainer = document.getElementById('studioLivePreviewContainer');
+      if (previewContainer) {
+        previewContainer.innerHTML = buildWorksheetHtml();
+      }
+    }
+
+    function openStudioWithType(type) {
+      wsConfig.type = type;
+      const formatSelect = document.getElementById('wsFormatSelect');
+      if (formatSelect) formatSelect.value = type;
+      updateStudioLivePreview();
+      const modal = document.getElementById('studioModal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function triggerPrint() {
+      const printRoot = document.getElementById('printableWorksheet');
+      if (printRoot) {
+        printRoot.innerHTML = buildWorksheetHtml();
+        window.print();
+      }
+    }
+
+    // --- MAIN INITIALIZATION ON DOM READY ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSavedState();
+
+      // Submit & Keypress
+      const submitBtn = document.getElementById('submitBtn');
+      if (submitBtn) submitBtn.addEventListener('click', checkAnswer);
+
+      const userInput = document.getElementById('userInput');
+      if (userInput) {
+        userInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') checkAnswer();
+        });
+      }
+
+      // Arcade Controls
+      const speakBtn = document.getElementById('speakWordBtn');
+      if (speakBtn) speakBtn.addEventListener('click', speakCurrentWord);
+
+      const hintBtn = document.getElementById('hintBtn');
+      if (hintBtn) {
+        hintBtn.addEventListener('click', () => {
+          if (words.length === 0) return;
+          const target = words[currentWordIndex % words.length] || '';
+          const input = document.getElementById('userInput');
+          if (input) {
+            if (!input.value) input.value = target[0];
+            else if (input.value.length < target.length) input.value += target[input.value.length];
+            input.focus();
+          }
+        });
+      }
+
+      const skipBtn = document.getElementById('skipBtn');
+      if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+          currentWordIndex++;
+          loadArcadeWord();
+        });
+      }
+
+      // Mode Switcher Tabs
+      document.querySelectorAll('#gameModeControl .segment-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#gameModeControl .segment-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentMode = btn.dataset.mode;
+          loadArcadeWord();
+        });
+      });
+
+      // Showcase Cards click bindings
+      document.querySelectorAll('.showcase-card').forEach(card => {
+        card.addEventListener('click', () => {
+          openStudioWithType(card.dataset.format);
+        });
+      });
+
+      // Studio Modal Open/Close
+      const studioModal = document.getElementById('studioModal');
+      const openStudioBtns = [
+        document.getElementById('headerPrintBtn'),
+        document.getElementById('navOpenStudioBtn'),
+        document.getElementById('openStudioMainBtn')
+      ];
+
+      openStudioBtns.forEach(btn => {
+        if (btn) {
+          btn.addEventListener('click', () => {
+            updateStudioLivePreview();
+            if (studioModal) studioModal.classList.add('open');
+          });
+        }
+      });
+
+      const closeStudioBtn = document.getElementById('closeStudioBtn');
+      if (closeStudioBtn) {
+        closeStudioBtn.addEventListener('click', () => {
+          if (studioModal) studioModal.classList.remove('open');
+        });
+      }
+
+      const studioPrintBtn = document.getElementById('studioPrintBtn');
+      if (studioPrintBtn) {
+        studioPrintBtn.addEventListener('click', triggerPrint);
+      }
+
+      // Studio Form inputs
+      const formatSel = document.getElementById('wsFormatSelect');
+      if (formatSel) formatSel.addEventListener('change', (e) => { wsConfig.type = e.target.value; updateStudioLivePreview(); });
+
+      const rulingSel = document.getElementById('wsRulingSelect');
+      if (rulingSel) rulingSel.addEventListener('change', (e) => { wsConfig.ruling = e.target.value; updateStudioLivePreview(); });
+
+      const gradeSel = document.getElementById('wsGradeHeightSelect');
+      if (gradeSel) gradeSel.addEventListener('change', (e) => { wsConfig.height = e.target.value; updateStudioLivePreview(); });
+
+      const colSel = document.getElementById('wsColumnsSelect');
+      if (colSel) colSel.addEventListener('change', (e) => { wsConfig.columns = parseInt(e.target.value, 10); updateStudioLivePreview(); });
+
+      const nameCheck = document.getElementById('wsShowNameDateCheck');
+      if (nameCheck) nameCheck.addEventListener('change', (e) => { wsConfig.showNameDate = e.target.checked; updateStudioLivePreview(); });
+
+      const scoreCheck = document.getElementById('wsShowScoreCheck');
+      if (scoreCheck) scoreCheck.addEventListener('change', (e) => { wsConfig.showScore = e.target.checked; updateStudioLivePreview(); });
+
+      const titleInput = document.getElementById('wsTitleInput');
+      if (titleInput) titleInput.addEventListener('input', (e) => { wsConfig.title = e.target.value; updateStudioLivePreview(); });
+
+      const subInput = document.getElementById('wsSubtitleInput');
+      if (subInput) subInput.addEventListener('input', (e) => { wsConfig.subtitle = e.target.value; updateStudioLivePreview(); });
+
+      // Settings Modal Open/Close
+      const settingsModal = document.getElementById('settingsModal');
+      const openSettingsBtns = [
+        document.getElementById('openSettingsBtn'),
+        document.getElementById('navOpenSettingsBtn'),
+        document.getElementById('quickEditWordsLink')
+      ];
+
+      openSettingsBtns.forEach(b => {
+        if (b) {
+          b.addEventListener('click', () => {
+            const customWordsInput = document.getElementById('customWordsInput');
+            const diffSelect = document.getElementById('difficultySelect');
+            const thSelect = document.getElementById('themeSelect');
+            const sndSelect = document.getElementById('soundSelect');
+
+            if (customWordsInput) customWordsInput.value = words.join(', ');
+            if (diffSelect) diffSelect.value = difficulty;
+            if (thSelect) thSelect.value = theme;
+            if (sndSelect) sndSelect.value = soundEnabled ? 'on' : 'off';
+
+            if (settingsModal) settingsModal.classList.add('open');
+          });
+        }
+      });
+
+      const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+      if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', () => settingsModal.classList.remove('open'));
+
+      const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
+      if (cancelSettingsBtn) cancelSettingsBtn.addEventListener('click', () => settingsModal.classList.remove('open'));
+
+      // Save settings
+      const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+      if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', () => {
+          const textVal = document.getElementById('customWordsInput').value;
+          const parsed = textVal.split(',').map(w => w.trim().toLowerCase()).filter(w => w.length > 0);
+          if (parsed.length > 0) words = parsed;
+          else words = [];
+
+          difficulty = document.getElementById('difficultySelect').value;
+          theme = document.getElementById('themeSelect').value;
+          soundEnabled = document.getElementById('soundSelect').value === 'on';
+
+          localStorage.setItem('sprout_standalone_words', JSON.stringify(words));
+          localStorage.setItem('sprout_standalone_theme', theme);
+          localStorage.setItem('sprout_standalone_diff', difficulty);
+          localStorage.setItem('sprout_standalone_sound', soundEnabled ? 'on' : 'off');
+
+          applyTheme(theme);
+          updateBadges();
+          currentWordIndex = 0;
+          loadArcadeWord();
+          if (settingsModal) settingsModal.classList.remove('open');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
