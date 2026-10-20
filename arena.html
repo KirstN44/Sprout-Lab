@@ -849,12 +849,12 @@
   <!-- ==================== HEADER ==================== -->
   <header class="site-header screen-only">
     <div class="container header-inner">
-      <a href="#" id="homeLinkBrand" class="brand-wordmark">
+      <a href="https://wintosy.pages.dev/" class="brand-wordmark">
         <span>🌱 Sprout Lab</span>
       </a>
 
       <nav class="nav-links">
-        <button type="button" class="nav-link" id="navHomeBtn">Home</button>
+        <a href="https://wintosy.pages.dev/" class="nav-link">Home</a>
         <a href="#arcade" class="nav-link">Word Arcade</a>
         <button type="button" class="nav-link" id="navOpenStudioBtn">Worksheet Studio</button>
         <button type="button" class="nav-link" id="navOpenSettingsBtn">Word List</button>
@@ -1591,20 +1591,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadSavedState();
 
-      // Home Navigation bindings
-      const goHome = (e) => {
-        if (e) e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        currentWordIndex = 0;
-        loadArcadeWord();
-      };
-
-      const homeBtn = document.getElementById('navHomeBtn');
-      if (homeBtn) homeBtn.addEventListener('click', goHome);
-
-      const brandBtn = document.getElementById('homeLinkBrand');
-      if (brandBtn) brandBtn.addEventListener('click', goHome);
-
       // Submit & Keypress
       const submitBtn = document.getElementById('submitBtn');
       if (submitBtn) submitBtn.addEventListener('click', checkAnswer);
@@ -1699,7 +1685,7 @@
       if (gradeSel) gradeSel.addEventListener('change', (e) => { wsConfig.height = e.target.value; updateStudioLivePreview(); });
 
       const colSel = document.getElementById('wsColumnsSelect');
-      if (colSel) colSel.addEventListener('change', (e) => { wsConfig.columns = parseInt(e.target.value, 10); updateStudioLivePreview(); });
+      if (colSel) colSel.getElementById ? colSel.addEventListener('change', (e) => { wsConfig.columns = parseInt(e.target.value, 10); updateStudioLivePreview(); }) : null;
 
       const nameCheck = document.getElementById('wsShowNameDateCheck');
       if (nameCheck) nameCheck.addEventListener('change', (e) => { wsConfig.showNameDate = e.target.checked; updateStudioLivePreview(); });
